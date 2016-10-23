@@ -23,6 +23,7 @@
 		62D9ECA31DBD14FC0070EEF1 /* CollectionChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9ECA01DBD14FC0070EEF1 /* CollectionChange.swift */; };
 		62D9ECA41DBD14FC0070EEF1 /* ActivityTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9ECA11DBD14FC0070EEF1 /* ActivityTracker.swift */; };
 		62D9ECA51DBD14FC0070EEF1 /* UITableView+CollectionChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9ECA21DBD14FC0070EEF1 /* UITableView+CollectionChange.swift */; };
+		62D9ECA71DBD1AD30070EEF1 /* MoviesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9ECA61DBD1AD30070EEF1 /* MoviesViewModel.swift */; };
 		62D9ECAA1DBD28350070EEF1 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9ECA91DBD28350070EEF1 /* Movie.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		62D9ECA01DBD14FC0070EEF1 /* CollectionChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionChange.swift; sourceTree = "<group>"; };
 		62D9ECA11DBD14FC0070EEF1 /* ActivityTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityTracker.swift; sourceTree = "<group>"; };
 		62D9ECA21DBD14FC0070EEF1 /* UITableView+CollectionChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+CollectionChange.swift"; sourceTree = "<group>"; };
+		62D9ECA61DBD1AD30070EEF1 /* MoviesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesViewModel.swift; sourceTree = "<group>"; };
 		62D9ECA91DBD28350070EEF1 /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,6 +145,7 @@
 		62D9EC8E1DBD02D60070EEF1 /* Movies */ = {
 			isa = PBXGroup;
 			children = (
+				62D9ECA61DBD1AD30070EEF1 /* MoviesViewModel.swift */,
 				62D9EC8F1DBD02F10070EEF1 /* MoviesViewController.swift */,
 			);
 			path = Movies;
@@ -288,6 +291,7 @@
 				6236C00A1DBD008F002A61D6 /* AppDelegate.swift in Sources */,
 				62D9ECA31DBD14FC0070EEF1 /* CollectionChange.swift in Sources */,
 				62D9EC9C1DBD08690070EEF1 /* LoginViewModel.swift in Sources */,
+				62D9ECA71DBD1AD30070EEF1 /* MoviesViewModel.swift in Sources */,
 				62D9ECA51DBD14FC0070EEF1 /* UITableView+CollectionChange.swift in Sources */,
 				62D9EC961DBD033F0070EEF1 /* Router.swift in Sources */,
 				62D9EC9A1DBD05000070EEF1 /* LoginRouter.swift in Sources */,
