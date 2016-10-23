@@ -20,6 +20,9 @@
 		62D9EC9A1DBD05000070EEF1 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9EC991DBD05000070EEF1 /* LoginRouter.swift */; };
 		62D9EC9C1DBD08690070EEF1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9EC9B1DBD08690070EEF1 /* LoginViewModel.swift */; };
 		62D9EC9E1DBD12B30070EEF1 /* Launcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9EC9D1DBD12B30070EEF1 /* Launcher.swift */; };
+		62D9ECA31DBD14FC0070EEF1 /* CollectionChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9ECA01DBD14FC0070EEF1 /* CollectionChange.swift */; };
+		62D9ECA41DBD14FC0070EEF1 /* ActivityTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9ECA11DBD14FC0070EEF1 /* ActivityTracker.swift */; };
+		62D9ECA51DBD14FC0070EEF1 /* UITableView+CollectionChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9ECA21DBD14FC0070EEF1 /* UITableView+CollectionChange.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +53,9 @@
 		62D9EC991DBD05000070EEF1 /* LoginRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		62D9EC9B1DBD08690070EEF1 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		62D9EC9D1DBD12B30070EEF1 /* Launcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Launcher.swift; sourceTree = "<group>"; };
+		62D9ECA01DBD14FC0070EEF1 /* CollectionChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionChange.swift; sourceTree = "<group>"; };
+		62D9ECA11DBD14FC0070EEF1 /* ActivityTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityTracker.swift; sourceTree = "<group>"; };
+		62D9ECA21DBD14FC0070EEF1 /* UITableView+CollectionChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+CollectionChange.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,10 +149,21 @@
 		62D9EC941DBD032E0070EEF1 /* Reusables */ = {
 			isa = PBXGroup;
 			children = (
+				62D9EC9F1DBD14E30070EEF1 /* Helpers */,
 				62D9EC951DBD033F0070EEF1 /* Router.swift */,
 				62D9EC971DBD03830070EEF1 /* DummyViewController.swift */,
 			);
 			path = Reusables;
+			sourceTree = "<group>";
+		};
+		62D9EC9F1DBD14E30070EEF1 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				62D9ECA01DBD14FC0070EEF1 /* CollectionChange.swift */,
+				62D9ECA11DBD14FC0070EEF1 /* ActivityTracker.swift */,
+				62D9ECA21DBD14FC0070EEF1 /* UITableView+CollectionChange.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,10 +274,13 @@
 				62D9EC8D1DBD01A10070EEF1 /* LoginViewController.swift in Sources */,
 				6236C00C1DBD008F002A61D6 /* ViewController.swift in Sources */,
 				6236C00A1DBD008F002A61D6 /* AppDelegate.swift in Sources */,
+				62D9ECA31DBD14FC0070EEF1 /* CollectionChange.swift in Sources */,
 				62D9EC9C1DBD08690070EEF1 /* LoginViewModel.swift in Sources */,
+				62D9ECA51DBD14FC0070EEF1 /* UITableView+CollectionChange.swift in Sources */,
 				62D9EC961DBD033F0070EEF1 /* Router.swift in Sources */,
 				62D9EC9A1DBD05000070EEF1 /* LoginRouter.swift in Sources */,
 				62D9EC901DBD02F10070EEF1 /* MoviesViewController.swift in Sources */,
+				62D9ECA41DBD14FC0070EEF1 /* ActivityTracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
