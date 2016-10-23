@@ -83,8 +83,7 @@ extension MoviesState {
     }
 }
 
-// MARK: -
-// MARK: Helpers
+// MARK: - Helpers
 
 private extension MoviesViewModel {
     

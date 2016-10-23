@@ -69,7 +69,7 @@ private extension LoginRouter {
     
     static func makeMoviesViewController() -> UINavigationController {
         let vc = MoviesViewController.instantiate()
-        // TODO: Set VM and Router
+        vc.viewModel = MoviesViewModel()
         let nc = UINavigationController(rootViewController: vc)
         return nc
     }
