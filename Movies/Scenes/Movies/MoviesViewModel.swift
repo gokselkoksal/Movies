@@ -19,7 +19,7 @@ struct MoviesState {
 
 class MoviesViewModel {
     
-    fileprivate(set) var state = MoviesState()
+    private(set) var state = MoviesState()
     var stateChangeHandler: ((MoviesState.Change) -> Void)?
     
     // MARK: Actions
@@ -34,13 +34,12 @@ class MoviesViewModel {
         }
     }
     
-    func appendMovie(name: String, year: UInt, rating: Float) {
-        let movie = Movie(name: name, year: year, rating: rating)
-        emit(state.appendMovie(movie))
+    func appendMovie(withName name: String, year: UInt, rating: Float) {
+        emit(state.appendMovie(withName: name, year: year, rating: rating))
     }
     
-    func removeMovieAtIndex(_ index: Int) {
-        emit(state.removeMovieAtIndex(index))
+    func removeMovie(at index: Int) {
+        emit(state.removeMovie(at: index))
     }
 }
 
@@ -50,36 +49,37 @@ extension MoviesState {
     
     enum Change: Equatable {
         case none
-        case movies(CollectionChange)
-        case loading(ActivityTracker)
+        case moviesChanged(CollectionChange)
+        case loadingStateChanged
     }
     
     mutating func addActivity() -> Change {
         loadingState.addActivity()
-        return Change.loading(loadingState)
+        return .loadingStateChanged
     }
     
     mutating func removeActivity() -> Change {
         loadingState.removeActivity()
-        return .loading(loadingState)
+        return .loadingStateChanged
     }
     
     mutating func reloadMovies(_ movies: [Movie]) -> Change {
         self.movies = movies
-        return .movies(.reload)
+        return .moviesChanged(.reload)
     }
     
-    mutating func appendMovie(_ movie: Movie) -> Change {
+    mutating func appendMovie(withName name: String, year: UInt, rating: Float) -> Change {
+        let movie = Movie(name: name, year: year, rating: rating)
         movies.append(movie)
-        return .movies(.insertion(movies.count - 1))
+        return .moviesChanged(.insertion(movies.count - 1))
     }
     
-    mutating func removeMovieAtIndex(_ index: Int) -> Change {
+    mutating func removeMovie(at index: Int) -> Change {
         guard index >= 0 && index < movies.count else {
             return .none
         }
         movies.remove(at: index)
-        return .movies(.deletion(index))
+        return .moviesChanged(.deletion(index))
     }
 }
 
@@ -108,10 +108,10 @@ func ==(lhs: MoviesState.Change, rhs: MoviesState.Change) -> Bool {
     switch (lhs, rhs) {
     case (.none, .none):
         return true
-    case (.movies(let update1), .movies(let update2)):
+    case (.moviesChanged(let update1), .moviesChanged(let update2)):
         return update1 == update2
-    case (.loading(let loadingState1), .loading(let loadingState2)):
-        return loadingState1 == loadingState2
+    case (.loadingStateChanged, .loadingStateChanged):
+        return true
     default:
         return false
     }

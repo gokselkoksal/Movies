@@ -66,10 +66,11 @@ class MoviesViewController: UITableViewController {
     
     func applyStateChange(_ change: MoviesState.Change) {
         switch change {
-        case .movies(let change):
+        case .moviesChanged(let collectionChange):
             presentation.update(withState: viewModel.state)
-            tableView.applyCollectionChange(change, toSection: 0, withAnimation: .automatic)
-        case .loading(let loadingState):
+            tableView.applyCollectionChange(collectionChange, toSection: 0, withAnimation: .automatic)
+        case .loadingStateChanged:
+            let loadingState = viewModel.state.loadingState
             if loadingState.needsUpdate {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = loadingState.isActive
             }
@@ -110,7 +111,7 @@ class MoviesViewController: UITableViewController {
                 let year = UInt(yearString),
                 let rating = Float(ratingString)
                 else { return }
-            strongSelf.viewModel.appendMovie(name: name, year: year, rating: rating)
+            strongSelf.viewModel.appendMovie(withName: name, year: year, rating: rating)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -130,7 +131,7 @@ class MoviesViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        viewModel.removeMovieAtIndex((indexPath as NSIndexPath).row)
+        viewModel.removeMovie(at: indexPath.row)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
