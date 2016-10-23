@@ -32,7 +32,10 @@ class LoginRouter: Router {
                 return vc
             } else {
                 let nc = LoginRouter.makeMoviesViewController()
-                source.present(nc, animated: true, completion: nil)
+                weak var weakSource = source
+                source.present(nc, animated: true) {
+                    _ = weakSource?.navigationController?.popToRootViewController(animated: false)
+                }
                 return nc.viewControllers.first!
             }
             
@@ -61,7 +64,10 @@ private extension LoginRouter {
             switch route {
             case .next:
                 let nc = LoginRouter.makeMoviesViewController()
-                source.present(nc, animated: true, completion: nil)
+                weak var weakSource = source
+                source.present(nc, animated: true) {
+                    _ = weakSource?.navigationController?.popToRootViewController(animated: false)
+                }
                 return nc.viewControllers.first!
             }
         }
