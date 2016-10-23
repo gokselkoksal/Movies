@@ -10,8 +10,8 @@ import UIKit
 
 struct ActivityTracker: Equatable {
     
-    fileprivate(set) var activityCount: UInt = 0
-    fileprivate(set) var needsUpdate = false
+    private(set) var activityCount: UInt = 0
+    private(set) var needsUpdate = false
     
     var isActive: Bool {
         return activityCount > 0
