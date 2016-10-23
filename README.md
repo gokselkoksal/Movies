@@ -15,3 +15,8 @@ Simple app that lists movies on a table view using MVVMR architecture.
 
 - [Routing with MVVM on iOS](https://medium.com/@gokselkoksal/routing-with-mvvm-on-ios-f22d021ad2b2)
 - [Using Redux with MVVM on iOS](https://medium.com/@gokselkoksal/using-redux-with-mvvm-on-ios-18212454d676)
+
+## TODO
+
+- [ ] Implement error handling.
+- [ ] Implement movie detail screen.
