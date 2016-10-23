@@ -6,6 +6,7 @@ Simple app that lists movies on a table view using MVVMR architecture.
 
 ```MVVMR = MVVM + Redux + VIPER-Router```
 
+- Mainly uses the structure from MVVM.
 - Uses principles from Redux for communication between view model and view controller.
 - Introduces a component responsible for routing, similar to VIPER.
 - Aims to keep everything simple, but modular and reusable.
