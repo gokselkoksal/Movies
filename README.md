@@ -18,5 +18,6 @@ Simple app that lists movies on a table view using MVVMR architecture.
 
 ## TODO
 
+- [ ] Add unit tests.
 - [ ] Implement error handling.
 - [ ] Implement movie detail screen.
