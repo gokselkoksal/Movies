@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
         case signUp
     }
     
-    var router: Router!
+    var router: LoginRouter!
     var viewModel: LoginViewModel!
 
     override func viewDidLoad() {
@@ -25,14 +25,14 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func loginButtonTapped(_ sender: UIButton) {
-        router.route(to: Route.login, from: self)
+        router.perform(.login, from: self)
     }
     
     @IBAction func forgotPasswordButtonTapped(_ sender: UIButton) {
-        router.route(to: Route.forgotPassword, from: self)
+        router.perform(.forgotPassword, from: self)
     }
     
     @IBAction func signUpTapped(_ sender: AnyObject) {
-        router.route(to: Route.signUp, from: self)
+        router.perform(.signUp, from: self)
     }
 }

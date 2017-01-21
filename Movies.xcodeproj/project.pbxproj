@@ -14,7 +14,6 @@
 		6236C01F1DBD008F002A61D6 /* MoviesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6236C01E1DBD008F002A61D6 /* MoviesTests.swift */; };
 		62D9EC8D1DBD01A10070EEF1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9EC8C1DBD01A10070EEF1 /* LoginViewController.swift */; };
 		62D9EC901DBD02F10070EEF1 /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9EC8F1DBD02F10070EEF1 /* MoviesViewController.swift */; };
-		62D9EC961DBD033F0070EEF1 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9EC951DBD033F0070EEF1 /* Router.swift */; };
 		62D9EC981DBD03830070EEF1 /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9EC971DBD03830070EEF1 /* DummyViewController.swift */; };
 		62D9EC9A1DBD05000070EEF1 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9EC991DBD05000070EEF1 /* LoginRouter.swift */; };
 		62D9EC9C1DBD08690070EEF1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9EC9B1DBD08690070EEF1 /* LoginViewModel.swift */; };
@@ -48,7 +47,6 @@
 		6236C0201DBD008F002A61D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		62D9EC8C1DBD01A10070EEF1 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		62D9EC8F1DBD02F10070EEF1 /* MoviesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
-		62D9EC951DBD033F0070EEF1 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		62D9EC971DBD03830070EEF1 /* DummyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		62D9EC991DBD05000070EEF1 /* LoginRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		62D9EC9B1DBD08690070EEF1 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -153,7 +151,6 @@
 			children = (
 				62D9ECA81DBD1B0E0070EEF1 /* DataModels */,
 				62D9EC9F1DBD14E30070EEF1 /* Helpers */,
-				62D9EC951DBD033F0070EEF1 /* Router.swift */,
 				62D9EC971DBD03830070EEF1 /* DummyViewController.swift */,
 			);
 			path = Reusables;
@@ -289,7 +286,6 @@
 				62D9EC9C1DBD08690070EEF1 /* LoginViewModel.swift in Sources */,
 				62D9ECA71DBD1AD30070EEF1 /* MoviesViewModel.swift in Sources */,
 				62D9ECA51DBD14FC0070EEF1 /* UITableView+CollectionChange.swift in Sources */,
-				62D9EC961DBD033F0070EEF1 /* Router.swift in Sources */,
 				62D9EC9A1DBD05000070EEF1 /* LoginRouter.swift in Sources */,
 				62D9EC901DBD02F10070EEF1 /* MoviesViewController.swift in Sources */,
 				62D9ECA41DBD14FC0070EEF1 /* ActivityTracker.swift in Sources */,

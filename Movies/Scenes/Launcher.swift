@@ -15,7 +15,7 @@ class Launcher {
             let loginVC = nc.viewControllers.first as? LoginViewController {
             let viewModel = LoginViewModel()
             loginVC.viewModel = viewModel
-            loginVC.router = LoginRouter(viewModel: viewModel)
+            loginVC.router = DefaultLoginRouter()
         }
     }
 }

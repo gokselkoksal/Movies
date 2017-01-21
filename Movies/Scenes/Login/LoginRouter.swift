@@ -8,67 +8,55 @@
 
 import UIKit
 
-class LoginRouter: Router {
+enum LoginSegue {
+    case login
+    case forgotPassword
+    case signUp
+}
+
+protocol LoginRouter {
+    func perform(_ segue: LoginSegue, from source: LoginViewController)
+}
+
+class DefaultLoginRouter: LoginRouter {
     
-    unowned let viewModel: LoginViewModel
-    
-    init(viewModel: LoginViewModel) {
-        self.viewModel = viewModel
-    }
-    
-    func route<T : RawRepresentable>(
-        to route: T,
-        from source: UIViewController)
-        -> UIViewController?
-    {
-        guard let route = route as? LoginViewController.Route else {
-            return nil
-        }
-        switch route {
+    func perform(_ segue: LoginSegue, from source: LoginViewController) {
+        switch segue {
         case .login:
-            if viewModel.shouldChangePassword {
-                let vc = LoginRouter.makeDummyViewController(withTitle: "Change Password")
+            if source.viewModel.shouldChangePassword {
+                let vc = DefaultLoginRouter.makeDummyViewController(withTitle: "Change Password")
                 source.navigationController?.pushViewController(vc, animated: true)
-                return vc
             } else {
-                let nc = LoginRouter.makeMoviesViewController()
+                let nc = DefaultLoginRouter.makeMoviesViewController()
                 weak var weakSource = source
                 source.present(nc, animated: true) {
                     _ = weakSource?.navigationController?.popToRootViewController(animated: false)
                 }
-                return nc.viewControllers.first!
             }
             
         case .forgotPassword:
-            let vc = LoginRouter.makeDummyViewController(withTitle: "Forgot Password")
+            let vc = DefaultLoginRouter.makeDummyViewController(withTitle: "Forgot Password")
             source.navigationController?.pushViewController(vc, animated: true)
-            return vc
-            
         case .signUp:
-            let vc = LoginRouter.makeDummyViewController(withTitle: "Sign Up")
+            let vc = DefaultLoginRouter.makeDummyViewController(withTitle: "Sign Up")
             source.navigationController?.pushViewController(vc, animated: true)
-            return vc
         }
     }
 }
 
 // MARK: Helpers
 
-private extension LoginRouter {
+private extension DefaultLoginRouter {
     
-    class DestinationMoviesRouter: Router {
-        func route<T : RawRepresentable>(to route: T, from source: UIViewController) -> UIViewController? {
-            guard let route = route as? DummyViewController.Route else {
-                return nil
-            }
-            switch route {
+    class DestinationMoviesRouter: DummyRouter {
+        func perform(_ segue: DummySegue, from source: DummyViewController) {
+            switch segue {
             case .next:
-                let nc = LoginRouter.makeMoviesViewController()
+                let nc = DefaultLoginRouter.makeMoviesViewController()
                 weak var weakSource = source
                 source.present(nc, animated: true) {
                     _ = weakSource?.navigationController?.popToRootViewController(animated: false)
                 }
-                return nc.viewControllers.first!
             }
         }
     }
