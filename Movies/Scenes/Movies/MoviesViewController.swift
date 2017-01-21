@@ -74,8 +74,6 @@ class MoviesViewController: UITableViewController {
             if loadingState.needsUpdate {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = loadingState.isActive
             }
-        case .none:
-            break
         }
     }
     
