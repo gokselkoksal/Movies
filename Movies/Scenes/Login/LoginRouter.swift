@@ -23,7 +23,7 @@ class DefaultLoginRouter: LoginRouter {
     func perform(_ segue: LoginSegue, from source: LoginViewController) {
         switch segue {
         case .login:
-            if source.viewModel.shouldChangePassword {
+            if source.viewModel.state.shouldChangePassword {
                 let vc = DefaultLoginRouter.makeDummyViewController(withTitle: "Change Password")
                 source.navigationController?.pushViewController(vc, animated: true)
             } else {

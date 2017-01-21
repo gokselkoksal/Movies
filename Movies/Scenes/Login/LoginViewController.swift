@@ -19,13 +19,20 @@ class LoginViewController: UIViewController {
     var router: LoginRouter!
     var viewModel: LoginViewModel!
 
+    @IBOutlet weak var usernameField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Login"
+        bindViewModel()
     }
 
     @IBAction func loginButtonTapped(_ sender: UIButton) {
-        router.perform(.login, from: self)
+        viewModel.login(
+            username: usernameField.text,
+            password: passwordField.text
+        )
     }
     
     @IBAction func forgotPasswordButtonTapped(_ sender: UIButton) {
@@ -34,5 +41,21 @@ class LoginViewController: UIViewController {
     
     @IBAction func signUpTapped(_ sender: AnyObject) {
         router.perform(.signUp, from: self)
+    }
+}
+
+private extension LoginViewController {
+    
+    func bindViewModel() {
+        viewModel.actionHandler = { [weak self] action in
+            guard let strongSelf = self else { return }
+            switch action {
+            case .loggedIn:
+                strongSelf.router.perform(.login, from: strongSelf)
+            }
+        }
+        viewModel.errorHandler = { error in
+            print(error)
+        }
     }
 }
