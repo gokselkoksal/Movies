@@ -17,7 +17,7 @@ struct MoviesPresentation {
     var movies: [MoviePresentation] = []
     
     mutating func update(withState state: MoviesState) {
-        movies = state.movies.map { (movie) -> MoviePresentation in
+        movies = state.movies.value.map { (movie) -> MoviePresentation in
             let title = movie.name
             let subtitle = "Year: \(movie.year) | Rating: \(movie.rating)"
             return MoviePresentation(title: title, subtitle: subtitle)
@@ -45,11 +45,9 @@ class MoviesViewController: UITableViewController {
         title = "Movies"
         
         self.applyState(viewModel.state)
-        
-        viewModel.stateChangeHandler = { [weak self] change in
-            self?.applyStateChange(change)
+        viewModel.stateChangeHandler = { [weak self] id, info in
+            self?.applyStateChange(withID: id, info: info)
         }
-        
         viewModel.fetchMovies()
     }
     
@@ -64,13 +62,14 @@ class MoviesViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-    func applyStateChange(_ change: MoviesState.Change) {
-        switch change {
-        case .moviesChanged(let collectionChange):
+    func applyStateChange(withID id: MoviesState.ID, info: Any?) {
+        switch id {
+        case .movies:
+            guard let collectionChange = info as? CollectionChange else { break }
             presentation.update(withState: viewModel.state)
             tableView.applyCollectionChange(collectionChange, toSection: 0, withAnimation: .automatic)
-        case .loadingStateChanged:
-            let loadingState = viewModel.state.loadingState
+        case .loadingState:
+            let loadingState = viewModel.state.loadingState.value
             if loadingState.needsUpdate {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = loadingState.isActive
             }
