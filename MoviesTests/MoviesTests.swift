@@ -11,26 +11,49 @@ import XCTest
 
 class MoviesTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    class Recorder {
+        let model: MoviesViewModel
+        var changes: [(change: MoviesState.Change, snapshot: MoviesState)] = []
+        var service = MockMoviesService()
+        init() {
+            model = MoviesViewModel()
+            model.service = service
+            model.stateChangeHandler = { [unowned model] id in
+                self.changes.append((id, model.state))
+            }
         }
     }
     
+    func testFetchMovies() {
+        let r = Recorder()
+        r.model.fetchMovies()
+        XCTAssert(r.changes.count == 3)
+        XCTAssert(r.changes[0].change == .loadingState)
+        XCTAssert(r.changes[0].snapshot.loadingState.activityCount == 1)
+        XCTAssert(r.changes[1].change == .movies(.reload))
+        XCTAssert(r.changes[1].snapshot.movies == r.service.movies)
+        XCTAssert(r.changes[2].change == .loadingState)
+        XCTAssert(r.changes[2].snapshot.loadingState.activityCount == 0)
+    }
+    
+    func testAddMovie() {
+        let r = Recorder()
+        r.model.addMovie(withName: "Test", year: 2000, rating: 4.5)
+        XCTAssert(r.changes.count == 1)
+        XCTAssert(r.changes[0].change == .movies(.insertion(0)))
+        XCTAssert(r.changes[0].snapshot.movies.count == 1)
+        XCTAssert(r.changes[0].snapshot.movies[0].name == "Test")
+    }
+    
+    func testRemoveMovie() {
+        let r = Recorder()
+        r.model.fetchMovies()
+        r.changes.removeAll()
+        r.model.removeMovie(at: 0)
+        var movies = r.service.movies
+        movies.remove(at: 0)
+        XCTAssert(r.model.state.movies == movies)
+        XCTAssert(r.changes.count == 1)
+        XCTAssert(r.changes[0].change == .movies(.deletion(0)))
+    }
 }

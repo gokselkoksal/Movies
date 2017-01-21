@@ -17,7 +17,7 @@ struct MoviesPresentation {
     var movies: [MoviePresentation] = []
     
     mutating func update(withState state: MoviesState) {
-        movies = state.movies.value.map { (movie) -> MoviePresentation in
+        movies = state.movies.map { (movie) -> MoviePresentation in
             let title = movie.name
             let subtitle = "Year: \(movie.year) | Rating: \(movie.rating)"
             return MoviePresentation(title: title, subtitle: subtitle)
@@ -45,8 +45,8 @@ class MoviesViewController: UITableViewController {
         title = "Movies"
         
         self.applyState(viewModel.state)
-        viewModel.stateChangeHandler = { [weak self] id, info in
-            self?.applyStateChange(withID: id, info: info)
+        viewModel.stateChangeHandler = { [weak self] change in
+            self?.applyStateChange(change)
         }
         viewModel.fetchMovies()
     }
@@ -62,14 +62,13 @@ class MoviesViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-    func applyStateChange(withID id: MoviesState.ID, info: Any?) {
-        switch id {
-        case .movies:
-            guard let collectionChange = info as? CollectionChange else { break }
+    func applyStateChange(_ change: MoviesState.Change) {
+        switch change {
+        case .movies(let collectionChange):
             presentation.update(withState: viewModel.state)
             tableView.applyCollectionChange(collectionChange, toSection: 0, withAnimation: .automatic)
         case .loadingState:
-            let loadingState = viewModel.state.loadingState.value
+            let loadingState = viewModel.state.loadingState
             if loadingState.needsUpdate {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = loadingState.isActive
             }
@@ -108,7 +107,7 @@ class MoviesViewController: UITableViewController {
                 let year = UInt(yearString),
                 let rating = Float(ratingString)
                 else { return }
-            strongSelf.viewModel.appendMovie(withName: name, year: year, rating: rating)
+            strongSelf.viewModel.addMovie(withName: name, year: year, rating: rating)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

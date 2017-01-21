@@ -12,49 +12,79 @@ import Foundation
 
 struct MoviesState {
     
-    enum ID {
-        case loadingState, movies
+    enum Change {
+        case loadingState
+        case movies(CollectionChange)
     }
     
-    fileprivate(set) var loadingState = Property(ActivityTracker(), ID.loadingState)
-    fileprivate(set) var movies = CollectionProperty([Movie](), ID.movies)
+    fileprivate(set) var loadingState = ActivityTracker() {
+        didSet { onChange?(.loadingState) }
+    }
+    private(set) var movies: [Movie] = []
+    
+    var onChange: ((Change) -> Void)?
+    
+    mutating func reloadMovies(_ movies: [Movie]) {
+        self.movies = movies
+        onChange?(.movies(.reload))
+    }
+    
+    mutating func addMovie(_ movie: Movie) {
+        movies.append(movie)
+        onChange?(.movies(.insertion(movies.count - 1)))
+    }
+    
+    mutating func removeMovie(at index: Int) {
+        guard index >= 0 && index < movies.count else { return }
+        movies.remove(at: index)
+        onChange?(.movies(.deletion(index)))
+    }
 }
 
 // MARK: Store
 
 class MoviesViewModel {
     
-    private(set) var state = MoviesState()
     var service: MoviesService = MockMoviesService(delay: 1.5)
-    var stateChangeHandler: ((MoviesState.ID, Any?) -> Void)? {
-        didSet {
-            state.loadingState.register(stateChangeHandler)
-            state.movies.register(stateChangeHandler)
-        }
+    
+    private(set) var state = MoviesState()
+    var stateChangeHandler: ((MoviesState.Change) -> Void)? {
+        get { return state.onChange }
+        set { state.onChange = newValue }
     }
     
     // MARK: Actions
     
     func fetchMovies() {
-        state.loadingState.value.addActivity()
+        state.loadingState.addActivity()
         service.fetchMovies { [weak self] (movies) in
             guard let strongSelf = self else { return }
-            strongSelf.state.movies <- (movies, .reload)
-            strongSelf.state.loadingState.value.removeActivity()
+            strongSelf.state.reloadMovies(movies)
+            strongSelf.state.loadingState.removeActivity()
         }
     }
     
-    func appendMovie(withName name: String, year: UInt, rating: Float) {
+    func addMovie(withName name: String, year: UInt, rating: Float) {
         let movie = Movie(name: name, year: year, rating: rating)
-        var movies = state.movies.value
-        movies.append(movie)
-        state.movies <- (movies, .insertion(movies.count - 1))
+        state.addMovie(movie)
     }
     
     func removeMovie(at index: Int) {
-        var movies = state.movies.value
-        guard index >= 0 && index < movies.count else { return }
-        movies.remove(at: index)
-        state.movies <- (movies, .deletion(index))
+        state.removeMovie(at: index)
+    }
+}
+
+
+// MARK: Equatable
+
+func ==(lhs: MoviesState.Change, rhs: MoviesState.Change) -> Bool {
+    
+    switch (lhs, rhs) {
+    case (.movies(let update1), .movies(let update2)):
+        return update1 == update2
+    case (.loadingState, .loadingState):
+        return true
+    default:
+        return false
     }
 }
