@@ -25,6 +25,8 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Login"
+        usernameField.text = LoginViewModel.Const.username
+        passwordField.text = LoginViewModel.Const.password
         bindViewModel()
     }
 

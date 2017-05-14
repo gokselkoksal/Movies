@@ -29,6 +29,11 @@ struct ActivityTracker: Equatable {
         activityCount -= 1
         needsUpdate = (activityCount == 0)
     }
+    
+    mutating func reset() {
+        activityCount = 0
+        needsUpdate = false
+    }
 }
 
 func ==(lhs: ActivityTracker, rhs: ActivityTracker) -> Bool {

@@ -1,78 +1,60 @@
 //
-//  MoviesViewController.swift
+//  MovieListViewController.swift
 //  Movies
 //
-//  Created by Göksel Köksal on 23/10/2016.
-//  Copyright © 2016 GK. All rights reserved.
+//  Created by Göksel Köksal on 14/05/2017.
+//  Copyright © 2017 GK. All rights reserved.
 //
 
 import UIKit
 
-struct MoviesPresentation {
-    
-    struct MoviePresentation {
-        let title, subtitle: String
-    }
-    
-    var movies: [MoviePresentation] = []
-    
-    mutating func update(withState state: MoviesState) {
-        movies = state.movies.map { (movie) -> MoviePresentation in
-            let title = movie.name
-            let subtitle = "Year: \(movie.year) | Rating: \(movie.rating)"
-            return MoviePresentation(title: title, subtitle: subtitle)
-        }
-    }
-}
-
-class MoviesViewController: UITableViewController {
+class MovieListViewController: UITableViewController {
     
     private struct Const {
         static let cellReuseID = "Cell"
     }
     
-    var viewModel: MoviesViewModel!
-    private var presentation = MoviesPresentation()
-    
-    static func instantiate() -> MoviesViewController {
+    static func instantiate() -> MovieListViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: String(describing: self)) as! MoviesViewController
+        let vc = storyboard.instantiateViewController(withIdentifier: String(describing: self)) as! MovieListViewController
         return vc
+    }
+    
+    var updater: MovieListUpdater!
+    let fetchCommand = MovieListFetchCommand()
+    var store: Store<AppState> {
+        return sharedStore
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Movies"
-        
-        self.applyState(viewModel.state)
-        viewModel.stateChangeHandler = { [weak self] change in
-            self?.applyStateChange(change)
+        updater = MovieListUpdater(view: self)
+        store.fire(command: fetchCommand)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        store.add(
+            subscriber: updater,
+            selector: { $0.movieListState },
+            cleanUp: { state in
+                var state = state
+                state.movieListState.cleanUp()
+                return state
+            }
+        )
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if zap_isBeingRemoved {
+            store.remove(subscriber: updater)
         }
-        viewModel.fetchMovies()
     }
     
     @IBAction func logoutButtonTapped(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    // MARK: Binding
-    
-    func applyState(_ state: MoviesState) {
-        presentation.update(withState: state)
-        self.tableView.reloadData()
-    }
-    
-    func applyStateChange(_ change: MoviesState.Change) {
-        switch change {
-        case .movies(let collectionChange):
-            presentation.update(withState: viewModel.state)
-            tableView.applyCollectionChange(collectionChange, toSection: 0, withAnimation: .automatic)
-        case .loadingState:
-            let loadingState = viewModel.state.loadingState
-            if loadingState.needsUpdate {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = loadingState.isActive
-            }
-        }
+        presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
     // MARK: Actions
@@ -106,8 +88,8 @@ class MoviesViewController: UITableViewController {
                 let ratingString = fields[2].text,
                 let year = UInt(yearString),
                 let rating = Float(ratingString)
-                else { return }
-            strongSelf.viewModel.addMovie(withName: name, year: year, rating: rating)
+            else { return }
+            strongSelf.store.fire(action: MovieListAction.addMovie(name: name, year: year, rating: rating))
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -119,7 +101,7 @@ class MoviesViewController: UITableViewController {
     // MARK: UITableViewDataSource
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presentation.movies.count
+        return updater.presentation.movies.count
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
@@ -127,7 +109,7 @@ class MoviesViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        viewModel.removeMovie(at: indexPath.row)
+        store.fire(action: MovieListAction.removeMovie(index: indexPath.row))
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -138,7 +120,7 @@ class MoviesViewController: UITableViewController {
         guard let cell = templateCell else {
             fatalError()
         }
-        let moviePresentation = presentation.movies[(indexPath as NSIndexPath).row]
+        let moviePresentation = updater.presentation.movies[(indexPath as NSIndexPath).row]
         cell.textLabel?.text = moviePresentation.title
         cell.detailTextLabel?.text = moviePresentation.subtitle
         return cell
@@ -148,5 +130,30 @@ class MoviesViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+        store.fire(action: MovieListAction.showMovie(index: indexPath.row))
+    }
+}
+
+extension MovieListViewController: MovieListViewInterface {
+    
+    var isLoading: Bool {
+        get {
+            return UIApplication.shared.isNetworkActivityIndicatorVisible
+        }
+        set {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = newValue
+        }
+    }
+    
+    func handle(error: Error) {
+        let message = error.localizedDescription
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func navigate(to navigation: MovieListReaction.Navigation) {
+        // Process navigation.
+        print(navigation)
     }
 }

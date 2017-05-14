@@ -62,8 +62,7 @@ private extension DefaultLoginRouter {
     }
     
     static func makeMoviesViewController() -> UINavigationController {
-        let vc = MoviesViewController.instantiate()
-        vc.viewModel = MoviesViewModel()
+        let vc = MovieListViewController.instantiate()
         let nc = UINavigationController(rootViewController: vc)
         return nc
     }
