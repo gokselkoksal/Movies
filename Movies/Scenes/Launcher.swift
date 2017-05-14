@@ -15,8 +15,8 @@ class Launcher {
            let loginVC = nc.viewControllers.first as? LoginViewController {
             let dependencies = LoginViewController.Dependencies(
                 store: sharedStore,
-                service: MockLoginService(),
-                navigator: DefaultLoginNavigator(source: loginVC)
+                router: DefaultLoginRouter(source: loginVC),
+                service: MockLoginService()
             )
             loginVC.dependencies = dependencies
         }

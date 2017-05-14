@@ -1,8 +1,8 @@
 //
-//  RAppState.swift
+//  MoviesStore.swift
 //  Movies
 //
-//  Created by Göksel Köksal on 10/05/2017.
+//  Created by Göksel Köksal on 14/05/2017.
 //  Copyright © 2017 GK. All rights reserved.
 //
 
@@ -14,12 +14,10 @@ let sharedStore = Store(
 
 struct AppState {
     var loginState = LoginState()
-    var movieListState = MovieListState() {
-        didSet {
-            print("Movie count: \(movieListState.movies.count)")
-        }
-    }
+    var movieListState = MovieListState()
 }
+
+// MARK: - Reducer
 
 extension AppState: State {
     

@@ -12,8 +12,8 @@ class LoginViewController: UIViewController {
     
     struct Dependencies {
         let store: Store<AppState>
+        let router: LoginRouter
         let service: LoginService
-        let navigator: LoginNavigator
     }
 
     @IBOutlet weak var usernameField: UITextField!
@@ -72,8 +72,8 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController: LoginViewInterface {
     
-    var navigator: LoginNavigator! {
-        return dependencies.navigator
+    var router: LoginRouter! {
+        return dependencies.router
     }
     
     func setLoading(_ isLoading: Bool) {

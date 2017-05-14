@@ -13,12 +13,16 @@ enum DummySegue {
 }
 
 protocol DummyRouter {
-    func perform(_ segue: DummySegue, from source: DummyViewController)
+    func perform(segue: DummySegue)
 }
 
 class DummyViewController: UIViewController {
     
-    var router: DummyRouter!
+    struct Depedencies {
+        let router: DummyRouter
+    }
+    
+    var dependencies: Depedencies!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +32,6 @@ class DummyViewController: UIViewController {
     }
     
     func nextButtonTapped() {
-        router.perform(.next, from: self)
+        dependencies.router.perform(segue: .next)
     }
 }
