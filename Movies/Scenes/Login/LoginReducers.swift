@@ -10,14 +10,15 @@ import Foundation
 
 extension LoginState: State {
     
-    mutating func react(to action: Action) {
-        guard let action = action as? LoginAction else { return }
+    mutating func react(to action: Action) -> [Reaction] {
+        guard let action = action as? LoginAction else { return [] }
         switch action {
         case .addActivity:
             loadingState.addActivity()
         case .removeActivity:
             loadingState.removeActivity()
         }
+        return []
     }
     
     mutating func cleanUp() {

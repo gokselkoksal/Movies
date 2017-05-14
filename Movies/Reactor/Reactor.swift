@@ -4,30 +4,8 @@ import Foundation
 // MARK: - State
 
 public protocol State {
-    mutating func react(to action: Action)
+    mutating func react(to action: Action) -> [Reaction]
     mutating func cleanUp()
-}
-
-// MARK: - ReactionReducer
-
-public protocol AnyReactionReducer {
-    func _react(to action: Action, state: State) -> Reaction?
-}
-
-public protocol ReactionReducer: AnyReactionReducer {
-    associatedtype ActionType: Action
-    associatedtype StateType: State
-    associatedtype ReactionType: Reaction
-    func react(to action: ActionType, state: StateType) -> ReactionType?
-}
-
-extension ReactionReducer {
-    func _react(to action: Action, state: State) -> Reaction? {
-        guard let action = action as? ActionType,
-            let state = state as? StateType
-        else { return nil }
-        return react(to: action, state: state)
-    }
 }
 
 // MARK: - Actions
@@ -134,8 +112,6 @@ public class Store<StateType: State> {
             }
         }
     }
-    
-    private var reactionReducers: [AnyReactionReducer]
 
     private let middlewares: [Middlewares<StateType>]
     public private (set) var state: StateType {
@@ -144,10 +120,9 @@ public class Store<StateType: State> {
         }
     }
     
-    public init(state: StateType, reactionReducers: [AnyReactionReducer] = [], middlewares: [AnyMiddleware] = []) {
+    public init(state: StateType, middlewares: [AnyMiddleware] = []) {
         self.state = state
         self.middlewares = middlewares.map(Middlewares.init)
-        self.reactionReducers = reactionReducers
     }
     
     
@@ -188,9 +163,8 @@ public class Store<StateType: State> {
     
     public func fire(action: Action) {
         jobQueue.async {
-            self.state.react(to: action)
+            let reactions = self.state.react(to: action)
             let state = self.state
-            let reactions = self.reactionReducers.flatMap { $0._react(to: action, state: state) }
             self.notifySubscribers(with: reactions)
             self.middlewares.forEach { $0.middleware._process(action: action, state: state) }
         }

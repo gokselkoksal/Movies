@@ -9,26 +9,24 @@
 import Foundation
 
 let sharedStore = Store(
-    state: AppState(),
-    reactionReducers: [MovieListReactionReducer()]
+    state: AppState()
 )
 
 struct AppState {
-    
+    var loginState = LoginState()
     var movieListState = MovieListState() {
         didSet {
             print("Movie count: \(movieListState.movies.count)")
         }
     }
-    
-    var loginState = LoginState()
 }
 
 extension AppState: State {
     
-    mutating func react(to action: Action) {
-        movieListState.react(to: action)
-        loginState.react(to: action)
+    mutating func react(to action: Action) -> [Reaction] {
+        let loginReactions = loginState.react(to: action)
+        let movieListReactions = movieListState.react(to: action)
+        return loginReactions + movieListReactions
     }
     
     mutating func cleanUp() {
