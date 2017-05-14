@@ -41,8 +41,6 @@ extension LoginState.Change: Equatable {
         switch (a, b) {
         case (.loadingState, .loadingState):
             return true
-        default:
-            return false
         }
     }
 }
