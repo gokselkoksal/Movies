@@ -27,28 +27,14 @@ class MockMoviesService: MoviesService {
     }
     
     func fetchMovies(_ completion: @escaping ((Result<[Movie]>) -> Void)) {
-        
-        func makeResult() -> Result<[Movie]> {
-            if shouldProduceError() {
-                return Result.failure(Error.fetchFailed)
+        executeInMock(afterDelay: delay) { [weak self] in
+            guard let strongSelf = self else { return }
+            if randomizer.randomBool(withRate: strongSelf.errorRate) {
+                completion(Result.failure(Error.fetchFailed))
             } else {
-                return Result.success(movies)
+                completion(Result.success(strongSelf.movies))
             }
         }
-        
-        if let delay = delay {
-            let deadline = DispatchTime.now() + delay
-            DispatchQueue.main.asyncAfter(deadline: deadline) {
-                completion(makeResult())
-            }
-        } else {
-            completion(makeResult())
-        }
-    }
-    
-    func shouldProduceError() -> Bool {
-        let randomNumber = arc4random_uniform(10) + 1
-        return randomNumber <= UInt32(errorRate * 10)
     }
     
     static func makeMockMovies() -> [Movie] {

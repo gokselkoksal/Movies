@@ -20,12 +20,15 @@ struct AppState {
             print("Movie count: \(movieListState.movies.count)")
         }
     }
+    
+    var loginState = LoginState()
 }
 
 extension AppState: State {
     
     mutating func react(to action: Action) {
         movieListState.react(to: action)
+        loginState.react(to: action)
     }
     
     mutating func cleanUp() {

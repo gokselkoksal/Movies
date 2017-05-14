@@ -8,10 +8,9 @@
 
 import UIKit
 
-protocol MovieListViewInterface: class {
+protocol MovieListViewInterface: class, ErrorHandler {
     var tableView: UITableView! { get }
     var isLoading: Bool { get set }
-    func handle(error: Error)
     func navigate(to navigation: MovieListReaction.Navigation)
 }
 

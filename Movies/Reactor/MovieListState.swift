@@ -9,6 +9,18 @@
 import Foundation
 import UIKit
 
+struct MovieListState {
+    
+    enum Change {
+        case loadingState
+        case movies(CollectionChange)
+    }
+    
+    var loadingState = ActivityTracker()
+    var movies: [Movie] = []
+    var changelog: [Change] = [.loadingState, .movies(.reload)]
+}
+
 enum MovieListAction: Action {
     case reloadMovies([Movie])
     case addMovie(name: String, year: UInt, rating: Float)
@@ -28,17 +40,7 @@ enum MovieListReaction: Reaction {
     case navigation(Navigation)
 }
 
-struct MovieListState {
-    
-    enum Change {
-        case loadingState
-        case movies(CollectionChange)
-    }
-    
-    var loadingState = ActivityTracker()
-    var movies: [Movie] = []
-    var changelog: [Change] = [.loadingState, .movies(.reload)]
-}
+// MARK: - Helpers
 
 extension MovieListState.Change: Equatable {
     
