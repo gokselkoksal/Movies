@@ -91,7 +91,7 @@
 		62D9ECA91DBD28350070EEF1 /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		62F132621E34000A007662D0 /* MoviesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesService.swift; sourceTree = "<group>"; };
 		62F132641E340043007662D0 /* MockMoviesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockMoviesService.swift; sourceTree = "<group>"; };
-		62FD0B341EC3B60A00F5B0E0 /* MovieListState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovieListState.swift; path = ../../Reactor/MovieListState.swift; sourceTree = "<group>"; };
+		62FD0B341EC3B60A00F5B0E0 /* MovieListState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
