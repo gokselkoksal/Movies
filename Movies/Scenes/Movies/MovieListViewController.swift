@@ -8,48 +8,36 @@
 
 import UIKit
 
-class MovieListViewController: UITableViewController {
+final class MovieListViewController: UITableViewController {
     
     private struct Const {
         static let cellReuseID = "Cell"
     }
     
-    static func instantiate() -> MovieListViewController {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: String(describing: self)) as! MovieListViewController
-        return vc
-    }
-    
     var updater: MovieListUpdater!
-    let fetchCommand = MovieListFetchCommand()
-    var store: Store<AppState> {
-        return sharedStore
-    }
+    var isFirstRun = true
+    
+    var flow: MovieListFlow!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Movies"
         updater = MovieListUpdater(view: self)
-        store.fire(command: fetchCommand)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        store.add(
-            subscriber: updater,
-            selector: { $0.movieListState },
-            cleanUp: { state in
-                var state = state
-                state.movieListState.cleanUp()
-                return state
-            }
-        )
+        flow.subscribe(updater)
+        if isFirstRun {
+            isFirstRun = false
+            flow.dispatch(flow.fetchCommand())
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if zap_isBeingRemoved {
-            store.remove(subscriber: updater)
+            flow.unsubscribe(updater)
         }
     }
     
@@ -89,7 +77,7 @@ class MovieListViewController: UITableViewController {
                 let year = UInt(yearString),
                 let rating = Float(ratingString)
             else { return }
-            strongSelf.store.fire(action: MovieListAction.addMovie(name: name, year: year, rating: rating))
+            strongSelf.flow.dispatch(MovieListAction.addMovie(name: name, year: year, rating: rating))
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -109,7 +97,7 @@ class MovieListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        store.fire(action: MovieListAction.removeMovie(index: indexPath.row))
+        flow.dispatch(MovieListAction.removeMovie(index: indexPath.row))
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -130,19 +118,18 @@ class MovieListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        store.fire(action: MovieListAction.showMovie(index: indexPath.row))
+        let movies = flow.state.movies
+        let index = indexPath.row
+        if index < movies.count {
+            flow.dispatch(MovieListSegue.detail(movies[index]))
+        }
     }
 }
 
 extension MovieListViewController: MovieListViewInterface {
     
-    var isLoading: Bool {
-        get {
-            return UIApplication.shared.isNetworkActivityIndicatorVisible
-        }
-        set {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = newValue
-        }
+    func setLoading(_ isLoading: Bool) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = isLoading
     }
     
     func handle(error: Error) {
@@ -151,9 +138,15 @@ extension MovieListViewController: MovieListViewInterface {
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
     }
+}
+
+extension MovieListViewController {
     
-    func navigate(to navigation: MovieListReaction.Navigation) {
-        // TODO: Process navigation
-        print(navigation)
+    static func instantiate(with flow: MovieListFlow) -> MovieListViewController {
+        let sb = Storyboard.main
+        let id = String(describing: self)
+        let vc = sb.instantiateViewController(withIdentifier: id) as! MovieListViewController
+        vc.flow = flow
+        return vc
     }
 }

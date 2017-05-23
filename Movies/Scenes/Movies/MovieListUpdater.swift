@@ -8,10 +8,9 @@
 
 import UIKit
 
-protocol MovieListViewInterface: class, ErrorHandler {
+protocol MovieListViewInterface: class, ErrorHandler, FlowComponent {
     var tableView: UITableView! { get }
-    var isLoading: Bool { get set }
-    func navigate(to navigation: MovieListReaction.Navigation)
+    func setLoading(_ isLoading: Bool)
 }
 
 struct MovieListPresentation {
@@ -37,27 +36,21 @@ class MovieListUpdater: Subscriber {
         state.changelog.forEach { handle(state: state, change: $0) }
     }
     
-    func handle(reactions: [MovieListReaction]) {
-        reactions.forEach { handle(reaction: $0) }
+    func proceed(to nextFlow: AnyFlow) {
+        view.proceed(to: nextFlow)
     }
     
     private func handle(state: MovieListState, change: MovieListState.Change) {
         switch change {
         case .loadingState:
             if state.loadingState.needsUpdate {
-                view.isLoading = state.loadingState.isActive
+                view.setLoading(state.loadingState.isActive)
             }
         case .movies(let collectionChange):
             view.tableView.applyCollectionChange(collectionChange, toSection: 0, withAnimation: .automatic)
-        }
-    }
-    
-    private func handle(reaction: MovieListReaction) {
-        switch reaction {
-        case .error(let error):
+        case .error:
+            guard let error = state.error else { return }
             view.handle(error: error)
-        case .navigation(let navigation):
-            view.navigate(to: navigation)
         }
     }
 }

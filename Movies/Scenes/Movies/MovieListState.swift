@@ -14,11 +14,13 @@ struct MovieListState {
     enum Change {
         case loadingState
         case movies(CollectionChange)
+        case error
     }
     
     var loadingState = ActivityTracker()
     var movies: [Movie] = []
-    var changelog: [Change] = [.loadingState, .movies(.reload)]
+    var error: Error? = nil
+    var changelog: [Change] = [.loadingState, .movies(.reload), .error]
 }
 
 enum MovieListAction: Action {
@@ -27,25 +29,19 @@ enum MovieListAction: Action {
     case removeMovie(index: Int)
     case addActivity
     case removeActivity
-    case showMovie(index: Int)
+    case error(Error)
 }
 
-enum MovieListReaction: Reaction {
-    
-    enum Navigation {
-        case detail(Movie)
-    }
-    
-    case error(Error)
-    case navigation(Navigation)
+enum MovieListSegue: Segue {
+    case detail(Movie)
 }
 
 // MARK: - Reducer
 
 extension MovieListState: State {
     
-    mutating func react(to action: Action) -> [Reaction] {
-        guard let action = action as? MovieListAction else { return [] }
+    mutating func react(to action: Action) {
+        guard let action = action as? MovieListAction else { return }
         changelog = []
         switch action {
         case .addActivity:
@@ -62,18 +58,13 @@ extension MovieListState: State {
             movies.insert(movie, at: 0)
             changelog = [.movies(.insertion(0))]
         case .removeMovie(index: let index):
-            guard index >= 0 && index < movies.count else { return [] }
+            guard index >= 0 && index < movies.count else { return }
             movies.remove(at: index)
             changelog = [.movies(.deletion(index))]
-        case .showMovie(index: let index):
-            let movie = movies[index]
-            return [MovieListReaction.navigation(.detail(movie))] // React!
+        case .error(let error):
+            self.error = error
+            changelog = [.error]
         }
-        return []
-    }
-    
-    mutating func cleanUp() {
-        self = MovieListState()
     }
 }
 

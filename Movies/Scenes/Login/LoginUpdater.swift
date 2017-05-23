@@ -8,8 +8,7 @@
 
 import UIKit
 
-protocol LoginViewInterface: class, ErrorHandler {
-    var router: LoginRouter! { get }
+protocol LoginViewInterface: class, ErrorHandler, FlowComponent {
     func setLoading(_ isLoading: Bool)
 }
 
@@ -24,19 +23,12 @@ class LoginUpdater: Subscriber {
     func update(with state: LoginState) {
         if state.loadingState.needsUpdate {
             view.setLoading(state.loadingState.isActive)
-        }
-    }
-    
-    func handle(reactions: [LoginReaction]) {
-        reactions.forEach { handle(reaction: $0) }
-    }
-    
-    private func handle(reaction: LoginReaction) {
-        switch reaction {
-        case .segue(let segue):
-            view.router.perform(segue: segue)
-        case .error(let error):
+        } else if let error = state.error {
             view.handle(error: error)
         }
+    }
+    
+    func proceed(to nextFlow: AnyFlow) {
+        view.proceed(to: nextFlow)
     }
 }

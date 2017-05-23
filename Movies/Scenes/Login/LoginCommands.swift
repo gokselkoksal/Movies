@@ -18,15 +18,15 @@ class LoginCommand: Command {
         self.credentials = credentials
     }
     
-    func execute(state: AppState, store: Store<AppState>) {
-        store.fire(action: LoginAction.addActivity)
+    func execute(on flow: Flow<LoginState>, coordinator: Coordinator) {
+        flow.dispatch(LoginAction.addActivity)
         service.login(with: credentials) { (result) in
-            store.fire(action: LoginAction.removeActivity)
+            flow.dispatch(LoginAction.removeActivity)
             switch result {
             case .success(let response):
-                store.fire(reaction: LoginReaction.segue(.login(response)))
+                flow.dispatch(LoginSegue.login(response))
             case .failure(let error):
-                store.fire(reaction: LoginReaction.error(error))
+                flow.dispatch(LoginAction.error(error))
             }
         }
     }

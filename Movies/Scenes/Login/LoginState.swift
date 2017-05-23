@@ -12,45 +12,43 @@ struct LoginState {
     
     enum Change {
         case loadingState
+        case error
     }
     
     var loadingState = ActivityTracker()
+    var error: Error?
+    var changelog: [Change] = []
 }
 
 enum LoginAction: Action {
     case addActivity
     case removeActivity
+    case error(Error)
 }
 
-enum LoginReaction: Reaction {
-    
-    enum Segue {
-        case login(LoginResponse)
-        case signUp
-        case forgotPassword
-    }
-    
-    case error(Error)
-    case segue(Segue)
+enum LoginSegue: Segue {
+    case login(LoginResponse)
+    case signUp
+    case forgotPassword
 }
 
 // MARK: - Reducer
 
 extension LoginState: State {
     
-    mutating func react(to action: Action) -> [Reaction] {
-        guard let action = action as? LoginAction else { return [] }
+    mutating func react(to action: Action) {
+        guard let action = action as? LoginAction else { return }
         switch action {
         case .addActivity:
             loadingState.addActivity()
+            changelog = [.loadingState]
         case .removeActivity:
             loadingState.removeActivity()
+            changelog = [.loadingState]
+        case .error(let error):
+            self.error = error
+            changelog = [.error]
         }
-        return []
-    }
-    
-    mutating func cleanUp() {
-        self = LoginState()
     }
 }
 
@@ -61,6 +59,10 @@ extension LoginState.Change: Equatable {
         switch (a, b) {
         case (.loadingState, .loadingState):
             return true
+        case (.error, .error):
+            return true
+        default:
+            return false
         }
     }
 }

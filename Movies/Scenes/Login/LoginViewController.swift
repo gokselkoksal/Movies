@@ -8,22 +8,12 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
-    
-    struct Dependencies {
-        let store: Store<AppState>
-        let router: LoginRouter
-        let service: LoginService
-    }
+final class LoginViewController: UIViewController {
 
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
-    var dependencies: Dependencies!
-    
-    var store: Store<AppState> {
-        return dependencies.store
-    }
+    var flow: LoginFlow!
     
     private var updater: LoginUpdater!
     
@@ -38,45 +28,44 @@ class LoginViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        store.add(
-            subscriber: updater,
-            selector: { $0.loginState },
-            cleanUp: { (state) in
-                var state = state
-                state.loginState.cleanUp()
-                return state
-            }
-        )
+        flow.subscribe(updater)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if zap_isBeingRemoved {
-            store.remove(subscriber: updater)
+            flow.unsubscribe(updater)
         }
     }
 
     @IBAction func loginButtonTapped(_ sender: UIButton) {
         let credentials = Credentials(username: usernameField.text, password: passwordField.text)
-        store.fire(command: LoginCommand(service: dependencies.service, credentials: credentials))
+        flow.dispatch(flow.loginCommand(with: credentials))
     }
     
     @IBAction func forgotPasswordButtonTapped(_ sender: UIButton) {
-        store.fire(reaction: LoginReaction.segue(.forgotPassword))
+        flow.dispatch(LoginSegue.forgotPassword)
     }
     
     @IBAction func signUpTapped(_ sender: AnyObject) {
-        store.fire(reaction: LoginReaction.segue(.signUp))
+        flow.dispatch(LoginSegue.signUp)
     }
 }
 
 extension LoginViewController: LoginViewInterface {
     
-    var router: LoginRouter! {
-        return dependencies.router
-    }
-    
     func setLoading(_ isLoading: Bool) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = isLoading
+    }
+}
+
+extension LoginViewController {
+    
+    static func instantiate(with flow: LoginFlow) -> LoginViewController {
+        let sb = Storyboard.main
+        let id = String(describing: self)
+        let vc = sb.instantiateViewController(withIdentifier: id) as! LoginViewController
+        vc.flow = flow
+        return vc
     }
 }
