@@ -51,6 +51,7 @@
 		62F132631E34000A007662D0 /* MoviesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F132621E34000A007662D0 /* MoviesService.swift */; };
 		62F132651E340043007662D0 /* MockMoviesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F132641E340043007662D0 /* MockMoviesService.swift */; };
 		62FD0B351EC3B60A00F5B0E0 /* MovieListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD0B341EC3B60A00F5B0E0 /* MovieListState.swift */; };
+		8F5BD3141ED85C07006387FB /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5BD3131ED85C07006387FB /* Tree.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 		62F132621E34000A007662D0 /* MoviesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesService.swift; sourceTree = "<group>"; };
 		62F132641E340043007662D0 /* MockMoviesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockMoviesService.swift; sourceTree = "<group>"; };
 		62FD0B341EC3B60A00F5B0E0 /* MovieListState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListState.swift; sourceTree = "<group>"; };
+		8F5BD3131ED85C07006387FB /* Tree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,6 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				62BB70BD1ED26A3D003ED093 /* Flow.swift */,
+				8F5BD3131ED85C07006387FB /* Tree.swift */,
 			);
 			path = Reactor;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 				624EB2AD1ED4DA3E008C1C1F /* ForgotPasswordFlow.swift in Sources */,
 				624EB2A91ED4D9B6008C1C1F /* SignUpViewController.swift in Sources */,
 				624EB2B31ED4DC24008C1C1F /* ChangePasswordViewController.swift in Sources */,
+				8F5BD3141ED85C07006387FB /* Tree.swift in Sources */,
 				6207417A1EC8D316007A0DD7 /* Randomizer.swift in Sources */,
 				62D9ECA41DBD14FC0070EEF1 /* ActivityTracker.swift in Sources */,
 				62A325E91EC89E4C00E890C7 /* MovieListUpdater.swift in Sources */,
