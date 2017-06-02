@@ -8,6 +8,35 @@
 
 import Foundation
 
+protocol NavigationIntent: Action { }
+
+struct NavigationRequest {
+    
+    typealias Creation = (parent: AnyFlow, flow: AnyFlow)
+
+    let from: AnyFlow
+    let to: AnyFlow
+    let creations: [Creation]
+    let deletions: [AnyFlow]
+    let info: [AnyHashable: Any]
+    
+    init(from: AnyFlow, to: AnyFlow, creations: [Creation], deletions: [AnyFlow], info: [AnyHashable: Any] = [:]) {
+        self.from = from
+        self.to = to
+        self.creations = creations
+        self.deletions = deletions
+        self.info = info
+    }
+}
+
+protocol NavigationResolver {
+    func resolve(_ intent: NavigationIntent) -> NavigationRequest?
+}
+
+protocol NavigationPerformer {
+    func perform(_ request: NavigationRequest)
+}
+
 protocol Dispatcher {
     func dispatch(_ action: Action)
     func dispatch<C: Command>(_ command: C)
@@ -15,12 +44,12 @@ protocol Dispatcher {
 
 final class Coordinator: Dispatcher {
     
-    private(set) var flows: [AnyFlow]
+    let navigationTree: Tree<AnyFlow>
     private(set) var middlewares: [Middleware]
     private let jobQueue = DispatchQueue(label: "flow.queue", qos: .userInitiated, attributes: [])
     
     init(rootFlow: AnyFlow, middlewares: [Middleware] = []) {
-        self.flows = [rootFlow]
+        self.navigationTree = Tree(rootFlow, equalityChecker: { $0 === $1 })
         self.middlewares = middlewares
         rootFlow.coordinator = self
     }
@@ -28,15 +57,14 @@ final class Coordinator: Dispatcher {
     func dispatch(_ action: Action) {
         jobQueue.async {
             self.willProcess(action)
-            if let cleanUpAction = action as? RemoveFlowAction {
-                if let index = self.flows.index(where: { $0 === cleanUpAction.flow }) {
-                    self.flows.remove(at: index)
-                }
-            } else {
-                for flow in self.flows {
-                    if let newFlow = flow.process(action: action) {
-                        newFlow.coordinator = self
-                        self.flows.append(newFlow)
+            self.navigationTree.forEach { (flow) in
+                if let navigationRequest = flow.process(action) {
+                    for flowToDelete in navigationRequest.deletions {
+                        self.navigationTree.remove(flowToDelete)
+                    }
+                    for (parent, flow) in navigationRequest.creations {
+                        flow.coordinator = self
+                        self.navigationTree.search(parent)?.add(flow)
                     }
                 }
             }
@@ -46,7 +74,7 @@ final class Coordinator: Dispatcher {
     
     func dispatch<C: Command>(_ command: C) {
         jobQueue.async {
-            for flow in self.flows {
+            self.navigationTree.forEach { (flow) in
                 if let specificFlow = flow as? Flow<C.StateType> {
                     command.execute(on: specificFlow, coordinator: self)
                 }
@@ -65,17 +93,22 @@ final class Coordinator: Dispatcher {
 
 // MARK: Flow
 
+protocol FlowID { }
+
 protocol AnyFlow: class {
     weak var coordinator: Coordinator? { get set }
-    var router: Router? { get }
-    func process(action: Action) -> AnyFlow?
+    var id: FlowID { get }
+    var navigationResolver: NavigationResolver? { get }
+    func process(_ action: Action) -> NavigationRequest?
 }
 
 class Flow<StateType: State>: AnyFlow {
     
     weak var coordinator: Coordinator?
+    
+    let id: FlowID
     private(set) var state: StateType
-    let router: Router?
+    let navigationResolver: NavigationResolver?
     
     private let jobQueue = DispatchQueue(label: "flow.queue", qos: .userInitiated, attributes: [])
     private let subscriptionsSyncQueue = DispatchQueue(label: "flow.subscription.sync")
@@ -94,16 +127,17 @@ class Flow<StateType: State>: AnyFlow {
         }
     }
     
-    init(state: StateType, router: Router? = nil) {
+    init(id: FlowID, state: StateType, navigationResolver: NavigationResolver? = nil) {
+        self.id = id
         self.state = state
-        self.router = router
+        self.navigationResolver = navigationResolver
     }
     
-    func process(action: Action) -> AnyFlow? {
-        if let segue = action as? Segue {
-            let nextFlow = self.router?.perform(segue)
-            self.notifySubscribers(with: nextFlow)
-            return nextFlow
+    func process(_ action: Action) -> NavigationRequest? {
+        if let intent = action as? NavigationIntent {
+            let request = self.navigationResolver?.resolve(intent)
+            self.notifySubscribers(with: request)
+            return request
         } else {
             self.state.react(to: action)
             self.notifySubscribers(with: self.state)
@@ -129,9 +163,9 @@ class Flow<StateType: State>: AnyFlow {
         forEachSubscription { $0.notify(with: newState) }
     }
     
-    private func notifySubscribers(with nextFlow: AnyFlow?) {
-        guard let nextFlow = nextFlow else { return }
-        forEachSubscription { $0.notify(with: nextFlow) }
+    private func notifySubscribers(with navigationRequest: NavigationRequest?) {
+        guard let navigationRequest = navigationRequest else { return }
+        forEachSubscription { $0.notify(with: navigationRequest) }
     }
     
     private func forEachSubscription(_ block: (Subscription) -> Void) {
@@ -156,15 +190,6 @@ extension Flow: Dispatcher {
 // MARK: Actions
 
 protocol Action { }
-protocol Segue: Action { }
-
-struct RemoveFlowAction: Action {
-    let flow: AnyFlow
-    
-    init(_ flow: AnyFlow) {
-        self.flow = flow
-    }
-}
 
 // MARK: Command
 
@@ -173,17 +198,10 @@ protocol Command {
     func execute(on flow: Flow<StateType>, coordinator: Coordinator)
 }
 
-// MARK: Router
-
-protocol Router {
-    func perform(_ segue: Segue) -> AnyFlow?
-}
-
 // MARK: Subscriber
 
-protocol AnySubscriber: class {
+protocol AnySubscriber: class, NavigationPerformer {
     func _update(with state: State)
-    func proceed(to nextFlow: AnyFlow)
 }
 
 protocol Subscriber: AnySubscriber {
@@ -209,9 +227,9 @@ struct Subscription {
         }
     }
     
-    fileprivate func notify(with nextFlow: AnyFlow) {
+    fileprivate func notify(with navigationRequest: NavigationRequest) {
         queue.async {
-            self.subscriber?.proceed(to: nextFlow)
+            self.subscriber?.perform(navigationRequest)
         }
     }
 }
@@ -228,4 +246,3 @@ protocol Middleware {
     func willProcess(_ action: Action)
     func didProcess(_ action: Action)
 }
-
