@@ -20,18 +20,6 @@ struct LoginState {
     var changelog: [Change] = []
 }
 
-enum LoginAction: Action {
-    case addActivity
-    case removeActivity
-    case error(Error)
-}
-
-enum LoginSegue: Segue {
-    case login(LoginResponse)
-    case signUp
-    case forgotPassword
-}
-
 // MARK: - Reducer
 
 extension LoginState: State {

@@ -44,15 +44,15 @@ final class LoginViewController: UIViewController {
     }
     
     @IBAction func forgotPasswordButtonTapped(_ sender: UIButton) {
-        flow.dispatch(LoginSegue.forgotPassword)
+        flow.dispatch(LoginNavigationIntent.forgotPassword)
     }
     
     @IBAction func signUpTapped(_ sender: AnyObject) {
-        flow.dispatch(LoginSegue.signUp)
+        flow.dispatch(LoginNavigationIntent.signUp)
     }
 }
 
-extension LoginViewController: LoginViewInterface {
+extension LoginViewController: LoginViewComponent {
     
     func setLoading(_ isLoading: Bool) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = isLoading

@@ -8,15 +8,15 @@
 
 import UIKit
 
-protocol LoginViewInterface: class, ErrorHandler, FlowComponent {
+protocol LoginViewComponent: class, ErrorHandler, ViewComponent {
     func setLoading(_ isLoading: Bool)
 }
 
 class LoginUpdater: Subscriber {
     
-    unowned let view: LoginViewInterface
+    unowned let view: LoginViewComponent
     
-    init(view: LoginViewInterface) {
+    init(view: LoginViewComponent) {
         self.view = view
     }
     
@@ -28,7 +28,7 @@ class LoginUpdater: Subscriber {
         }
     }
     
-    func proceed(to nextFlow: AnyFlow) {
-        view.proceed(to: nextFlow)
+    func perform(_ request: NavigationRequest) {
+        view.perform(request)
     }
 }

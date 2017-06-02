@@ -27,6 +27,10 @@ struct NavigationRequest {
         self.deletions = deletions
         self.info = info
     }
+    
+    static func proceed(from: AnyFlow, to: AnyFlow) -> NavigationRequest {
+        return NavigationRequest(from: from, to: to, creations: [(from, to)], deletions: [])
+    }
 }
 
 protocol NavigationResolver {
@@ -62,9 +66,11 @@ final class Coordinator: Dispatcher {
                     for flowToDelete in navigationRequest.deletions {
                         self.navigationTree.remove(flowToDelete)
                     }
-                    for (parent, flow) in navigationRequest.creations {
-                        flow.coordinator = self
-                        self.navigationTree.search(parent)?.add(flow)
+                    for (parent, newFlow) in navigationRequest.creations {
+                        newFlow.coordinator = self
+                        if self.navigationTree.search(newFlow) == nil {
+                            self.navigationTree.search(parent)?.add(newFlow)
+                        }
                     }
                 }
             }

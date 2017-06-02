@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol MovieListViewInterface: class, ErrorHandler, FlowComponent {
+protocol MovieListViewComponent: class, ViewComponent, ErrorHandler {
     var tableView: UITableView! { get }
     func setLoading(_ isLoading: Bool)
 }
@@ -24,10 +24,10 @@ struct MovieListPresentation {
 
 class MovieListUpdater: Subscriber {
     
-    unowned var view: MovieListViewInterface
+    unowned var view: MovieListViewComponent
     private(set) var presentation = MovieListPresentation()
     
-    init(view: MovieListViewInterface) {
+    init(view: MovieListViewComponent) {
         self.view = view
     }
     
@@ -36,8 +36,8 @@ class MovieListUpdater: Subscriber {
         state.changelog.forEach { handle(state: state, change: $0) }
     }
     
-    func proceed(to nextFlow: AnyFlow) {
-        view.proceed(to: nextFlow)
+    func perform(_ request: NavigationRequest) {
+        view.perform(request)
     }
     
     private func handle(state: MovieListState, change: MovieListState.Change) {

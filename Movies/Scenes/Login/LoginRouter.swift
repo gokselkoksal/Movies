@@ -8,21 +8,27 @@
 
 import UIKit
 
-class LoginRouter: Router {
+class LoginNavigationResolver: NavigationResolver {
     
-    func perform(_ segue: Segue) -> AnyFlow? {
-        guard let segue = segue as? LoginSegue else { return nil }
-        switch segue {
+    weak var flow: LoginFlow?
+    
+    func resolve(_ intent: NavigationIntent) -> NavigationRequest? {
+        guard let flow = flow, let intent = intent as? LoginNavigationIntent else { return nil }
+        switch intent {
         case .signUp:
-            return SignUpFlow()
+            let newFlow = SignUpFlow()
+            return NavigationRequest.proceed(from: flow, to: newFlow)
         case .login(let response):
             if response.isPasswordExpired {
-                return ChangePasswordFlow()
+                let newFlow = ChangePasswordFlow()
+                return NavigationRequest.proceed(from: flow, to: newFlow)
             } else {
-                return MovieListFlow(service: MockMoviesService(delay: 1.5))
+                let newFlow = MovieListFlow(service: MockMoviesService(delay: 1.5))
+                return NavigationRequest.proceed(from: flow, to: newFlow)
             }
         case .forgotPassword:
-            return ForgotPasswordFlow()
+            let newFlow = ForgotPasswordFlow()
+            return NavigationRequest.proceed(from: flow, to: newFlow)
         }
     }
 }

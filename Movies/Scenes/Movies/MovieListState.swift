@@ -23,19 +23,6 @@ struct MovieListState {
     var changelog: [Change] = [.loadingState, .movies(.reload), .error]
 }
 
-enum MovieListAction: Action {
-    case reloadMovies([Movie])
-    case addMovie(name: String, year: UInt, rating: Float)
-    case removeMovie(index: Int)
-    case addActivity
-    case removeActivity
-    case error(Error)
-}
-
-enum MovieListSegue: Segue {
-    case detail(Movie)
-}
-
 // MARK: - Reducer
 
 extension MovieListState: State {

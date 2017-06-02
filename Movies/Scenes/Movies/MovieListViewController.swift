@@ -121,22 +121,15 @@ final class MovieListViewController: UITableViewController {
         let movies = flow.state.movies
         let index = indexPath.row
         if index < movies.count {
-            flow.dispatch(MovieListSegue.detail(movies[index]))
+            flow.dispatch(MovieListNaviationIntent.detail(movies[index]))
         }
     }
 }
 
-extension MovieListViewController: MovieListViewInterface {
+extension MovieListViewController: MovieListViewComponent {
     
     func setLoading(_ isLoading: Bool) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = isLoading
-    }
-    
-    func handle(error: Error) {
-        let message = error.localizedDescription
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
     }
 }
 

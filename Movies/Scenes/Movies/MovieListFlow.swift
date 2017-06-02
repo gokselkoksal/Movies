@@ -8,16 +8,57 @@
 
 import Foundation
 
+// MARK: - Actions
+
+enum MovieListAction: Action {
+    case reloadMovies([Movie])
+    case addMovie(name: String, year: UInt, rating: Float)
+    case removeMovie(index: Int)
+    case addActivity
+    case removeActivity
+    case error(Error)
+}
+
+enum MovieListNaviationIntent: NavigationIntent {
+    case detail(Movie)
+}
+
+// MARK: - Flow
+
 class MovieListFlow: Flow<MovieListState> {
     
     let service: MoviesService
     
     init(service: MoviesService) {
         self.service = service
-        super.init(state: MovieListState())
+        super.init(id: MoviesFlowID.movieList, state: MovieListState())
     }
     
     func fetchCommand() -> MovieListFetchCommand {
         return MovieListFetchCommand(service: service)
+    }
+}
+
+// MARK: - Commands
+
+class MovieListFetchCommand: Command {
+    
+    let service: MoviesService
+    
+    init(service: MoviesService) {
+        self.service = service
+    }
+    
+    func execute(on flow: Flow<MovieListState>, coordinator: Coordinator) {
+        flow.dispatch(MovieListAction.addActivity)
+        service.fetchMovies { (result) in
+            flow.dispatch(MovieListAction.removeActivity)
+            switch result {
+            case .success(let movies):
+                flow.dispatch(MovieListAction.reloadMovies(movies))
+            case .failure(let error):
+                flow.dispatch(MovieListAction.error(error))
+            }
+        }
     }
 }
