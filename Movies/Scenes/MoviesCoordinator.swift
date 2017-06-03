@@ -11,13 +11,13 @@ import UIKit
 // MARK: - Coordinator
 
 let coordinator: Coordinator = {
-    let resolver = LoginNavigationResolver()
+    let navigator = LoginNavigator()
     let loginFlow = LoginFlow(
         service: MockLoginService(),
         state: LoginState(),
-        navigationResolver: resolver
+        navigator: navigator
     )
-    resolver.flow = loginFlow
+    navigator.flow = loginFlow
     return Coordinator(rootFlow: loginFlow)
 }()
 
@@ -37,8 +37,8 @@ protocol ViewComponent: NavigationPerformer { }
 
 extension ViewComponent where Self: UIViewController {
     
-    func perform(_ request: NavigationRequest) {
-        let flow = request.to
+    func perform(_ navigation: Navigation) {
+        let flow = navigation.to
         
         let vc: UIViewController?
         if let flow = flow as? LoginFlow {
@@ -47,6 +47,8 @@ extension ViewComponent where Self: UIViewController {
             vc = SignUpViewController.instantiate(with: flow)
         } else if let flow = flow as? ForgotPasswordFlow {
             vc = ForgotPasswordViewController.instantiate(with: flow)
+        } else if let flow = flow as? ChangePasswordFlow {
+            vc = ChangePasswordViewController.instantiate(with: flow)
         } else if let flow = flow as? MovieListFlow {
             vc = MovieListViewController.instantiate(with: flow)
             let nc = UINavigationController(rootViewController: vc!)

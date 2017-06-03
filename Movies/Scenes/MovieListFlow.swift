@@ -12,14 +12,14 @@ import Foundation
 
 enum MovieListAction: Action {
     case reloadMovies([Movie])
-    case addMovie(name: String, year: UInt, rating: Float)
+    case addMovie(Movie)
     case removeMovie(index: Int)
     case addActivity
     case removeActivity
     case error(Error)
 }
 
-enum MovieListNaviationIntent: NavigationIntent {
+enum MovieListNavigatorAction: NavigatorAction {
     case detail(Movie)
 }
 

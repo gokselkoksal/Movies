@@ -10,6 +10,7 @@ import UIKit
 
 protocol MovieListViewComponent: class, ViewComponent, ErrorHandler {
     var tableView: UITableView! { get }
+    var presentation: MovieListPresentation { get set }
     func setLoading(_ isLoading: Bool)
 }
 
@@ -25,19 +26,18 @@ struct MovieListPresentation {
 class MovieListUpdater: Subscriber {
     
     unowned var view: MovieListViewComponent
-    private(set) var presentation = MovieListPresentation()
     
     init(view: MovieListViewComponent) {
         self.view = view
     }
     
     func update(with state: MovieListState) {
-        presentation.update(with: state)
+        view.presentation.update(with: state)
         state.changelog.forEach { handle(state: state, change: $0) }
     }
     
-    func perform(_ request: NavigationRequest) {
-        view.perform(request)
+    func perform(_ navigation: Navigation) {
+        view.perform(navigation)
     }
     
     private func handle(state: MovieListState, change: MovieListState.Change) {

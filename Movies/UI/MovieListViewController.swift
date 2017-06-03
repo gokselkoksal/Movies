@@ -18,6 +18,7 @@ final class MovieListViewController: UITableViewController {
     var isFirstRun = true
     
     var flow: MovieListFlow!
+    var presentation: MovieListPresentation = MovieListPresentation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +78,8 @@ final class MovieListViewController: UITableViewController {
                 let year = UInt(yearString),
                 let rating = Float(ratingString)
             else { return }
-            strongSelf.flow.dispatch(MovieListAction.addMovie(name: name, year: year, rating: rating))
+            let movie = Movie(name: name, year: year, rating: rating)
+            strongSelf.flow.dispatch(MovieListAction.addMovie(movie))
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -89,7 +91,7 @@ final class MovieListViewController: UITableViewController {
     // MARK: UITableViewDataSource
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return updater.presentation.movies.count
+        return presentation.movies.count
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
@@ -108,7 +110,7 @@ final class MovieListViewController: UITableViewController {
         guard let cell = templateCell else {
             fatalError()
         }
-        let moviePresentation = updater.presentation.movies[(indexPath as NSIndexPath).row]
+        let moviePresentation = presentation.movies[(indexPath as NSIndexPath).row]
         cell.textLabel?.text = moviePresentation.title
         cell.detailTextLabel?.text = moviePresentation.subtitle
         return cell
@@ -121,7 +123,7 @@ final class MovieListViewController: UITableViewController {
         let movies = flow.state.movies
         let index = indexPath.row
         if index < movies.count {
-            flow.dispatch(MovieListNaviationIntent.detail(movies[index]))
+            flow.dispatch(MovieListNavigatorAction.detail(movies[index]))
         }
     }
 }

@@ -40,8 +40,7 @@ extension MovieListState: State {
         case .reloadMovies(let newMovies):
             movies = newMovies
             changelog = [.movies(.reload)]
-        case .addMovie(name: let name, year: let year, rating: let rating):
-            let movie = Movie(name: name, year: year, rating: rating)
+        case .addMovie(let movie):
             movies.insert(movie, at: 0)
             changelog = [.movies(.insertion(0))]
         case .removeMovie(index: let index):

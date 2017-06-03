@@ -16,7 +16,7 @@ enum LoginAction: Action {
     case error(Error)
 }
 
-enum LoginNavigationIntent: NavigationIntent {
+enum LoginNavigatorAction: NavigatorAction {
     case login(LoginResponse)
     case signUp
     case forgotPassword
@@ -28,9 +28,9 @@ class LoginFlow: Flow<LoginState> {
     
     let service: LoginService
     
-    init(service: LoginService, state: LoginState, navigationResolver: NavigationResolver) {
+    init(service: LoginService, state: LoginState, navigator: Navigator) {
         self.service = service
-        super.init(id: MoviesFlowID.login, state: state, navigationResolver: navigationResolver)
+        super.init(id: MoviesFlowID.login, state: state, navigator: navigator)
     }
     
     func loginCommand(with credentials: Credentials) -> LoginCommand {
@@ -56,7 +56,7 @@ class LoginCommand: Command {
             flow.dispatch(LoginAction.removeActivity)
             switch result {
             case .success(let response):
-                flow.dispatch(LoginNavigationIntent.login(response))
+                flow.dispatch(LoginNavigatorAction.login(response))
             case .failure(let error):
                 flow.dispatch(LoginAction.error(error))
             }

@@ -44,11 +44,11 @@ final class LoginViewController: UIViewController {
     }
     
     @IBAction func forgotPasswordButtonTapped(_ sender: UIButton) {
-        flow.dispatch(LoginNavigationIntent.forgotPassword)
+        flow.dispatch(LoginNavigatorAction.forgotPassword)
     }
     
     @IBAction func signUpTapped(_ sender: AnyObject) {
-        flow.dispatch(LoginNavigationIntent.signUp)
+        flow.dispatch(LoginNavigatorAction.signUp)
     }
 }
 

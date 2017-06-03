@@ -21,14 +21,21 @@ class LoginUpdater: Subscriber {
     }
     
     func update(with state: LoginState) {
-        if state.loadingState.needsUpdate {
-            view.setLoading(state.loadingState.isActive)
-        } else if let error = state.error {
-            view.handle(error: error)
+        state.changelog.forEach { (change) in
+            switch change {
+            case .loadingState:
+                if state.loadingState.needsUpdate {
+                    view.setLoading(state.loadingState.isActive)
+                }
+            case .error:
+                if let error = state.error {
+                    view.handle(error: error)
+                }
+            }
         }
     }
     
-    func perform(_ request: NavigationRequest) {
-        view.perform(request)
+    func perform(_ navigation: Navigation) {
+        view.perform(navigation)
     }
 }
