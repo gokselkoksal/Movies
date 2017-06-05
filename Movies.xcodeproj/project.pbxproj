@@ -55,6 +55,7 @@
 		62FC167B1EE48D55002FC55A /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC167A1EE48D55002FC55A /* State.swift */; };
 		62FC167D1EE48D5C002FC55A /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC167C1EE48D5C002FC55A /* Definitions.swift */; };
 		62FC167F1EE48D8D002FC55A /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC167E1EE48D8D002FC55A /* Action.swift */; };
+		62FC16831EE4937B002FC55A /* MovieListNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC16821EE4937B002FC55A /* MovieListNavigator.swift */; };
 		62FD0B351EC3B60A00F5B0E0 /* MovieListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD0B341EC3B60A00F5B0E0 /* MovieListState.swift */; };
 		8F5BD3141ED85C07006387FB /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5BD3131ED85C07006387FB /* Tree.swift */; };
 /* End PBXBuildFile section */
@@ -122,6 +123,7 @@
 		62FC167A1EE48D55002FC55A /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		62FC167C1EE48D5C002FC55A /* Definitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
 		62FC167E1EE48D8D002FC55A /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		62FC16821EE4937B002FC55A /* MovieListNavigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListNavigator.swift; sourceTree = "<group>"; };
 		62FD0B341EC3B60A00F5B0E0 /* MovieListState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListState.swift; sourceTree = "<group>"; };
 		8F5BD3131ED85C07006387FB /* Tree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -217,9 +219,10 @@
 				6207418E1EC90DF4007A0DD7 /* LoginRouter.swift */,
 				624EB2B41ED4DD96008C1C1F /* MovieListFlow.swift */,
 				62FD0B341EC3B60A00F5B0E0 /* MovieListState.swift */,
+				62FC16821EE4937B002FC55A /* MovieListNavigator.swift */,
+				624EB2B01ED4DBF7008C1C1F /* ChangePasswordFlow.swift */,
 				624EB2AA1ED4D9C5008C1C1F /* SignUpFlow.swift */,
 				624EB2AC1ED4DA3E008C1C1F /* ForgotPasswordFlow.swift */,
-				624EB2B01ED4DBF7008C1C1F /* ChangePasswordFlow.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -440,6 +443,7 @@
 				62FC16791EE478CA002FC55A /* Middleware.swift in Sources */,
 				62BB70BE1ED26A3D003ED093 /* Flow.swift in Sources */,
 				6207418B1EC90879007A0DD7 /* MockCredentials.swift in Sources */,
+				62FC16831EE4937B002FC55A /* MovieListNavigator.swift in Sources */,
 				62D9ECA51DBD14FC0070EEF1 /* UITableView+CollectionChange.swift in Sources */,
 				6207417E1EC8DACB007A0DD7 /* LoginState.swift in Sources */,
 				624EB2AF1ED4DA4C008C1C1F /* ForgotPasswordViewController.swift in Sources */,

@@ -12,23 +12,25 @@ class LoginNavigator: Navigator {
     
     weak var flow: LoginFlow?
     
-    func resolve(_ intent: NavigatorAction) -> Navigation? {
-        guard let flow = flow, let intent = intent as? LoginNavigatorAction else { return nil }
-        switch intent {
+    func resolve(_ action: NavigatorAction) -> Navigation? {
+        guard let flow = flow, let action = action as? LoginNavigatorAction else { return nil }
+        switch action {
         case .signUp:
             let newFlow = SignUpFlow()
-            return Navigation.proceed(from: flow, to: newFlow)
+            return Navigation.stepForward(from: flow, to: newFlow)
         case .login(let response):
             if response.isPasswordExpired {
                 let newFlow = ChangePasswordFlow()
-                return Navigation.proceed(from: flow, to: newFlow)
+                return Navigation.stepForward(from: flow, to: newFlow)
             } else {
-                let newFlow = MovieListFlow(service: MockMoviesService(delay: 1.5))
-                return Navigation.proceed(from: flow, to: newFlow)
+                let navigator = MovieListNavigator()
+                let newFlow = MovieListFlow(service: MockMoviesService(delay: 1.5), navigator: navigator)
+                navigator.flow = newFlow
+                return Navigation.stepForward(from: flow, to: newFlow)
             }
         case .forgotPassword:
             let newFlow = ForgotPasswordFlow()
-            return Navigation.proceed(from: flow, to: newFlow)
+            return Navigation.stepForward(from: flow, to: newFlow)
         }
     }
 }

@@ -12,7 +12,13 @@ protocol Navigator {
     func resolve(_ action: NavigatorAction) -> Navigation?
 }
 
-struct Navigation {
+enum Navigation {
+    case stepForward(from: AnyFlow, to: AnyFlow)
+    case stepBackward(from: AnyFlow)
+    case custom(NavigationDescriptor)
+}
+
+struct NavigationDescriptor {
     
     typealias Creation = (parent: AnyFlow, flow: AnyFlow)
     
@@ -28,10 +34,6 @@ struct Navigation {
         self.creations = creations
         self.deletions = deletions
         self.info = info
-    }
-    
-    static func proceed(from: AnyFlow, to: AnyFlow) -> Navigation {
-        return Navigation(from: from, to: to, creations: [(from, to)], deletions: [])
     }
 }
 

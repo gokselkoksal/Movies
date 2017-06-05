@@ -21,6 +21,7 @@ enum MovieListAction: Action {
 
 enum MovieListNavigatorAction: NavigatorAction {
     case detail(Movie)
+    case logout
 }
 
 // MARK: - Flow
@@ -29,9 +30,9 @@ class MovieListFlow: Flow<MovieListState> {
     
     let service: MoviesService
     
-    init(service: MoviesService) {
+    init(service: MoviesService, navigator: Navigator) {
         self.service = service
-        super.init(id: MoviesFlowID.movieList, state: MovieListState())
+        super.init(id: MoviesFlowID.movieList, state: MovieListState(), navigator: navigator)
     }
     
     func fetchCommand() -> MovieListFetchCommand {

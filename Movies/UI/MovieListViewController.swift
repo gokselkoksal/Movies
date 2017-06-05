@@ -43,7 +43,7 @@ final class MovieListViewController: UITableViewController {
     }
     
     @IBAction func logoutButtonTapped(_ sender: UIBarButtonItem) {
-        presentingViewController?.dismiss(animated: true, completion: nil)
+        flow.dispatch(MovieListNavigatorAction.logout)
     }
     
     // MARK: Actions
