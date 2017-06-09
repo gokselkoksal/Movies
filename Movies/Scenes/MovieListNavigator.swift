@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  MovieListNavigator.swift
 //  Movies
 //
 //  Created by Göksel Köksal on 04/06/2017.

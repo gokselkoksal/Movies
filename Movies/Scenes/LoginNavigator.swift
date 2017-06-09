@@ -1,5 +1,5 @@
 //
-//  LoginRouter.swift
+//  LoginNavigator.swift
 //  Movies
 //
 //  Created by Göksel Köksal on 14/05/2017.
