@@ -12,31 +12,46 @@ protocol Navigator {
     func resolve(_ action: NavigatorAction) -> Navigation?
 }
 
-enum Navigation {
-    case stepForward(from: AnyFlow, to: AnyFlow)
-    case stepBackward(from: AnyFlow)
-    case custom(NavigationDescriptor)
-}
-
-struct NavigationDescriptor {
-    
+protocol Navigation {
     typealias Creation = (parent: AnyFlow, flow: AnyFlow)
-    
-    let from: AnyFlow
-    let to: AnyFlow
-    let creations: [Creation]
-    let deletions: [AnyFlow]
-    let info: [AnyHashable: Any]
-    
-    init(from: AnyFlow, to: AnyFlow, creations: [Creation], deletions: [AnyFlow], info: [AnyHashable: Any] = [:]) {
-        self.from = from
-        self.to = to
-        self.creations = creations
-        self.deletions = deletions
-        self.info = info
-    }
+    var creations: [Creation] { get }
+    var deletions: [AnyFlow] { get }
 }
 
 protocol NavigationPerformer {
     func perform(_ navigation: Navigation)
+}
+
+// MARK: - Convenience
+
+enum BasicNavigation: Navigation {
+    
+    case push(AnyFlow, from: AnyFlow)
+    case pop(AnyFlow)
+    case present(AnyFlow, from: AnyFlow)
+    case dismiss(AnyFlow)
+    
+    var creations: [Navigation.Creation] {
+        return proposedChanges().creations
+    }
+    
+    var deletions: [AnyFlow] {
+        return proposedChanges().deletions
+    }
+    
+    private func proposedChanges() -> (creations: [Creation], deletions: [AnyFlow]) {
+        var creations: [Creation] = []
+        var deletions: [AnyFlow] = []
+        switch self {
+        case .push(let flow, from: let parent):
+            creations.append((parent, flow))
+        case .pop(let flow):
+            deletions.append(flow)
+        case .present(let flow, from: let parent):
+            creations.append((parent, flow))
+        case .dismiss(let flow):
+            deletions.append(flow)
+        }
+        return (creations, deletions)
+    }
 }

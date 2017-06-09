@@ -23,23 +23,13 @@ final class Coordinator: Dispatcher {
         self.willProcess(action)
         self.navigationTree.forEach { (flow) in
             if let navigation = flow.process(action) {
-                switch navigation {
-                case .stepForward(from: let parent, to: let newFlow):
+                for flowToDelete in navigation.deletions {
+                    self.navigationTree.remove(flowToDelete)
+                }
+                for (parent, newFlow) in navigation.creations {
                     newFlow.coordinator = self
                     if self.navigationTree.search(newFlow) == nil {
                         self.navigationTree.search(parent)?.add(newFlow)
-                    }
-                case .stepBackward(from: let from):
-                    self.navigationTree.remove(from)
-                case .custom(let descriptor):
-                    for flowToDelete in descriptor.deletions {
-                        self.navigationTree.remove(flowToDelete)
-                    }
-                    for (parent, newFlow) in descriptor.creations {
-                        newFlow.coordinator = self
-                        if self.navigationTree.search(newFlow) == nil {
-                            self.navigationTree.search(parent)?.add(newFlow)
-                        }
                     }
                 }
             }

@@ -17,20 +17,20 @@ class LoginNavigator: Navigator {
         switch action {
         case .signUp:
             let newFlow = SignUpFlow()
-            return Navigation.stepForward(from: flow, to: newFlow)
+            return BasicNavigation.push(newFlow, from: flow)
         case .login(let response):
             if response.isPasswordExpired {
                 let newFlow = ChangePasswordFlow()
-                return Navigation.stepForward(from: flow, to: newFlow)
+                return BasicNavigation.push(newFlow, from: flow)
             } else {
                 let navigator = MovieListNavigator()
                 let newFlow = MovieListFlow(service: MockMoviesService(delay: 1.5), navigator: navigator)
                 navigator.flow = newFlow
-                return Navigation.stepForward(from: flow, to: newFlow)
+                return BasicNavigation.present(newFlow, from: flow)
             }
         case .forgotPassword:
             let newFlow = ForgotPasswordFlow()
-            return Navigation.stepForward(from: flow, to: newFlow)
+            return BasicNavigation.push(newFlow, from: flow)
         }
     }
 }

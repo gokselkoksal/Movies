@@ -16,7 +16,7 @@ class MovieListNavigator: Navigator {
         guard let flow = flow, let action = action as? MovieListNavigatorAction else { return nil }
         switch action {
         case .logout:
-            return Navigation.stepBackward(from: flow)
+            return BasicNavigation.dismiss(flow)
         case .detail(_):
             // TODO: Navigate to details screen.
             return nil

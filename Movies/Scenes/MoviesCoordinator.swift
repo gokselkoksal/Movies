@@ -38,38 +38,40 @@ protocol ViewComponent: NavigationPerformer { }
 extension ViewComponent where Self: UIViewController {
     
     func perform(_ navigation: Navigation) {
-        let vc: UIViewController?
-        
+        guard let navigation = navigation as? BasicNavigation else { return }
         switch navigation {
-        case .stepForward(from: _, to: let to):
-            if let flow = to as? LoginFlow {
-                vc = LoginViewController.instantiate(with: flow)
-            } else if let flow = to as? SignUpFlow {
-                vc = SignUpViewController.instantiate(with: flow)
-            } else if let flow = to as? ForgotPasswordFlow {
-                vc = ForgotPasswordViewController.instantiate(with: flow)
-            } else if let flow = to as? ChangePasswordFlow {
-                vc = ChangePasswordViewController.instantiate(with: flow)
-            } else if let flow = to as? MovieListFlow {
-                vc = MovieListViewController.instantiate(with: flow)
-                let nc = UINavigationController(rootViewController: vc!)
-                present(nc, animated: true, completion: nil)
-                return
-            } else {
-                vc = nil
-            }
-            if let safeVC = vc {
-                navigationController?.pushViewController(safeVC, animated: true)
-            }
-        case .stepBackward(from: let from):
-            // TODO: Improve.
-            if from is MovieListFlow {
-                presentingViewController?.dismiss(animated: true, completion: nil)
-            } else {
-                navigationController?.popViewController(animated: true)
-            }
-        default:
-            break
+        case .push(let flow, from: _):
+            guard let vc = viewController(for: flow) else { return }
+            navigationController?.pushViewController(vc, animated: true)
+        case .pop(_):
+            // TODO: Validate vc's flow.
+            
+            navigationController?.popViewController(animated: true)
+        case .present(let flow, from: _):
+            guard let vc = viewController(for: flow) else { return }
+            let nc = UINavigationController(rootViewController: vc)
+            present(nc, animated: true, completion: nil)
+        case .dismiss(_):
+            // TODO: Validate vc's flow.
+            presentingViewController?.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    private func viewController(for flow: AnyFlow) -> UIViewController? {
+        let vc: UIViewController?
+        if let flow = flow as? LoginFlow {
+            vc = LoginViewController.instantiate(with: flow)
+        } else if let flow = flow as? SignUpFlow {
+            vc = SignUpViewController.instantiate(with: flow)
+        } else if let flow = flow as? ForgotPasswordFlow {
+            vc = ForgotPasswordViewController.instantiate(with: flow)
+        } else if let flow = flow as? ChangePasswordFlow {
+            vc = ChangePasswordViewController.instantiate(with: flow)
+        } else if let flow = flow as? MovieListFlow {
+            vc = MovieListViewController.instantiate(with: flow)
+        } else {
+            vc = nil
+        }
+        return vc
     }
 }
