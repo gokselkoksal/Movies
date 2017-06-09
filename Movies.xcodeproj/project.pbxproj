@@ -19,6 +19,7 @@
 		6207418B1EC90879007A0DD7 /* MockCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6207418A1EC90879007A0DD7 /* MockCredentials.swift */; };
 		6207418F1EC90DF4007A0DD7 /* LoginNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6207418E1EC90DF4007A0DD7 /* LoginNavigator.swift */; };
 		620741911EC90FF2007A0DD7 /* MoviesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620741901EC90FF2007A0DD7 /* MoviesCoordinator.swift */; };
+		623058861EEAE08E00824720 /* LoggerMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623058851EEAE08E00824720 /* LoggerMiddleware.swift */; };
 		6236C00A1DBD008F002A61D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6236C0091DBD008F002A61D6 /* AppDelegate.swift */; };
 		6236C00F1DBD008F002A61D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6236C00D1DBD008F002A61D6 /* Main.storyboard */; };
 		6236C0111DBD008F002A61D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6236C0101DBD008F002A61D6 /* Assets.xcassets */; };
@@ -83,6 +84,7 @@
 		6207418A1EC90879007A0DD7 /* MockCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCredentials.swift; sourceTree = "<group>"; };
 		6207418E1EC90DF4007A0DD7 /* LoginNavigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginNavigator.swift; sourceTree = "<group>"; };
 		620741901EC90FF2007A0DD7 /* MoviesCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesCoordinator.swift; sourceTree = "<group>"; };
+		623058851EEAE08E00824720 /* LoggerMiddleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerMiddleware.swift; sourceTree = "<group>"; };
 		6236C0061DBD008F002A61D6 /* Movies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Movies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6236C0091DBD008F002A61D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6236C00E1DBD008F002A61D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				620741901EC90FF2007A0DD7 /* MoviesCoordinator.swift */,
+				623058851EEAE08E00824720 /* LoggerMiddleware.swift */,
 				62BB70BF1ED26E69003ED093 /* LoginFlow.swift */,
 				6207417D1EC8DACB007A0DD7 /* LoginState.swift */,
 				6207418E1EC90DF4007A0DD7 /* LoginNavigator.swift */,
@@ -449,6 +452,7 @@
 				6207417E1EC8DACB007A0DD7 /* LoginState.swift in Sources */,
 				624EB2AF1ED4DA4C008C1C1F /* ForgotPasswordViewController.swift in Sources */,
 				62BB70C01ED26E69003ED093 /* LoginFlow.swift in Sources */,
+				623058861EEAE08E00824720 /* LoggerMiddleware.swift in Sources */,
 				624EB2A21ED4CD93008C1C1F /* UIStoryboard+Movies.swift in Sources */,
 				62FC16771EE478B0002FC55A /* Subscription.swift in Sources */,
 				624EB2AD1ED4DA3E008C1C1F /* ForgotPasswordFlow.swift in Sources */,

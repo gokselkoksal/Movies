@@ -18,7 +18,10 @@ let coordinator: Coordinator = {
         navigator: navigator
     )
     navigator.flow = loginFlow
-    return Coordinator(rootFlow: loginFlow)
+    return Coordinator(
+        rootFlow: loginFlow,
+        middlewares: [LoggerMiddleware()]
+    )
 }()
 
 // MARK: - Flow IDs
@@ -45,7 +48,6 @@ extension ViewComponent where Self: UIViewController {
             navigationController?.pushViewController(vc, animated: true)
         case .pop(_):
             // TODO: Validate vc's flow.
-            
             navigationController?.popViewController(animated: true)
         case .present(let flow, from: _):
             guard let vc = viewController(for: flow) else { return }
