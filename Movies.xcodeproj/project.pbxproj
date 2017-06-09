@@ -361,6 +361,7 @@
 				TargetAttributes = {
 					6236C0051DBD008E002A61D6 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = R6D3RTDSCX;
 						ProvisioningStyle = Automatic;
 					};
 					6236C0191DBD008F002A61D6 = {
@@ -599,6 +600,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = R6D3RTDSCX;
 				INFOPLIST_FILE = Movies/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.gk.Movies;
@@ -611,6 +613,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = R6D3RTDSCX;
 				INFOPLIST_FILE = Movies/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.gk.Movies;
