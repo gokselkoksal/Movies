@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class MovieListViewController: UITableViewController {
+final class MovieListViewController: BaseTableViewController {
     
     private struct Const {
         static let cellReuseID = "Cell"

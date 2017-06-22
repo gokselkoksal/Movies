@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SignUpViewController: UIViewController {
+final class SignUpViewController: BaseViewController {
     
     var flow: SignUpFlow!
 

@@ -25,6 +25,7 @@
 		6236C0111DBD008F002A61D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6236C0101DBD008F002A61D6 /* Assets.xcassets */; };
 		6236C0141DBD008F002A61D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6236C0121DBD008F002A61D6 /* LaunchScreen.storyboard */; };
 		6236C01F1DBD008F002A61D6 /* MovieListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6236C01E1DBD008F002A61D6 /* MovieListTests.swift */; };
+		6243F5EA1EEF26D500243C4D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6243F5E91EEF26D500243C4D /* BaseViewController.swift */; };
 		624EB2A21ED4CD93008C1C1F /* UIStoryboard+Movies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624EB2A11ED4CD93008C1C1F /* UIStoryboard+Movies.swift */; };
 		624EB2A91ED4D9B6008C1C1F /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624EB2A81ED4D9B6008C1C1F /* SignUpViewController.swift */; };
 		624EB2AB1ED4D9C5008C1C1F /* SignUpFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624EB2AA1ED4D9C5008C1C1F /* SignUpFlow.swift */; };
@@ -94,6 +95,7 @@
 		6236C01A1DBD008F002A61D6 /* MoviesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6236C01E1DBD008F002A61D6 /* MovieListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListTests.swift; sourceTree = "<group>"; };
 		6236C0201DBD008F002A61D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6243F5E91EEF26D500243C4D /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		624EB2A11ED4CD93008C1C1F /* UIStoryboard+Movies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Movies.swift"; sourceTree = "<group>"; };
 		624EB2A81ED4D9B6008C1C1F /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		624EB2AA1ED4D9C5008C1C1F /* SignUpFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFlow.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 		62E1A9DA1EE2E52500AA1BF4 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				6243F5E91EEF26D500243C4D /* BaseViewController.swift */,
 				62D9EC9D1DBD12B30070EEF1 /* Launcher.swift */,
 				620741811EC8DBED007A0DD7 /* LoginUpdater.swift */,
 				62D9EC8C1DBD01A10070EEF1 /* LoginViewController.swift */,
@@ -447,6 +450,7 @@
 				62FC16791EE478CA002FC55A /* Middleware.swift in Sources */,
 				62BB70BE1ED26A3D003ED093 /* Flow.swift in Sources */,
 				6207418B1EC90879007A0DD7 /* MockCredentials.swift in Sources */,
+				6243F5EA1EEF26D500243C4D /* BaseViewController.swift in Sources */,
 				62FC16831EE4937B002FC55A /* MovieListNavigator.swift in Sources */,
 				62D9ECA51DBD14FC0070EEF1 /* UITableView+CollectionChange.swift in Sources */,
 				6207417E1EC8DACB007A0DD7 /* LoginState.swift in Sources */,

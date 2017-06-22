@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChangePasswordViewController: UIViewController {
+class ChangePasswordViewController: BaseViewController {
     
     var flow: ChangePasswordFlow!
 

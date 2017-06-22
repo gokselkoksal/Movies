@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class ForgotPasswordViewController: UIViewController {
+final class ForgotPasswordViewController: BaseViewController {
     
     var flow: ForgotPasswordFlow!
 
