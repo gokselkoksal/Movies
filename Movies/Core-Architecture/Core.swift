@@ -1,5 +1,5 @@
 //
-//  Coordinator.swift
+//  Core.swift
 //  Movies
 //
 //  Created by Göksel Köksal on 04/06/2017.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class Coordinator: Dispatcher {
+final class Core: Dispatcher {
     
     let navigationTree: Tree<AnyComponent>
     private(set) var middlewares: [Middleware]
@@ -42,7 +42,7 @@ final class Coordinator: Dispatcher {
     }
 }
 
-extension Coordinator: ComponentNavigationDelegate {
+extension Core: ComponentNavigationDelegate {
     
     func component(_ component: AnyComponent, willFireNavigation navigation: Navigation) {
         for componentToDelete in navigation.deletions {

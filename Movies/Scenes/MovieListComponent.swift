@@ -62,7 +62,7 @@ class MovieListFetchCommand: Command {
         self.service = service
     }
     
-    func execute(on component: Component<MovieListState>, core: Coordinator) {
+    func execute(on component: Component<MovieListState>, core: Core) {
         core.dispatch(MovieListAction.addActivity)
         service.fetchMovies { (result) in
             core.dispatch(MovieListAction.removeActivity)

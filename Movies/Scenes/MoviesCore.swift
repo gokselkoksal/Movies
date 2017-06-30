@@ -1,5 +1,5 @@
 //
-//  MoviesCoordinator.swift
+//  MoviesCore.swift
 //  Movies
 //
 //  Created by Göksel Köksal on 14/05/2017.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-// MARK: - Coordinator
+// MARK: - Core
 
-let core: Coordinator = {
+let core: Core = {
     let navigator = LoginNavigator()
     let loginComponent = LoginComponent(
         service: MockLoginService(),
@@ -18,7 +18,7 @@ let core: Coordinator = {
         navigator: navigator
     )
     navigator.component = loginComponent
-    return Coordinator(
+    return Core(
         rootComponent: loginComponent,
         middlewares: [LoggerMiddleware()]
     )

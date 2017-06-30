@@ -62,7 +62,7 @@ class LoginCommand: Command {
         self.credentials = credentials
     }
     
-    func execute(on component: Component<LoginState>, core: Coordinator) {
+    func execute(on component: Component<LoginState>, core: Core) {
         core.dispatch(LoginAction.addActivity)
         service.login(with: credentials) { (result) in
             core.dispatch(LoginAction.removeActivity)

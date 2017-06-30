@@ -14,7 +14,7 @@ class MovieListTests: XCTestCase {
     func testMovieListComponent() {
         let service = MockMoviesService(delay: nil)
         let component = MovieListComponent(service: service)
-        let c = Coordinator(rootComponent: component)
+        let c = Core(rootComponent: component)
         let r = Recorder<MovieListState>()
         component.subscribe(r)
         
