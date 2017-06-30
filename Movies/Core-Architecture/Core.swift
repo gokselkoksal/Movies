@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class Core: Dispatcher {
+final class Core {
     
     let navigationTree: Tree<AnyComponent>
     private(set) var middlewares: [Middleware]
@@ -20,13 +20,13 @@ final class Core: Dispatcher {
     }
     
     func dispatch(_ action: Action) {
-        self.willProcess(action)
-        self.navigationTree.forEach { $0.process(action) }
-        self.didProcess(action)
+        willProcess(action)
+        navigationTree.forEach { $0.process(action) }
+        didProcess(action)
     }
     
     func dispatch<C: Command>(_ command: C) {
-        self.navigationTree.forEach { (component) in
+        navigationTree.forEach { (component) in
             if let specificComponent = component as? Component<C.StateType> {
                 command.execute(on: specificComponent, core: self)
             }

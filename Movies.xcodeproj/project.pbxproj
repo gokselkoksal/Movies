@@ -55,7 +55,6 @@
 		62FC16771EE478B0002FC55A /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC16761EE478B0002FC55A /* Subscription.swift */; };
 		62FC16791EE478CA002FC55A /* Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC16781EE478CA002FC55A /* Middleware.swift */; };
 		62FC167B1EE48D55002FC55A /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC167A1EE48D55002FC55A /* State.swift */; };
-		62FC167D1EE48D5C002FC55A /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC167C1EE48D5C002FC55A /* Definitions.swift */; };
 		62FC167F1EE48D8D002FC55A /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC167E1EE48D8D002FC55A /* Action.swift */; };
 		62FC16831EE4937B002FC55A /* MovieListNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC16821EE4937B002FC55A /* MovieListNavigator.swift */; };
 		62FD0B351EC3B60A00F5B0E0 /* MovieListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD0B341EC3B60A00F5B0E0 /* MovieListState.swift */; };
@@ -126,7 +125,6 @@
 		62FC16761EE478B0002FC55A /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
 		62FC16781EE478CA002FC55A /* Middleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Middleware.swift; sourceTree = "<group>"; };
 		62FC167A1EE48D55002FC55A /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
-		62FC167C1EE48D5C002FC55A /* Definitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
 		62FC167E1EE48D8D002FC55A /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		62FC16821EE4937B002FC55A /* MovieListNavigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListNavigator.swift; sourceTree = "<group>"; };
 		62FD0B341EC3B60A00F5B0E0 /* MovieListState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListState.swift; sourceTree = "<group>"; };
@@ -307,7 +305,6 @@
 			isa = PBXGroup;
 			children = (
 				8F5BD3131ED85C07006387FB /* Tree.swift */,
-				62FC167C1EE48D5C002FC55A /* Definitions.swift */,
 				62FC167A1EE48D55002FC55A /* State.swift */,
 				62FC167E1EE48D8D002FC55A /* Action.swift */,
 				62FC16701EE47825002FC55A /* Core.swift */,
@@ -438,7 +435,6 @@
 				620741781EC8CE69007A0DD7 /* MockLoginService.swift in Sources */,
 				62F132631E34000A007662D0 /* MoviesService.swift in Sources */,
 				620741761EC8CDF1007A0DD7 /* LoginService.swift in Sources */,
-				62FC167D1EE48D5C002FC55A /* Definitions.swift in Sources */,
 				62FC16711EE47825002FC55A /* Core.swift in Sources */,
 				6236C00A1DBD008F002A61D6 /* AppDelegate.swift in Sources */,
 				62D9ECA31DBD14FC0070EEF1 /* CollectionChange.swift in Sources */,
