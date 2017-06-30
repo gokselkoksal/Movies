@@ -8,6 +8,4 @@
 
 import Foundation
 
-protocol State {
-    mutating func react(to action: Action)
-}
+protocol State { }

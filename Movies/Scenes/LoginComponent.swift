@@ -8,6 +8,20 @@
 
 import Foundation
 
+// MARK: - State
+
+struct LoginState: State {
+    
+    enum Change {
+        case loadingState
+        case error
+    }
+    
+    var loadingState = ActivityTracker()
+    var error: Error?
+    var changelog: [Change] = []
+}
+
 // MARK: - Actions
 
 enum LoginAction: Action {
@@ -43,8 +57,21 @@ class LoginComponent: Component<LoginState> {
         if let navigation = navigator.resolve(action) {
             commit(navigation)
         } else {
+            guard let action = action as? LoginAction else { return }
             var state = self.state
-            state.react(to: action)
+            state.changelog = []
+            switch action {
+            case .addActivity:
+                state.loadingState.addActivity()
+                state.changelog = [.loadingState]
+            case .removeActivity:
+                state.loadingState.removeActivity()
+                state.changelog = [.loadingState]
+            case .error(let error):
+                state.error = error
+                state.changelog = [.error]
+            }
+            
             commit(state)
         }
     }
@@ -72,6 +99,21 @@ class LoginCommand: Command {
             case .failure(let error):
                 core.dispatch(LoginAction.error(error))
             }
+        }
+    }
+}
+
+// MARK: - Helpers
+
+extension LoginState.Change: Equatable {
+    static func ==(a: LoginState.Change, b: LoginState.Change) -> Bool {
+        switch (a, b) {
+        case (.loadingState, .loadingState):
+            return true
+        case (.error, .error):
+            return true
+        default:
+            return false
         }
     }
 }

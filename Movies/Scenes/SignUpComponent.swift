@@ -8,9 +8,7 @@
 
 import Foundation
 
-struct SignUpState: State {
-    func react(to action: Action) { }
-}
+struct SignUpState: State { }
 
 class SignUpComponent: Component<SignUpState> {
     

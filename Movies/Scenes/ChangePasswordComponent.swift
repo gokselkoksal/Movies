@@ -8,9 +8,7 @@
 
 import Foundation
 
-struct ChangePasswordState: State {
-    func react(to action: Action) { }
-}
+struct ChangePasswordState: State { }
 
 class ChangePasswordComponent: Component<ChangePasswordState> {
     
