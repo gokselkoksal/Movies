@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseViewController: UIViewController {
+class BaseViewController: UIViewController, ViewComponent, ErrorHandler {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -20,7 +20,7 @@ class BaseViewController: UIViewController {
     func backButtonTapped() { }
 }
 
-class BaseTableViewController: UITableViewController {
+class BaseTableViewController: UITableViewController, ViewComponent, ErrorHandler {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -32,7 +32,7 @@ class BaseTableViewController: UITableViewController {
     func backButtonTapped() { }
 }
 
-class BaseCollectionViewController: UITableViewController {
+class BaseCollectionViewController: UITableViewController, ViewComponent, ErrorHandler {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

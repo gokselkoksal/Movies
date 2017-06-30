@@ -15,26 +15,23 @@ final class LoginViewController: BaseViewController {
     
     var component: LoginComponent!
     
-    private var updater: LoginUpdater!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Login"
         let mockCredentials = Credentials.directLogin
         usernameField.text = mockCredentials.username
         passwordField.text = mockCredentials.password
-        updater = LoginUpdater(view: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        component.subscribe(updater)
+        component.subscribe(self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if zap_isBeingRemoved {
-            component.unsubscribe(updater)
+            component.unsubscribe(self)
         }
     }
 
@@ -52,13 +49,6 @@ final class LoginViewController: BaseViewController {
     }
 }
 
-extension LoginViewController: LoginViewComponent {
-    
-    func setLoading(_ isLoading: Bool) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = isLoading
-    }
-}
-
 extension LoginViewController {
     
     static func instantiate(with component: LoginComponent) -> LoginViewController {
@@ -67,5 +57,29 @@ extension LoginViewController {
         let vc = sb.instantiateViewController(withIdentifier: id) as! LoginViewController
         vc.component = component
         return vc
+    }
+}
+
+// MARK: - Updates
+
+extension LoginViewController: Subscriber {
+    
+    func update(with state: LoginState) {
+        state.changelog.forEach { (change) in
+            switch change {
+            case .loadingState:
+                if state.loadingState.needsUpdate {
+                    setLoading(state.loadingState.isActive)
+                }
+            case .error:
+                if let error = state.error {
+                    handle(error: error)
+                }
+            }
+        }
+    }
+    
+    private func setLoading(_ isLoading: Bool) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = isLoading
     }
 }

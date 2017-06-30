@@ -13,7 +13,6 @@
 		620741781EC8CE69007A0DD7 /* MockLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620741771EC8CE69007A0DD7 /* MockLoginService.swift */; };
 		6207417A1EC8D316007A0DD7 /* Randomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620741791EC8D316007A0DD7 /* Randomizer.swift */; };
 		6207417C1EC8D398007A0DD7 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6207417B1EC8D398007A0DD7 /* Functions.swift */; };
-		620741821EC8DBED007A0DD7 /* LoginUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620741811EC8DBED007A0DD7 /* LoginUpdater.swift */; };
 		620741871EC90394007A0DD7 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620741861EC90394007A0DD7 /* ErrorHandler.swift */; };
 		6207418B1EC90879007A0DD7 /* MockCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6207418A1EC90879007A0DD7 /* MockCredentials.swift */; };
 		6207418F1EC90DF4007A0DD7 /* LoginNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6207418E1EC90DF4007A0DD7 /* LoginNavigator.swift */; };
@@ -36,7 +35,6 @@
 		629374C01E336A4000930DBC /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629374BF1E336A4000930DBC /* Property.swift */; };
 		629548D61EE2ECEC00E08567 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629548D51EE2ECEC00E08567 /* Recorder.swift */; };
 		62A325E31EC88E9700E890C7 /* MovieListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A325E21EC88E9700E890C7 /* MovieListViewController.swift */; };
-		62A325E91EC89E4C00E890C7 /* MovieListUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A325E81EC89E4C00E890C7 /* MovieListUpdater.swift */; };
 		62A325EC1EC89EFF00E890C7 /* MoviePresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A325EB1EC89EFF00E890C7 /* MoviePresentation.swift */; };
 		62BB70BE1ED26A3D003ED093 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BB70BD1ED26A3D003ED093 /* Component.swift */; };
 		62BB70C01ED26E69003ED093 /* LoginComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BB70BF1ED26E69003ED093 /* LoginComponent.swift */; };
@@ -57,6 +55,7 @@
 		62FC16831EE4937B002FC55A /* MovieListNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC16821EE4937B002FC55A /* MovieListNavigator.swift */; };
 		8F5BD3141ED85C07006387FB /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5BD3131ED85C07006387FB /* Tree.swift */; };
 		8FDF2A561F0659AA00A6F43B /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDF2A551F0659AA00A6F43B /* SubscriptionManager.swift */; };
+		8FDF2A5B1F06AB4C00A6F43B /* ViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDF2A5A1F06AB4C00A6F43B /* ViewComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,7 +75,6 @@
 		620741771EC8CE69007A0DD7 /* MockLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLoginService.swift; sourceTree = "<group>"; };
 		620741791EC8D316007A0DD7 /* Randomizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Randomizer.swift; sourceTree = "<group>"; };
 		6207417B1EC8D398007A0DD7 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
-		620741811EC8DBED007A0DD7 /* LoginUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUpdater.swift; sourceTree = "<group>"; };
 		620741861EC90394007A0DD7 /* ErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		6207418A1EC90879007A0DD7 /* MockCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCredentials.swift; sourceTree = "<group>"; };
 		6207418E1EC90DF4007A0DD7 /* LoginNavigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginNavigator.swift; sourceTree = "<group>"; };
@@ -103,7 +101,6 @@
 		629374BF1E336A4000930DBC /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
 		629548D51EE2ECEC00E08567 /* Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		62A325E21EC88E9700E890C7 /* MovieListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListViewController.swift; sourceTree = "<group>"; };
-		62A325E81EC89E4C00E890C7 /* MovieListUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListUpdater.swift; sourceTree = "<group>"; };
 		62A325EB1EC89EFF00E890C7 /* MoviePresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviePresentation.swift; sourceTree = "<group>"; };
 		62BB70BD1ED26A3D003ED093 /* Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		62BB70BF1ED26E69003ED093 /* LoginComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginComponent.swift; sourceTree = "<group>"; };
@@ -124,6 +121,7 @@
 		62FC16821EE4937B002FC55A /* MovieListNavigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListNavigator.swift; sourceTree = "<group>"; };
 		8F5BD3131ED85C07006387FB /* Tree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
 		8FDF2A551F0659AA00A6F43B /* SubscriptionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
+		8FDF2A5A1F06AB4C00A6F43B /* ViewComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				620741901EC90FF2007A0DD7 /* MoviesCore.swift */,
+				8FDF2A5A1F06AB4C00A6F43B /* ViewComponent.swift */,
 				623058851EEAE08E00824720 /* LoggerMiddleware.swift */,
 				62BB70BF1ED26E69003ED093 /* LoginComponent.swift */,
 				6207418E1EC90DF4007A0DD7 /* LoginNavigator.swift */,
@@ -273,12 +272,10 @@
 			children = (
 				6243F5E91EEF26D500243C4D /* BaseViewController.swift */,
 				62D9EC9D1DBD12B30070EEF1 /* Launcher.swift */,
-				620741811EC8DBED007A0DD7 /* LoginUpdater.swift */,
 				62D9EC8C1DBD01A10070EEF1 /* LoginViewController.swift */,
 				624EB2A81ED4D9B6008C1C1F /* SignUpViewController.swift */,
 				624EB2B21ED4DC24008C1C1F /* ChangePasswordViewController.swift */,
 				624EB2AE1ED4DA4C008C1C1F /* ForgotPasswordViewController.swift */,
-				62A325E81EC89E4C00E890C7 /* MovieListUpdater.swift */,
 				62A325E21EC88E9700E890C7 /* MovieListViewController.swift */,
 			);
 			path = UI;
@@ -439,7 +436,6 @@
 				620741911EC90FF2007A0DD7 /* MoviesCore.swift in Sources */,
 				6207417C1EC8D398007A0DD7 /* Functions.swift in Sources */,
 				8FDF2A561F0659AA00A6F43B /* SubscriptionManager.swift in Sources */,
-				620741821EC8DBED007A0DD7 /* LoginUpdater.swift in Sources */,
 				620741721EC8B2D7007A0DD7 /* Result.swift in Sources */,
 				629374C01E336A4000930DBC /* Property.swift in Sources */,
 				62A325E31EC88E9700E890C7 /* MovieListViewController.swift in Sources */,
@@ -462,7 +458,7 @@
 				8F5BD3141ED85C07006387FB /* Tree.swift in Sources */,
 				6207417A1EC8D316007A0DD7 /* Randomizer.swift in Sources */,
 				62D9ECA41DBD14FC0070EEF1 /* ActivityTracker.swift in Sources */,
-				62A325E91EC89E4C00E890C7 /* MovieListUpdater.swift in Sources */,
+				8FDF2A5B1F06AB4C00A6F43B /* ViewComponent.swift in Sources */,
 				624EB2AB1ED4D9C5008C1C1F /* SignUpComponent.swift in Sources */,
 				620741741EC8BF6F007A0DD7 /* UIViewController+Removal.swift in Sources */,
 			);

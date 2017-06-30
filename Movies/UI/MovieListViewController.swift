@@ -14,7 +14,6 @@ final class MovieListViewController: BaseTableViewController {
         static let cellReuseID = "Cell"
     }
     
-    var updater: MovieListUpdater!
     var isFirstRun = true
     
     var component: MovieListComponent!
@@ -23,12 +22,11 @@ final class MovieListViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Movies"
-        updater = MovieListUpdater(view: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        component.subscribe(updater)
+        component.subscribe(self)
         if isFirstRun {
             isFirstRun = false
             core.dispatch(component.fetchCommand())
@@ -38,7 +36,7 @@ final class MovieListViewController: BaseTableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if zap_isBeingRemoved {
-            component.unsubscribe(updater)
+            component.unsubscribe(self)
         }
     }
     
@@ -127,13 +125,6 @@ final class MovieListViewController: BaseTableViewController {
     }
 }
 
-extension MovieListViewController: MovieListViewComponent {
-    
-    func setLoading(_ isLoading: Bool) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = isLoading
-    }
-}
-
 extension MovieListViewController {
     
     static func instantiate(with component: MovieListComponent) -> MovieListViewController {
@@ -142,5 +133,42 @@ extension MovieListViewController {
         let vc = sb.instantiateViewController(withIdentifier: id) as! MovieListViewController
         vc.component = component
         return vc
+    }
+}
+
+// MARK: - Updates
+
+struct MovieListPresentation {
+    
+    var movies: [MoviePresentation] = []
+    
+    mutating func update(with state: MovieListState) {
+        movies = state.movies.map { MoviePresentation(movie: $0) }
+    }
+}
+
+extension MovieListViewController: Subscriber {
+    
+    func update(with state: MovieListState) {
+        presentation.update(with: state)
+        state.changelog.forEach { handle(state: state, change: $0) }
+    }
+    
+    private func handle(state: MovieListState, change: MovieListState.Change) {
+        switch change {
+        case .loadingState:
+            if state.loadingState.needsUpdate {
+                setLoading(state.loadingState.isActive)
+            }
+        case .movies(let collectionChange):
+            tableView.applyCollectionChange(collectionChange, toSection: 0, withAnimation: .automatic)
+        case .error:
+            guard let error = state.error else { return }
+            handle(error: error)
+        }
+    }
+    
+    private func setLoading(_ isLoading: Bool) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = isLoading
     }
 }
