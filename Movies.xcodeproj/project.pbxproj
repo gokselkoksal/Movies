@@ -60,6 +60,7 @@
 		62FC16831EE4937B002FC55A /* MovieListNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC16821EE4937B002FC55A /* MovieListNavigator.swift */; };
 		62FD0B351EC3B60A00F5B0E0 /* MovieListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD0B341EC3B60A00F5B0E0 /* MovieListState.swift */; };
 		8F5BD3141ED85C07006387FB /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5BD3131ED85C07006387FB /* Tree.swift */; };
+		8FDF2A561F0659AA00A6F43B /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDF2A551F0659AA00A6F43B /* SubscriptionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +131,7 @@
 		62FC16821EE4937B002FC55A /* MovieListNavigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListNavigator.swift; sourceTree = "<group>"; };
 		62FD0B341EC3B60A00F5B0E0 /* MovieListState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListState.swift; sourceTree = "<group>"; };
 		8F5BD3131ED85C07006387FB /* Tree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
+		8FDF2A551F0659AA00A6F43B /* SubscriptionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,6 +312,7 @@
 				62FC167E1EE48D8D002FC55A /* Action.swift */,
 				62FC16701EE47825002FC55A /* Coordinator.swift */,
 				62BB70BD1ED26A3D003ED093 /* Flow.swift */,
+				8FDF2A551F0659AA00A6F43B /* SubscriptionManager.swift */,
 				62FC166E1EE47806002FC55A /* Navigation.swift */,
 				62FC16761EE478B0002FC55A /* Subscription.swift */,
 				62FC16781EE478CA002FC55A /* Middleware.swift */,
@@ -441,6 +444,7 @@
 				62D9ECA31DBD14FC0070EEF1 /* CollectionChange.swift in Sources */,
 				620741911EC90FF2007A0DD7 /* MoviesCoordinator.swift in Sources */,
 				6207417C1EC8D398007A0DD7 /* Functions.swift in Sources */,
+				8FDF2A561F0659AA00A6F43B /* SubscriptionManager.swift in Sources */,
 				620741821EC8DBED007A0DD7 /* LoginUpdater.swift in Sources */,
 				620741721EC8B2D7007A0DD7 /* Result.swift in Sources */,
 				629374C01E336A4000930DBC /* Property.swift in Sources */,

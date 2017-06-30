@@ -25,20 +25,7 @@ class Flow<StateType: State>: AnyFlow {
     private(set) var state: StateType
     let navigator: Navigator?
     
-    private var subscriptionSyncQueue = DispatchQueue(label: "flow.subscription.sync")
-    private var _subscriptions: [Subscription] = []
-    private var subscriptions: [Subscription] {
-        get {
-            return subscriptionSyncQueue.sync {
-                return self._subscriptions
-            }
-        }
-        set {
-            subscriptionSyncQueue.sync {
-                self._subscriptions = newValue
-            }
-        }
-    }
+    let subscriptionManager = SubscriptionManager<StateType>()
     
     init(id: FlowID, state: StateType, navigator: Navigator? = nil) {
         self.id = id
@@ -48,42 +35,22 @@ class Flow<StateType: State>: AnyFlow {
     
     func process(_ action: Action) -> Navigation? {
         if let action = action as? NavigatorAction {
-            let request = self.navigator?.resolve(action)
-            self.notifySubscribers(with: request)
-            return request
+            let navigation = navigator?.resolve(action)
+            subscriptionManager.publish(navigation)
+            return navigation
         } else {
-            self.state.react(to: action)
-            self.notifySubscribers(with: self.state)
+            state.react(to: action)
+            subscriptionManager.publish(state)
             return nil
         }
     }
     
     func subscribe<S: Subscriber>(_ subscriber: S, on queue: DispatchQueue = .main) where S.StateType == StateType {
-        guard !self.subscriptions.contains(where: { $0.subscriber === subscriber }) else { return }
-        let subscription = Subscription(subscriber: subscriber, queue: queue)
-        self.subscriptions.append(subscription)
+        subscriptionManager.subscribe(subscriber, on: queue)
     }
     
     func unsubscribe<S: Subscriber>(_ subscriber: S) where S.StateType == StateType {
-        if let subscriptionIndex = subscriptions.index(where: { $0.subscriber === subscriber }) {
-            subscriptions.remove(at: subscriptionIndex)
-        }
-    }
-    
-    private func notifySubscribers(with newState: StateType) {
-        forEachSubscription { $0.notify(with: newState) }
-    }
-    
-    private func notifySubscribers(with navigation: Navigation?) {
-        guard let navigation = navigation else { return }
-        forEachSubscription { $0.notify(with: navigation) }
-    }
-    
-    private func forEachSubscription(_ block: (Subscription) -> Void) {
-        subscriptions = subscriptions.filter { $0.subscriber != nil }
-        for subscription in subscriptions {
-            block(subscription)
-        }
+        subscriptionManager.unsubscribe(subscriber)
     }
 }
 
