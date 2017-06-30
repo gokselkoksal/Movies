@@ -24,16 +24,6 @@ let coordinator: Coordinator = {
     )
 }()
 
-// MARK: - Flow IDs
-
-enum MoviesFlowID: FlowID {
-    case login
-    case forgotPassword
-    case changePassword
-    case signUp
-    case movieList
-}
-
 // MARK: - ViewComponent
 
 protocol ViewComponent: NavigationPerformer { }

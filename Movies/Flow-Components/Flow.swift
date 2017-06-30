@@ -12,7 +12,6 @@ protocol FlowID { }
 
 protocol AnyFlow: class {
     weak var coordinator: Coordinator? { get set }
-    var id: FlowID { get }
     var navigator: Navigator? { get }
     func process(_ action: Action) -> Navigation?
 }
@@ -21,14 +20,12 @@ class Flow<StateType: State>: AnyFlow {
     
     weak var coordinator: Coordinator?
     
-    let id: FlowID
     private(set) var state: StateType
     let navigator: Navigator?
     
     let subscriptionManager = SubscriptionManager<StateType>()
     
-    init(id: FlowID, state: StateType, navigator: Navigator? = nil) {
-        self.id = id
+    init(state: StateType, navigator: Navigator? = nil) {
         self.state = state
         self.navigator = navigator
     }

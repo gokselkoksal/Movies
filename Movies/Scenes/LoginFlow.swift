@@ -30,7 +30,7 @@ class LoginFlow: Flow<LoginState> {
     
     init(service: LoginService, state: LoginState, navigator: Navigator) {
         self.service = service
-        super.init(id: MoviesFlowID.login, state: state, navigator: navigator)
+        super.init(state: state, navigator: navigator)
     }
     
     func loginCommand(with credentials: Credentials) -> LoginCommand {

@@ -32,7 +32,7 @@ class MovieListFlow: Flow<MovieListState> {
     
     init(service: MoviesService, navigator: Navigator) {
         self.service = service
-        super.init(id: MoviesFlowID.movieList, state: MovieListState(), navigator: navigator)
+        super.init(state: MovieListState(), navigator: navigator)
     }
     
     func fetchCommand() -> MovieListFetchCommand {

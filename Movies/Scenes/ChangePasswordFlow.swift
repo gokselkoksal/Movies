@@ -15,6 +15,6 @@ struct ChangePasswordState: State {
 class ChangePasswordFlow: Flow<ChangePasswordState> {
     
     convenience init() {
-        self.init(id: MoviesFlowID.changePassword, state: ChangePasswordState())
+        self.init(state: ChangePasswordState())
     }
 }
