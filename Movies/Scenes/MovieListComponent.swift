@@ -29,10 +29,22 @@ enum MovieListNavigatorAction: NavigatorAction {
 class MovieListComponent: Component<MovieListState> {
     
     let service: MoviesService
+    let navigator: Navigator
     
-    init(service: MoviesService, navigator: Navigator? = nil) {
+    init(service: MoviesService, navigator: Navigator) {
         self.service = service
-        super.init(state: MovieListState(), navigator: navigator)
+        self.navigator = navigator
+        super.init(state: MovieListState())
+    }
+    
+    override func process(_ action: Action) {
+        if let navigation = navigator.resolve(action) {
+            commit(navigation)
+        } else {
+            var state = self.state
+            state.react(to: action)
+            commit(state)
+        }
     }
     
     func fetchCommand() -> MovieListFetchCommand {
@@ -50,15 +62,15 @@ class MovieListFetchCommand: Command {
         self.service = service
     }
     
-    func execute(on component: Component<MovieListState>) {
-        component.dispatch(MovieListAction.addActivity)
+    func execute(on component: Component<MovieListState>, core: Coordinator) {
+        core.dispatch(MovieListAction.addActivity)
         service.fetchMovies { (result) in
-            component.dispatch(MovieListAction.removeActivity)
+            core.dispatch(MovieListAction.removeActivity)
             switch result {
             case .success(let movies):
-                component.dispatch(MovieListAction.reloadMovies(movies))
+                core.dispatch(MovieListAction.reloadMovies(movies))
             case .failure(let error):
-                component.dispatch(MovieListAction.error(error))
+                core.dispatch(MovieListAction.error(error))
             }
         }
     }

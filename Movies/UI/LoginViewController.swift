@@ -40,15 +40,15 @@ final class LoginViewController: BaseViewController {
 
     @IBAction func loginButtonTapped(_ sender: UIButton) {
         let credentials = Credentials(username: usernameField.text, password: passwordField.text)
-        component.dispatch(component.loginCommand(with: credentials))
+        core.dispatch(component.loginCommand(with: credentials))
     }
     
     @IBAction func forgotPasswordButtonTapped(_ sender: UIButton) {
-        component.dispatch(LoginNavigatorAction.forgotPassword)
+        core.dispatch(LoginNavigatorAction.forgotPassword)
     }
     
     @IBAction func signUpTapped(_ sender: AnyObject) {
-        component.dispatch(LoginNavigatorAction.signUp)
+        core.dispatch(LoginNavigatorAction.signUp)
     }
 }
 

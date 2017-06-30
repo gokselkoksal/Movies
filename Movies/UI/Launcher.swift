@@ -13,7 +13,7 @@ class Launcher {
     static func launch(with window: UIWindow?) {
         if let nc = window?.rootViewController as? UINavigationController,
            let loginVC = nc.viewControllers.first as? LoginViewController {
-            loginVC.component = coordinator.navigationTree.root.value as! LoginComponent
+            loginVC.component = core.navigationTree.root.value as! LoginComponent
         }
     }
 }

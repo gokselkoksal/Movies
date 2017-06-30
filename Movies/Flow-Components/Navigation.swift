@@ -12,6 +12,13 @@ protocol Navigator {
     func resolve(_ action: NavigatorAction) -> Navigation?
 }
 
+extension Navigator {
+    func resolve(_ action: Action) -> Navigation? {
+        guard let action = action as? NavigatorAction else { return nil }
+        return resolve(action)
+    }
+}
+
 protocol Navigation {
     typealias Creation = (parent: AnyComponent, component: AnyComponent)
     var creations: [Creation] { get }

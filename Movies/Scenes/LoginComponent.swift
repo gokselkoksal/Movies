@@ -27,14 +27,26 @@ enum LoginNavigatorAction: NavigatorAction {
 class LoginComponent: Component<LoginState> {
     
     let service: LoginService
+    let navigator: Navigator
     
     init(service: LoginService, state: LoginState, navigator: Navigator) {
         self.service = service
-        super.init(state: state, navigator: navigator)
+        self.navigator = navigator
+        super.init(state: state)
     }
     
     func loginCommand(with credentials: Credentials) -> LoginCommand {
         return LoginCommand(service: service, credentials: credentials)
+    }
+    
+    override func process(_ action: Action) {
+        if let navigation = navigator.resolve(action) {
+            commit(navigation)
+        } else {
+            var state = self.state
+            state.react(to: action)
+            commit(state)
+        }
     }
 }
 
@@ -50,15 +62,15 @@ class LoginCommand: Command {
         self.credentials = credentials
     }
     
-    func execute(on component: Component<LoginState>) {
-        component.dispatch(LoginAction.addActivity)
+    func execute(on component: Component<LoginState>, core: Coordinator) {
+        core.dispatch(LoginAction.addActivity)
         service.login(with: credentials) { (result) in
-            component.dispatch(LoginAction.removeActivity)
+            core.dispatch(LoginAction.removeActivity)
             switch result {
             case .success(let response):
-                component.dispatch(LoginNavigatorAction.login(response))
+                core.dispatch(LoginNavigatorAction.login(response))
             case .failure(let error):
-                component.dispatch(LoginAction.error(error))
+                core.dispatch(LoginAction.error(error))
             }
         }
     }

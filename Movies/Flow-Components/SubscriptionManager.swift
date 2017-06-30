@@ -41,8 +41,7 @@ class SubscriptionManager<StateType: State> {
         forEachSubscription { $0.notify(with: newState) }
     }
     
-    func publish(_ navigation: Navigation?) {
-        guard let navigation = navigation else { return }
+    func publish(_ navigation: Navigation) {
         forEachSubscription { $0.notify(with: navigation) }
     }
     

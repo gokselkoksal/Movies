@@ -8,36 +8,33 @@
 
 import Foundation
 
+protocol ComponentNavigationDelegate: class {
+    func component(_ component: AnyComponent, willFireNavigation navigation: Navigation)
+}
+
 protocol AnyComponent: class {
-    weak var coordinator: Coordinator? { get set }
-    var navigator: Navigator? { get }
-    func process(_ action: Action) -> Navigation?
+    weak var navigationDelegate: ComponentNavigationDelegate? { get set }
+    var anyState: State { get }
+    func process(_ action: Action)
+    func commit(_ newState: State)
+    func commit(_ navigation: Navigation)
 }
 
 class Component<StateType: State>: AnyComponent {
     
-    weak var coordinator: Coordinator?
+    weak var navigationDelegate: ComponentNavigationDelegate?
     
     private(set) var state: StateType
-    let navigator: Navigator?
+    var anyState: State { return state }
     
-    let subscriptionManager = SubscriptionManager<StateType>()
+    private let subscriptionManager = SubscriptionManager<StateType>()
     
-    init(state: StateType, navigator: Navigator? = nil) {
+    init(state: StateType) {
         self.state = state
-        self.navigator = navigator
     }
     
-    func process(_ action: Action) -> Navigation? {
-        if let action = action as? NavigatorAction {
-            let navigation = navigator?.resolve(action)
-            subscriptionManager.publish(navigation)
-            return navigation
-        } else {
-            state.react(to: action)
-            subscriptionManager.publish(state)
-            return nil
-        }
+    func process(_ action: Action) {
+        // Should be implemented by subclasses. Does nothing by default.
     }
     
     func subscribe<S: Subscriber>(_ subscriber: S, on queue: DispatchQueue = .main) where S.StateType == StateType {
@@ -47,15 +44,15 @@ class Component<StateType: State>: AnyComponent {
     func unsubscribe<S: Subscriber>(_ subscriber: S) where S.StateType == StateType {
         subscriptionManager.unsubscribe(subscriber)
     }
-}
-
-extension Component: Dispatcher {
     
-    func dispatch(_ action: Action) {
-        coordinator?.dispatch(action)
+    func commit(_ newState: State) {
+        guard let newState = newState as? StateType else { return }
+        self.state = newState
+        subscriptionManager.publish(newState)
     }
     
-    func dispatch<C>(_ command: C) where C : Command {
-        coordinator?.dispatch(command)
+    func commit(_ navigation: Navigation) {
+        navigationDelegate?.component(self, willFireNavigation: navigation)
+        subscriptionManager.publish(navigation)
     }
 }

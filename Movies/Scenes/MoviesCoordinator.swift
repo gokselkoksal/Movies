@@ -1,5 +1,5 @@
 //
-//  MoviesStore.swift
+//  MoviesCoordinator.swift
 //  Movies
 //
 //  Created by Göksel Köksal on 14/05/2017.
@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - Coordinator
 
-let coordinator: Coordinator = {
+let core: Coordinator = {
     let navigator = LoginNavigator()
     let loginComponent = LoginComponent(
         service: MockLoginService(),

@@ -16,31 +16,19 @@ final class Coordinator: Dispatcher {
     init(rootComponent: AnyComponent, middlewares: [Middleware] = []) {
         self.navigationTree = Tree(rootComponent, equalityChecker: { $0 === $1 })
         self.middlewares = middlewares
-        rootComponent.coordinator = self
+        rootComponent.navigationDelegate = self
     }
     
     func dispatch(_ action: Action) {
         self.willProcess(action)
-        self.navigationTree.forEach { (component) in
-            if let navigation = component.process(action) {
-                for componentToDelete in navigation.deletions {
-                    self.navigationTree.remove(componentToDelete)
-                }
-                for (parent, newComponent) in navigation.creations {
-                    newComponent.coordinator = self
-                    if self.navigationTree.search(newComponent) == nil {
-                        self.navigationTree.search(parent)?.add(newComponent)
-                    }
-                }
-            }
-        }
+        self.navigationTree.forEach { $0.process(action) }
         self.didProcess(action)
     }
     
     func dispatch<C: Command>(_ command: C) {
         self.navigationTree.forEach { (component) in
             if let specificComponent = component as? Component<C.StateType> {
-                command.execute(on: specificComponent)
+                command.execute(on: specificComponent, core: self)
             }
         }
     }
@@ -51,5 +39,20 @@ final class Coordinator: Dispatcher {
     
     private func didProcess(_ action: Action) {
         middlewares.forEach { $0.didProcess(action) }
+    }
+}
+
+extension Coordinator: ComponentNavigationDelegate {
+    
+    func component(_ component: AnyComponent, willFireNavigation navigation: Navigation) {
+        for componentToDelete in navigation.deletions {
+            self.navigationTree.remove(componentToDelete)
+        }
+        for (parent, newComponent) in navigation.creations {
+            newComponent.navigationDelegate = self
+            if self.navigationTree.search(newComponent) == nil {
+                self.navigationTree.search(parent)?.add(newComponent)
+            }
+        }
     }
 }

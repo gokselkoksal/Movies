@@ -31,7 +31,7 @@ final class MovieListViewController: BaseTableViewController {
         component.subscribe(updater)
         if isFirstRun {
             isFirstRun = false
-            component.dispatch(component.fetchCommand())
+            core.dispatch(component.fetchCommand())
         }
     }
     
@@ -43,7 +43,7 @@ final class MovieListViewController: BaseTableViewController {
     }
     
     @IBAction func logoutButtonTapped(_ sender: UIBarButtonItem) {
-        component.dispatch(MovieListNavigatorAction.logout)
+        core.dispatch(MovieListNavigatorAction.logout)
     }
     
     // MARK: Actions
@@ -69,9 +69,8 @@ final class MovieListViewController: BaseTableViewController {
             field.keyboardType = .decimalPad
         }
         
-        let addAction = UIAlertAction(title: "Add", style: .default) { [weak self] (action) in
-            guard let strongSelf = self,
-                let fields = alert.textFields,
+        let addAction = UIAlertAction(title: "Add", style: .default) { (action) in
+            guard let fields = alert.textFields,
                 let name = fields[0].text,
                 let yearString = fields[1].text,
                 let ratingString = fields[2].text,
@@ -79,7 +78,7 @@ final class MovieListViewController: BaseTableViewController {
                 let rating = Float(ratingString)
             else { return }
             let movie = Movie(name: name, year: year, rating: rating)
-            strongSelf.component.dispatch(MovieListAction.addMovie(movie))
+            core.dispatch(MovieListAction.addMovie(movie))
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -99,7 +98,7 @@ final class MovieListViewController: BaseTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        component.dispatch(MovieListAction.removeMovie(index: indexPath.row))
+        core.dispatch(MovieListAction.removeMovie(index: indexPath.row))
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -123,7 +122,7 @@ final class MovieListViewController: BaseTableViewController {
         let movies = component.state.movies
         let index = indexPath.row
         if index < movies.count {
-            component.dispatch(MovieListNavigatorAction.detail(movies[index]))
+            core.dispatch(MovieListNavigatorAction.detail(movies[index]))
         }
     }
 }
