@@ -13,9 +13,9 @@ protocol Navigator {
 }
 
 protocol Navigation {
-    typealias Creation = (parent: AnyFlow, flow: AnyFlow)
+    typealias Creation = (parent: AnyComponent, component: AnyComponent)
     var creations: [Creation] { get }
-    var deletions: [AnyFlow] { get }
+    var deletions: [AnyComponent] { get }
 }
 
 protocol NavigationPerformer {
@@ -26,31 +26,31 @@ protocol NavigationPerformer {
 
 enum BasicNavigation: Navigation {
     
-    case push(AnyFlow, from: AnyFlow)
-    case pop(AnyFlow)
-    case present(AnyFlow, from: AnyFlow)
-    case dismiss(AnyFlow)
+    case push(AnyComponent, from: AnyComponent)
+    case pop(AnyComponent)
+    case present(AnyComponent, from: AnyComponent)
+    case dismiss(AnyComponent)
     
     var creations: [Navigation.Creation] {
         return proposedChanges().creations
     }
     
-    var deletions: [AnyFlow] {
+    var deletions: [AnyComponent] {
         return proposedChanges().deletions
     }
     
-    private func proposedChanges() -> (creations: [Creation], deletions: [AnyFlow]) {
+    private func proposedChanges() -> (creations: [Creation], deletions: [AnyComponent]) {
         var creations: [Creation] = []
-        var deletions: [AnyFlow] = []
+        var deletions: [AnyComponent] = []
         switch self {
-        case .push(let flow, from: let parent):
-            creations.append((parent, flow))
-        case .pop(let flow):
-            deletions.append(flow)
-        case .present(let flow, from: let parent):
-            creations.append((parent, flow))
-        case .dismiss(let flow):
-            deletions.append(flow)
+        case .push(let component, from: let parent):
+            creations.append((parent, component))
+        case .pop(let component):
+            deletions.append(component)
+        case .present(let component, from: let parent):
+            creations.append((parent, component))
+        case .dismiss(let component):
+            deletions.append(component)
         }
         return (creations, deletions)
     }

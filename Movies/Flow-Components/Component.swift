@@ -1,5 +1,5 @@
 //
-//  Flow.swift
+//  Component.swift
 //  Movies
 //
 //  Created by Göksel Köksal on 22/05/2017.
@@ -8,15 +8,13 @@
 
 import Foundation
 
-protocol FlowID { }
-
-protocol AnyFlow: class {
+protocol AnyComponent: class {
     weak var coordinator: Coordinator? { get set }
     var navigator: Navigator? { get }
     func process(_ action: Action) -> Navigation?
 }
 
-class Flow<StateType: State>: AnyFlow {
+class Component<StateType: State>: AnyComponent {
     
     weak var coordinator: Coordinator?
     
@@ -51,7 +49,7 @@ class Flow<StateType: State>: AnyFlow {
     }
 }
 
-extension Flow: Dispatcher {
+extension Component: Dispatcher {
     
     func dispatch(_ action: Action) {
         coordinator?.dispatch(action)

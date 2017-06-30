@@ -13,7 +13,7 @@ final class LoginViewController: BaseViewController {
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
-    var flow: LoginFlow!
+    var component: LoginComponent!
     
     private var updater: LoginUpdater!
     
@@ -28,27 +28,27 @@ final class LoginViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        flow.subscribe(updater)
+        component.subscribe(updater)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if zap_isBeingRemoved {
-            flow.unsubscribe(updater)
+            component.unsubscribe(updater)
         }
     }
 
     @IBAction func loginButtonTapped(_ sender: UIButton) {
         let credentials = Credentials(username: usernameField.text, password: passwordField.text)
-        flow.dispatch(flow.loginCommand(with: credentials))
+        component.dispatch(component.loginCommand(with: credentials))
     }
     
     @IBAction func forgotPasswordButtonTapped(_ sender: UIButton) {
-        flow.dispatch(LoginNavigatorAction.forgotPassword)
+        component.dispatch(LoginNavigatorAction.forgotPassword)
     }
     
     @IBAction func signUpTapped(_ sender: AnyObject) {
-        flow.dispatch(LoginNavigatorAction.signUp)
+        component.dispatch(LoginNavigatorAction.signUp)
     }
 }
 
@@ -61,11 +61,11 @@ extension LoginViewController: LoginViewComponent {
 
 extension LoginViewController {
     
-    static func instantiate(with flow: LoginFlow) -> LoginViewController {
+    static func instantiate(with component: LoginComponent) -> LoginViewController {
         let sb = Storyboard.main
         let id = String(describing: self)
         let vc = sb.instantiateViewController(withIdentifier: id) as! LoginViewController
-        vc.flow = flow
+        vc.component = component
         return vc
     }
 }

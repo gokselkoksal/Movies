@@ -10,26 +10,26 @@ import Foundation
 
 final class Coordinator: Dispatcher {
     
-    let navigationTree: Tree<AnyFlow>
+    let navigationTree: Tree<AnyComponent>
     private(set) var middlewares: [Middleware]
     
-    init(rootFlow: AnyFlow, middlewares: [Middleware] = []) {
-        self.navigationTree = Tree(rootFlow, equalityChecker: { $0 === $1 })
+    init(rootComponent: AnyComponent, middlewares: [Middleware] = []) {
+        self.navigationTree = Tree(rootComponent, equalityChecker: { $0 === $1 })
         self.middlewares = middlewares
-        rootFlow.coordinator = self
+        rootComponent.coordinator = self
     }
     
     func dispatch(_ action: Action) {
         self.willProcess(action)
-        self.navigationTree.forEach { (flow) in
-            if let navigation = flow.process(action) {
-                for flowToDelete in navigation.deletions {
-                    self.navigationTree.remove(flowToDelete)
+        self.navigationTree.forEach { (component) in
+            if let navigation = component.process(action) {
+                for componentToDelete in navigation.deletions {
+                    self.navigationTree.remove(componentToDelete)
                 }
-                for (parent, newFlow) in navigation.creations {
-                    newFlow.coordinator = self
-                    if self.navigationTree.search(newFlow) == nil {
-                        self.navigationTree.search(parent)?.add(newFlow)
+                for (parent, newComponent) in navigation.creations {
+                    newComponent.coordinator = self
+                    if self.navigationTree.search(newComponent) == nil {
+                        self.navigationTree.search(parent)?.add(newComponent)
                     }
                 }
             }
@@ -38,9 +38,9 @@ final class Coordinator: Dispatcher {
     }
     
     func dispatch<C: Command>(_ command: C) {
-        self.navigationTree.forEach { (flow) in
-            if let specificFlow = flow as? Flow<C.StateType> {
-                command.execute(on: specificFlow, coordinator: self)
+        self.navigationTree.forEach { (component) in
+            if let specificComponent = component as? Component<C.StateType> {
+                command.execute(on: specificComponent)
             }
         }
     }

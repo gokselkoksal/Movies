@@ -28,19 +28,19 @@
 		6243F5EA1EEF26D500243C4D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6243F5E91EEF26D500243C4D /* BaseViewController.swift */; };
 		624EB2A21ED4CD93008C1C1F /* UIStoryboard+Movies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624EB2A11ED4CD93008C1C1F /* UIStoryboard+Movies.swift */; };
 		624EB2A91ED4D9B6008C1C1F /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624EB2A81ED4D9B6008C1C1F /* SignUpViewController.swift */; };
-		624EB2AB1ED4D9C5008C1C1F /* SignUpFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624EB2AA1ED4D9C5008C1C1F /* SignUpFlow.swift */; };
-		624EB2AD1ED4DA3E008C1C1F /* ForgotPasswordFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624EB2AC1ED4DA3E008C1C1F /* ForgotPasswordFlow.swift */; };
+		624EB2AB1ED4D9C5008C1C1F /* SignUpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624EB2AA1ED4D9C5008C1C1F /* SignUpComponent.swift */; };
+		624EB2AD1ED4DA3E008C1C1F /* ForgotPasswordComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624EB2AC1ED4DA3E008C1C1F /* ForgotPasswordComponent.swift */; };
 		624EB2AF1ED4DA4C008C1C1F /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624EB2AE1ED4DA4C008C1C1F /* ForgotPasswordViewController.swift */; };
-		624EB2B11ED4DBF7008C1C1F /* ChangePasswordFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624EB2B01ED4DBF7008C1C1F /* ChangePasswordFlow.swift */; };
+		624EB2B11ED4DBF7008C1C1F /* ChangePasswordComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624EB2B01ED4DBF7008C1C1F /* ChangePasswordComponent.swift */; };
 		624EB2B31ED4DC24008C1C1F /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624EB2B21ED4DC24008C1C1F /* ChangePasswordViewController.swift */; };
-		624EB2B51ED4DD96008C1C1F /* MovieListFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624EB2B41ED4DD96008C1C1F /* MovieListFlow.swift */; };
+		624EB2B51ED4DD96008C1C1F /* MovieListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624EB2B41ED4DD96008C1C1F /* MovieListComponent.swift */; };
 		629374C01E336A4000930DBC /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629374BF1E336A4000930DBC /* Property.swift */; };
 		629548D61EE2ECEC00E08567 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629548D51EE2ECEC00E08567 /* Recorder.swift */; };
 		62A325E31EC88E9700E890C7 /* MovieListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A325E21EC88E9700E890C7 /* MovieListViewController.swift */; };
 		62A325E91EC89E4C00E890C7 /* MovieListUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A325E81EC89E4C00E890C7 /* MovieListUpdater.swift */; };
 		62A325EC1EC89EFF00E890C7 /* MoviePresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A325EB1EC89EFF00E890C7 /* MoviePresentation.swift */; };
-		62BB70BE1ED26A3D003ED093 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BB70BD1ED26A3D003ED093 /* Flow.swift */; };
-		62BB70C01ED26E69003ED093 /* LoginFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BB70BF1ED26E69003ED093 /* LoginFlow.swift */; };
+		62BB70BE1ED26A3D003ED093 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BB70BD1ED26A3D003ED093 /* Component.swift */; };
+		62BB70C01ED26E69003ED093 /* LoginComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BB70BF1ED26E69003ED093 /* LoginComponent.swift */; };
 		62D9EC8D1DBD01A10070EEF1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9EC8C1DBD01A10070EEF1 /* LoginViewController.swift */; };
 		62D9EC981DBD03830070EEF1 /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9EC971DBD03830070EEF1 /* DummyViewController.swift */; };
 		62D9EC9E1DBD12B30070EEF1 /* Launcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9EC9D1DBD12B30070EEF1 /* Launcher.swift */; };
@@ -99,19 +99,19 @@
 		6243F5E91EEF26D500243C4D /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		624EB2A11ED4CD93008C1C1F /* UIStoryboard+Movies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Movies.swift"; sourceTree = "<group>"; };
 		624EB2A81ED4D9B6008C1C1F /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		624EB2AA1ED4D9C5008C1C1F /* SignUpFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFlow.swift; sourceTree = "<group>"; };
-		624EB2AC1ED4DA3E008C1C1F /* ForgotPasswordFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordFlow.swift; sourceTree = "<group>"; };
+		624EB2AA1ED4D9C5008C1C1F /* SignUpComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpComponent.swift; sourceTree = "<group>"; };
+		624EB2AC1ED4DA3E008C1C1F /* ForgotPasswordComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordComponent.swift; sourceTree = "<group>"; };
 		624EB2AE1ED4DA4C008C1C1F /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
-		624EB2B01ED4DBF7008C1C1F /* ChangePasswordFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordFlow.swift; sourceTree = "<group>"; };
+		624EB2B01ED4DBF7008C1C1F /* ChangePasswordComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordComponent.swift; sourceTree = "<group>"; };
 		624EB2B21ED4DC24008C1C1F /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
-		624EB2B41ED4DD96008C1C1F /* MovieListFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListFlow.swift; sourceTree = "<group>"; };
+		624EB2B41ED4DD96008C1C1F /* MovieListComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListComponent.swift; sourceTree = "<group>"; };
 		629374BF1E336A4000930DBC /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
 		629548D51EE2ECEC00E08567 /* Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		62A325E21EC88E9700E890C7 /* MovieListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListViewController.swift; sourceTree = "<group>"; };
 		62A325E81EC89E4C00E890C7 /* MovieListUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListUpdater.swift; sourceTree = "<group>"; };
 		62A325EB1EC89EFF00E890C7 /* MoviePresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviePresentation.swift; sourceTree = "<group>"; };
-		62BB70BD1ED26A3D003ED093 /* Flow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
-		62BB70BF1ED26E69003ED093 /* LoginFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginFlow.swift; sourceTree = "<group>"; };
+		62BB70BD1ED26A3D003ED093 /* Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
+		62BB70BF1ED26E69003ED093 /* LoginComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginComponent.swift; sourceTree = "<group>"; };
 		62D9EC8C1DBD01A10070EEF1 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		62D9EC971DBD03830070EEF1 /* DummyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		62D9EC9D1DBD12B30070EEF1 /* Launcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Launcher.swift; sourceTree = "<group>"; };
@@ -221,15 +221,15 @@
 			children = (
 				620741901EC90FF2007A0DD7 /* MoviesCoordinator.swift */,
 				623058851EEAE08E00824720 /* LoggerMiddleware.swift */,
-				62BB70BF1ED26E69003ED093 /* LoginFlow.swift */,
+				62BB70BF1ED26E69003ED093 /* LoginComponent.swift */,
 				6207417D1EC8DACB007A0DD7 /* LoginState.swift */,
 				6207418E1EC90DF4007A0DD7 /* LoginNavigator.swift */,
-				624EB2B41ED4DD96008C1C1F /* MovieListFlow.swift */,
+				624EB2B41ED4DD96008C1C1F /* MovieListComponent.swift */,
 				62FD0B341EC3B60A00F5B0E0 /* MovieListState.swift */,
 				62FC16821EE4937B002FC55A /* MovieListNavigator.swift */,
-				624EB2B01ED4DBF7008C1C1F /* ChangePasswordFlow.swift */,
-				624EB2AA1ED4D9C5008C1C1F /* SignUpFlow.swift */,
-				624EB2AC1ED4DA3E008C1C1F /* ForgotPasswordFlow.swift */,
+				624EB2B01ED4DBF7008C1C1F /* ChangePasswordComponent.swift */,
+				624EB2AA1ED4D9C5008C1C1F /* SignUpComponent.swift */,
+				624EB2AC1ED4DA3E008C1C1F /* ForgotPasswordComponent.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -311,7 +311,7 @@
 				62FC167A1EE48D55002FC55A /* State.swift */,
 				62FC167E1EE48D8D002FC55A /* Action.swift */,
 				62FC16701EE47825002FC55A /* Coordinator.swift */,
-				62BB70BD1ED26A3D003ED093 /* Flow.swift */,
+				62BB70BD1ED26A3D003ED093 /* Component.swift */,
 				8FDF2A551F0659AA00A6F43B /* SubscriptionManager.swift */,
 				62FC166E1EE47806002FC55A /* Navigation.swift */,
 				62FC16761EE478B0002FC55A /* Subscription.swift */,
@@ -426,11 +426,11 @@
 			files = (
 				62D9ECAA1DBD28350070EEF1 /* Movie.swift in Sources */,
 				62D9EC981DBD03830070EEF1 /* DummyViewController.swift in Sources */,
-				624EB2B51ED4DD96008C1C1F /* MovieListFlow.swift in Sources */,
+				624EB2B51ED4DD96008C1C1F /* MovieListComponent.swift in Sources */,
 				62FC167B1EE48D55002FC55A /* State.swift in Sources */,
 				62D9EC9E1DBD12B30070EEF1 /* Launcher.swift in Sources */,
 				62A325EC1EC89EFF00E890C7 /* MoviePresentation.swift in Sources */,
-				624EB2B11ED4DBF7008C1C1F /* ChangePasswordFlow.swift in Sources */,
+				624EB2B11ED4DBF7008C1C1F /* ChangePasswordComponent.swift in Sources */,
 				62FC167F1EE48D8D002FC55A /* Action.swift in Sources */,
 				62D9EC8D1DBD01A10070EEF1 /* LoginViewController.swift in Sources */,
 				620741871EC90394007A0DD7 /* ErrorHandler.swift in Sources */,
@@ -452,18 +452,18 @@
 				62A325E31EC88E9700E890C7 /* MovieListViewController.swift in Sources */,
 				62F132651E340043007662D0 /* MockMoviesService.swift in Sources */,
 				62FC16791EE478CA002FC55A /* Middleware.swift in Sources */,
-				62BB70BE1ED26A3D003ED093 /* Flow.swift in Sources */,
+				62BB70BE1ED26A3D003ED093 /* Component.swift in Sources */,
 				6207418B1EC90879007A0DD7 /* MockCredentials.swift in Sources */,
 				6243F5EA1EEF26D500243C4D /* BaseViewController.swift in Sources */,
 				62FC16831EE4937B002FC55A /* MovieListNavigator.swift in Sources */,
 				62D9ECA51DBD14FC0070EEF1 /* UITableView+CollectionChange.swift in Sources */,
 				6207417E1EC8DACB007A0DD7 /* LoginState.swift in Sources */,
 				624EB2AF1ED4DA4C008C1C1F /* ForgotPasswordViewController.swift in Sources */,
-				62BB70C01ED26E69003ED093 /* LoginFlow.swift in Sources */,
+				62BB70C01ED26E69003ED093 /* LoginComponent.swift in Sources */,
 				623058861EEAE08E00824720 /* LoggerMiddleware.swift in Sources */,
 				624EB2A21ED4CD93008C1C1F /* UIStoryboard+Movies.swift in Sources */,
 				62FC16771EE478B0002FC55A /* Subscription.swift in Sources */,
-				624EB2AD1ED4DA3E008C1C1F /* ForgotPasswordFlow.swift in Sources */,
+				624EB2AD1ED4DA3E008C1C1F /* ForgotPasswordComponent.swift in Sources */,
 				624EB2A91ED4D9B6008C1C1F /* SignUpViewController.swift in Sources */,
 				62FC166F1EE47806002FC55A /* Navigation.swift in Sources */,
 				624EB2B31ED4DC24008C1C1F /* ChangePasswordViewController.swift in Sources */,
@@ -471,7 +471,7 @@
 				6207417A1EC8D316007A0DD7 /* Randomizer.swift in Sources */,
 				62D9ECA41DBD14FC0070EEF1 /* ActivityTracker.swift in Sources */,
 				62A325E91EC89E4C00E890C7 /* MovieListUpdater.swift in Sources */,
-				624EB2AB1ED4D9C5008C1C1F /* SignUpFlow.swift in Sources */,
+				624EB2AB1ED4D9C5008C1C1F /* SignUpComponent.swift in Sources */,
 				620741741EC8BF6F007A0DD7 /* UIViewController+Removal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

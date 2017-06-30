@@ -10,13 +10,13 @@ import Foundation
 
 class MovieListNavigator: Navigator {
     
-    weak var flow: MovieListFlow?
+    weak var component: MovieListComponent?
     
     func resolve(_ action: NavigatorAction) -> Navigation? {
-        guard let flow = flow, let action = action as? MovieListNavigatorAction else { return nil }
+        guard let component = component, let action = action as? MovieListNavigatorAction else { return nil }
         switch action {
         case .logout:
-            return BasicNavigation.dismiss(flow)
+            return BasicNavigation.dismiss(component)
         case .detail(_):
             // TODO: Navigate to details screen.
             return nil

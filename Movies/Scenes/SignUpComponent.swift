@@ -1,5 +1,5 @@
 //
-//  ChangePasswordFlow.swift
+//  SignUpComponent.swift
 //  Movies
 //
 //  Created by Göksel Köksal on 23/05/2017.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-struct ChangePasswordState: State {
+struct SignUpState: State {
     func react(to action: Action) { }
 }
 
-class ChangePasswordFlow: Flow<ChangePasswordState> {
+class SignUpComponent: Component<SignUpState> {
     
     convenience init() {
-        self.init(state: ChangePasswordState())
+        self.init(state: SignUpState())
     }
 }

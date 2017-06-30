@@ -17,7 +17,7 @@ final class MovieListViewController: BaseTableViewController {
     var updater: MovieListUpdater!
     var isFirstRun = true
     
-    var flow: MovieListFlow!
+    var component: MovieListComponent!
     var presentation: MovieListPresentation = MovieListPresentation()
     
     override func viewDidLoad() {
@@ -28,22 +28,22 @@ final class MovieListViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        flow.subscribe(updater)
+        component.subscribe(updater)
         if isFirstRun {
             isFirstRun = false
-            flow.dispatch(flow.fetchCommand())
+            component.dispatch(component.fetchCommand())
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if zap_isBeingRemoved {
-            flow.unsubscribe(updater)
+            component.unsubscribe(updater)
         }
     }
     
     @IBAction func logoutButtonTapped(_ sender: UIBarButtonItem) {
-        flow.dispatch(MovieListNavigatorAction.logout)
+        component.dispatch(MovieListNavigatorAction.logout)
     }
     
     // MARK: Actions
@@ -79,7 +79,7 @@ final class MovieListViewController: BaseTableViewController {
                 let rating = Float(ratingString)
             else { return }
             let movie = Movie(name: name, year: year, rating: rating)
-            strongSelf.flow.dispatch(MovieListAction.addMovie(movie))
+            strongSelf.component.dispatch(MovieListAction.addMovie(movie))
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -99,7 +99,7 @@ final class MovieListViewController: BaseTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        flow.dispatch(MovieListAction.removeMovie(index: indexPath.row))
+        component.dispatch(MovieListAction.removeMovie(index: indexPath.row))
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -120,10 +120,10 @@ final class MovieListViewController: BaseTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        let movies = flow.state.movies
+        let movies = component.state.movies
         let index = indexPath.row
         if index < movies.count {
-            flow.dispatch(MovieListNavigatorAction.detail(movies[index]))
+            component.dispatch(MovieListNavigatorAction.detail(movies[index]))
         }
     }
 }
@@ -137,11 +137,11 @@ extension MovieListViewController: MovieListViewComponent {
 
 extension MovieListViewController {
     
-    static func instantiate(with flow: MovieListFlow) -> MovieListViewController {
+    static func instantiate(with component: MovieListComponent) -> MovieListViewController {
         let sb = Storyboard.main
         let id = String(describing: self)
         let vc = sb.instantiateViewController(withIdentifier: id) as! MovieListViewController
-        vc.flow = flow
+        vc.component = component
         return vc
     }
 }

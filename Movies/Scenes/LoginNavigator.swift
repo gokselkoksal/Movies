@@ -10,27 +10,27 @@ import UIKit
 
 class LoginNavigator: Navigator {
     
-    weak var flow: LoginFlow?
+    weak var component: LoginComponent?
     
     func resolve(_ action: NavigatorAction) -> Navigation? {
-        guard let flow = flow, let action = action as? LoginNavigatorAction else { return nil }
+        guard let component = component, let action = action as? LoginNavigatorAction else { return nil }
         switch action {
         case .signUp:
-            let newFlow = SignUpFlow()
-            return BasicNavigation.push(newFlow, from: flow)
+            let newComponent = SignUpComponent()
+            return BasicNavigation.push(newComponent, from: component)
         case .login(let response):
             if response.isPasswordExpired {
-                let newFlow = ChangePasswordFlow()
-                return BasicNavigation.push(newFlow, from: flow)
+                let newComponent = ChangePasswordComponent()
+                return BasicNavigation.push(newComponent, from: component)
             } else {
                 let navigator = MovieListNavigator()
-                let newFlow = MovieListFlow(service: MockMoviesService(delay: 1.5), navigator: navigator)
-                navigator.flow = newFlow
-                return BasicNavigation.present(newFlow, from: flow)
+                let newComponent = MovieListComponent(service: MockMoviesService(delay: 1.5), navigator: navigator)
+                navigator.component = newComponent
+                return BasicNavigation.present(newComponent, from: component)
             }
         case .forgotPassword:
-            let newFlow = ForgotPasswordFlow()
-            return BasicNavigation.push(newFlow, from: flow)
+            let newComponent = ForgotPasswordComponent()
+            return BasicNavigation.push(newComponent, from: component)
         }
     }
 }

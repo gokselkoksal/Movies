@@ -1,5 +1,5 @@
 //
-//  MovieListFlow.swift
+//  MovieListComponent.swift
 //  Movies
 //
 //  Created by Göksel Köksal on 23/05/2017.
@@ -24,13 +24,13 @@ enum MovieListNavigatorAction: NavigatorAction {
     case logout
 }
 
-// MARK: - Flow
+// MARK: - Component
 
-class MovieListFlow: Flow<MovieListState> {
+class MovieListComponent: Component<MovieListState> {
     
     let service: MoviesService
     
-    init(service: MoviesService, navigator: Navigator) {
+    init(service: MoviesService, navigator: Navigator? = nil) {
         self.service = service
         super.init(state: MovieListState(), navigator: navigator)
     }
@@ -50,15 +50,15 @@ class MovieListFetchCommand: Command {
         self.service = service
     }
     
-    func execute(on flow: Flow<MovieListState>, coordinator: Coordinator) {
-        flow.dispatch(MovieListAction.addActivity)
+    func execute(on component: Component<MovieListState>) {
+        component.dispatch(MovieListAction.addActivity)
         service.fetchMovies { (result) in
-            flow.dispatch(MovieListAction.removeActivity)
+            component.dispatch(MovieListAction.removeActivity)
             switch result {
             case .success(let movies):
-                flow.dispatch(MovieListAction.reloadMovies(movies))
+                component.dispatch(MovieListAction.reloadMovies(movies))
             case .failure(let error):
-                flow.dispatch(MovieListAction.error(error))
+                component.dispatch(MovieListAction.error(error))
             }
         }
     }

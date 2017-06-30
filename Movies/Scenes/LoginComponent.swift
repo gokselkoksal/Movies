@@ -1,5 +1,5 @@
 //
-//  LoginFlow.swift
+//  LoginComponent.swift
 //  Movies
 //
 //  Created by Göksel Köksal on 22/05/2017.
@@ -22,9 +22,9 @@ enum LoginNavigatorAction: NavigatorAction {
     case forgotPassword
 }
 
-// MARK: - Flow
+// MARK: - Component
 
-class LoginFlow: Flow<LoginState> {
+class LoginComponent: Component<LoginState> {
     
     let service: LoginService
     
@@ -50,15 +50,15 @@ class LoginCommand: Command {
         self.credentials = credentials
     }
     
-    func execute(on flow: Flow<LoginState>, coordinator: Coordinator) {
-        flow.dispatch(LoginAction.addActivity)
+    func execute(on component: Component<LoginState>) {
+        component.dispatch(LoginAction.addActivity)
         service.login(with: credentials) { (result) in
-            flow.dispatch(LoginAction.removeActivity)
+            component.dispatch(LoginAction.removeActivity)
             switch result {
             case .success(let response):
-                flow.dispatch(LoginNavigatorAction.login(response))
+                component.dispatch(LoginNavigatorAction.login(response))
             case .failure(let error):
-                flow.dispatch(LoginAction.error(error))
+                component.dispatch(LoginAction.error(error))
             }
         }
     }

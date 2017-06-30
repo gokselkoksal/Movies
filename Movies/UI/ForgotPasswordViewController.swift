@@ -10,7 +10,7 @@ import UIKit
 
 final class ForgotPasswordViewController: BaseViewController {
     
-    var flow: ForgotPasswordFlow!
+    var component: ForgotPasswordComponent!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +21,9 @@ final class ForgotPasswordViewController: BaseViewController {
 
 extension ForgotPasswordViewController {
     
-    static func instantiate(with flow: ForgotPasswordFlow) -> ForgotPasswordViewController {
+    static func instantiate(with component: ForgotPasswordComponent) -> ForgotPasswordViewController {
         let vc = ForgotPasswordViewController()
-        vc.flow = flow
+        vc.component = component
         return vc
     }
 }

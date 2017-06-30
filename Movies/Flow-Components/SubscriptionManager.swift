@@ -10,7 +10,7 @@ import Foundation
 
 class SubscriptionManager<StateType: State> {
     
-    private var subscriptionSyncQueue = DispatchQueue(label: "flow.subscription.sync")
+    private var subscriptionSyncQueue = DispatchQueue(label: "component.subscription.sync")
     private var _subscriptions: [Subscription] = []
     private var subscriptions: [Subscription] {
         get {

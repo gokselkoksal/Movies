@@ -12,14 +12,14 @@ import UIKit
 
 let coordinator: Coordinator = {
     let navigator = LoginNavigator()
-    let loginFlow = LoginFlow(
+    let loginComponent = LoginComponent(
         service: MockLoginService(),
         state: LoginState(),
         navigator: navigator
     )
-    navigator.flow = loginFlow
+    navigator.component = loginComponent
     return Coordinator(
-        rootFlow: loginFlow,
+        rootComponent: loginComponent,
         middlewares: [LoggerMiddleware()]
     )
 }()
@@ -33,34 +33,34 @@ extension ViewComponent where Self: UIViewController {
     func perform(_ navigation: Navigation) {
         guard let navigation = navigation as? BasicNavigation else { return }
         switch navigation {
-        case .push(let flow, from: _):
-            guard let vc = viewController(for: flow) else { return }
+        case .push(let component, from: _):
+            guard let vc = viewController(for: component) else { return }
             navigationController?.pushViewController(vc, animated: true)
         case .pop(_):
-            // TODO: Validate vc's flow.
+            // TODO: Validate vc's component.
             navigationController?.popViewController(animated: true)
-        case .present(let flow, from: _):
-            guard let vc = viewController(for: flow) else { return }
+        case .present(let component, from: _):
+            guard let vc = viewController(for: component) else { return }
             let nc = UINavigationController(rootViewController: vc)
             present(nc, animated: true, completion: nil)
         case .dismiss(_):
-            // TODO: Validate vc's flow.
+            // TODO: Validate vc's component.
             presentingViewController?.dismiss(animated: true, completion: nil)
         }
     }
     
-    private func viewController(for flow: AnyFlow) -> UIViewController? {
+    private func viewController(for component: AnyComponent) -> UIViewController? {
         let vc: UIViewController?
-        if let flow = flow as? LoginFlow {
-            vc = LoginViewController.instantiate(with: flow)
-        } else if let flow = flow as? SignUpFlow {
-            vc = SignUpViewController.instantiate(with: flow)
-        } else if let flow = flow as? ForgotPasswordFlow {
-            vc = ForgotPasswordViewController.instantiate(with: flow)
-        } else if let flow = flow as? ChangePasswordFlow {
-            vc = ChangePasswordViewController.instantiate(with: flow)
-        } else if let flow = flow as? MovieListFlow {
-            vc = MovieListViewController.instantiate(with: flow)
+        if let component = component as? LoginComponent {
+            vc = LoginViewController.instantiate(with: component)
+        } else if let component = component as? SignUpComponent {
+            vc = SignUpViewController.instantiate(with: component)
+        } else if let component = component as? ForgotPasswordComponent {
+            vc = ForgotPasswordViewController.instantiate(with: component)
+        } else if let component = component as? ChangePasswordComponent {
+            vc = ChangePasswordViewController.instantiate(with: component)
+        } else if let component = component as? MovieListComponent {
+            vc = MovieListViewController.instantiate(with: component)
         } else {
             vc = nil
         }

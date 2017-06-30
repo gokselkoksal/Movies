@@ -10,7 +10,7 @@ import UIKit
 
 class ChangePasswordViewController: BaseViewController {
     
-    var flow: ChangePasswordFlow!
+    var component: ChangePasswordComponent!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +21,9 @@ class ChangePasswordViewController: BaseViewController {
 
 extension ChangePasswordViewController {
     
-    static func instantiate(with flow: ChangePasswordFlow) -> ChangePasswordViewController? {
+    static func instantiate(with component: ChangePasswordComponent) -> ChangePasswordViewController? {
         let vc = ChangePasswordViewController()
-        vc.flow = flow
+        vc.component = component
         return vc
     }
 }

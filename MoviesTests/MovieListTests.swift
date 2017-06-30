@@ -11,14 +11,14 @@ import XCTest
 
 class MovieListTests: XCTestCase {
 
-    func testMovieListFlow() {
+    func testMovieListComponent() {
         let service = MockMoviesService(delay: nil)
-        let flow = MovieListFlow(service: service)
-        let c = Coordinator(rootFlow: flow)
+        let component = MovieListComponent(service: service)
+        let c = Coordinator(rootComponent: component)
         let r = Recorder<MovieListState>()
-        flow.subscribe(r)
+        component.subscribe(r)
         
-        c.dispatch(flow.fetchCommand())
+        c.dispatch(component.fetchCommand())
         XCTAssert(r.snapshots.count == 3)
         XCTAssert(r.snapshots[0].loadingState.activityCount == 1)
         XCTAssert(r.snapshots[1].loadingState.activityCount == 0)

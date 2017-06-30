@@ -14,5 +14,5 @@ protocol NavigatorAction: Action { }
 
 protocol Command {
     associatedtype StateType: State
-    func execute(on flow: Flow<StateType>, coordinator: Coordinator)
+    func execute(on component: Component<StateType>)
 }

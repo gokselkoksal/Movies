@@ -10,7 +10,7 @@ import UIKit
 
 final class SignUpViewController: BaseViewController {
     
-    var flow: SignUpFlow!
+    var component: SignUpComponent!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +21,9 @@ final class SignUpViewController: BaseViewController {
 
 extension SignUpViewController {
     
-    static func instantiate(with flow: SignUpFlow) -> SignUpViewController {
+    static func instantiate(with component: SignUpComponent) -> SignUpViewController {
         let vc = SignUpViewController()
-        vc.flow = flow
+        vc.component = component
         return vc
     }
 }

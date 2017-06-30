@@ -1,5 +1,5 @@
 //
-//  ForgotPasswordFlow.swift
+//  ChangePasswordComponent.swift
 //  Movies
 //
 //  Created by Göksel Köksal on 23/05/2017.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-struct ForgotPasswordState: State {
+struct ChangePasswordState: State {
     func react(to action: Action) { }
 }
 
-class ForgotPasswordFlow: Flow<ForgotPasswordState> {
+class ChangePasswordComponent: Component<ChangePasswordState> {
     
     convenience init() {
-        self.init(state: ForgotPasswordState())
+        self.init(state: ChangePasswordState())
     }
 }
