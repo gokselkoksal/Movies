@@ -1,5 +1,5 @@
 //
-//  ViewComponent.swift
+//  NavigationPerformer+Movies.swift
 //  Movies
 //
 //  Created by Goksel Koksal on 30/06/2017.
@@ -8,9 +8,7 @@
 
 import UIKit
 
-protocol ViewComponent: NavigationPerformer { }
-
-extension ViewComponent where Self: UIViewController {
+extension NavigationPerformer where Self: UIViewController {
     
     func perform(_ navigation: Navigation) {
         guard let navigation = navigation as? BasicNavigation else { return }
