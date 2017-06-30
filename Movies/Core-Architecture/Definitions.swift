@@ -1,5 +1,5 @@
 //
-//  Action.swift
+//  Definitions.swift
 //  Movies
 //
 //  Created by Göksel Köksal on 04/06/2017.
@@ -7,6 +7,8 @@
 //
 
 import Foundation
+
+protocol State { }
 
 protocol Action { }
 
