@@ -1,6 +1,6 @@
 # Movies
 
-Simple app that lists movies on a table view.
+Simple movies app for architectural experiments.
 
 ## Architectures
 
