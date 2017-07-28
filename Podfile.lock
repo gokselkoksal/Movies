@@ -1,0 +1,12 @@
+PODS:
+  - CoreArchitecture (0.0.1)
+
+DEPENDENCIES:
+  - CoreArchitecture
+
+SPEC CHECKSUMS:
+  CoreArchitecture: 28cdaf21c98021a86e411aac58f9a4f3c3e94108
+
+PODFILE CHECKSUM: 1d1b503672f2e43bf6c4085bdc2f8f7598170d14
+
+COCOAPODS: 1.2.1
