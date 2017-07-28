@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreArchitecture
 
 // MARK: - State
 
@@ -35,7 +36,7 @@ enum MovieListAction: Action {
     case error(Error)
 }
 
-enum MovieListNavigatorAction: NavigatorAction {
+enum MovieListNavigatorAction: Action {
     case detail(Movie)
     case logout
 }

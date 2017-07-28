@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import CoreArchitecture
 
 class MovieListNavigator: Navigator {
     
     weak var component: MovieListComponent?
     
-    func resolve(_ action: NavigatorAction) -> Navigation? {
+    func resolve(_ action: Action) -> Navigation? {
         guard let component = component, let action = action as? MovieListNavigatorAction else { return nil }
         switch action {
         case .logout:

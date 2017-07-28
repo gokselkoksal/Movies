@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreArchitecture
 
 class BaseViewController: UIViewController, NavigationPerformer, ErrorHandler {
     

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreArchitecture
 
 struct ChangePasswordState: State { }
 

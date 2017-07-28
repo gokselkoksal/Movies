@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreArchitecture
 
 class LoggerMiddleware: Middleware {
     

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreArchitecture
 
 // MARK: - State
 
@@ -30,7 +31,7 @@ enum LoginAction: Action {
     case error(Error)
 }
 
-enum LoginNavigatorAction: NavigatorAction {
+enum LoginNavigatorAction: Action {
     case login(LoginResponse)
     case signUp
     case forgotPassword

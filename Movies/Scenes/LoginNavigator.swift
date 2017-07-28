@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import CoreArchitecture
 
 class LoginNavigator: Navigator {
     
     weak var component: LoginComponent?
     
-    func resolve(_ action: NavigatorAction) -> Navigation? {
+    func resolve(_ action: Action) -> Navigation? {
         guard let component = component, let action = action as? LoginNavigatorAction else { return nil }
         switch action {
         case .signUp:

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreArchitecture
 
 let core: Core = {
     let navigator = LoginNavigator()

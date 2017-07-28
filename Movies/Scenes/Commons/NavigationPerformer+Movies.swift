@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreArchitecture
 
 extension NavigationPerformer where Self: UIViewController {
     

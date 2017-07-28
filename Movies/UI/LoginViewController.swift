@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreArchitecture
 
 final class LoginViewController: BaseViewController {
 
