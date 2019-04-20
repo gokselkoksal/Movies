@@ -29,6 +29,12 @@ public struct Movie {
   }
 }
 
+extension Movie: CustomStringConvertible {
+  public var description: String {
+    return "\(name)"
+  }
+}
+
 extension ClosedRange where Bound: Comparable {
   
   func clamp(_ value: Bound) -> Bound {

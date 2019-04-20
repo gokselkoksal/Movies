@@ -9,53 +9,103 @@
 import XCTest
 import MoviesCore
 import Lightning
+import Rasat
 @testable import Movies
 
-class MoviesTests: XCTestCase {
+final class MoviesTests: XCTestCase {
   
-  class Recorder {
-    let model: MovieListViewModel
-    var changes: [(change: MovieListState.Change, snapshot: MovieListState)] = []
-    var service = MockMoviesService()
+  private final class TestCase {
+    
+    let useCase: MovieListUseCase
+    let service: MockMoviesService
+    
+    var outputs: [MovieListUseCaseOutput] {
+      return recorder.values
+    }
+    
+    private let recorder: ObservableRecorder<MovieListUseCaseOutput> = ObservableRecorder()
+    private let disposeBag = DisposeBag()
+    
     init() {
-      model = MovieListViewModel()
-      model.service = service
-      model.stateChangeHandler = { [unowned model] id in
-        self.changes.append((id, model.state))
-      }
+      service = MockMoviesService()
+      useCase = MovieListUseCase(service: service)
+      recorder.observe(useCase.outputObservable)
+    }
+    
+    func reset() {
+      recorder.reset()
     }
   }
   
   func testFetchMovies() {
-    let r = Recorder()
-    r.model.fetchMovies()
-    XCTAssert(r.changes.count == 3)
-    XCTAssert(r.changes[0].change == .loadingState)
-    XCTAssert(r.changes[0].snapshot.loadingState.count == 1)
-    XCTAssert(r.changes[1].change == .movies(.reload))
-    XCTAssert(r.changes[1].snapshot.movies == r.service.movies)
-    XCTAssert(r.changes[2].change == .loadingState)
-    XCTAssert(r.changes[2].snapshot.loadingState.count == 0)
+    // given:
+    let testCase = TestCase()
+    // when:
+    testCase.useCase.fetchMovies()
+    // then:
+    XCTAssertEqual(testCase.outputs[0], .didChangeLoadingState(makeActivityState(count: 1)))
+    XCTAssertEqual(testCase.outputs[1], .didLoadMovies(testCase.service.movies))
+    XCTAssertEqual(testCase.outputs[2], .didChangeLoadingState(makeActivityState(count: 0, toggled: true)))
   }
   
   func testAddMovie() {
-    let r = Recorder()
-    r.model.addMovie(withName: "Test", year: 2000, rating: 4.5)
-    XCTAssert(r.changes.count == 1)
-    XCTAssert(r.changes[0].change == .movies(.insertion(0)))
-    XCTAssert(r.changes[0].snapshot.movies.count == 1)
-    XCTAssert(r.changes[0].snapshot.movies[0].name == "Test")
+    // given:
+    let test = TestCase()
+    let movie = Movie(name: "Test", year: 2000, rating: 4.5)
+    // when:
+    test.useCase.addMovie(withName: movie.name, year: movie.year, rating: movie.rating)
+    // then:
+    XCTAssertEqual(test.outputs[0], .didChangeMovies([movie], change: .insertion(0)))
+  }
+
+  func testRemoveMovie() {
+    // given:
+    let test = TestCase()
+    test.useCase.fetchMovies()
+    test.reset()
+    // when:
+    test.useCase.removeMovie(at: 0)
+    var expectedMovies = test.service.movies
+    expectedMovies.remove(at: 0)
+    // then:
+    XCTAssertEqual(test.outputs[0], .didChangeMovies(expectedMovies, change: .deletion(0)))
   }
   
-  func testRemoveMovie() {
-    let r = Recorder()
-    r.model.fetchMovies()
-    r.changes.removeAll()
-    r.model.removeMovie(at: 0)
-    var movies = r.service.movies
-    movies.remove(at: 0)
-    XCTAssert(r.model.state.movies == movies)
-    XCTAssert(r.changes.count == 1)
-    XCTAssert(r.changes[0].change == .movies(.deletion(0)))
+  private func makeActivityState(count: Int, toggled: Bool = false) -> ActivityState {
+    var state = ActivityState()
+    
+    for _ in 0..<count {
+      state.add()
+    }
+    
+    if toggled {
+      state.add()
+      try? state.remove()
+    }
+    
+    return state
+  }
+}
+
+final class ObservableRecorder<Value> {
+  
+  private(set) var values: [Value] = []
+  private let disposeBag = DisposeBag()
+  
+  init() { }
+  
+  convenience init(observable: Observable<Value>) {
+    self.init()
+    observe(observable)
+  }
+  
+  func observe(_ observable: Observable<Value>) {
+    disposeBag += observable.subscribe { [weak self] (value) in
+      self?.values.append(value)
+    }
+  }
+  
+  func reset() {
+    values.removeAll()
   }
 }

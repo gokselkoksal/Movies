@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MoviesCore
 
 enum LoginSegue {
   case login
@@ -63,7 +64,7 @@ private extension DefaultLoginRouter {
   
   static func makeMoviesViewController() -> UINavigationController {
     let vc = MovieListViewController.instantiate()
-    vc.viewModel = MovieListViewModel()
+    vc.useCase = MovieListUseCase(service: MockMoviesService(delay: 1.5))
     let nc = UINavigationController(rootViewController: vc)
     return nc
   }
