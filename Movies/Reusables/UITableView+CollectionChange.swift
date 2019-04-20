@@ -7,32 +7,35 @@
 //
 
 import UIKit
-import MoviesCore
+import Lightning
 
 extension UITableView {
   
   func applyCollectionChange(
     _ change: CollectionChange,
-    toSection section: Int,
-    withAnimation animation: UITableView.RowAnimation)
+    section: Int,
+    animation: UITableView.RowAnimation)
   {
-    func makeIndexPath(_ index: Int) -> IndexPath {
-      return IndexPath(row: index, section: section)
+    let startIndexPath = IndexPath(index: section)
+    
+    func toIndexPath(_ index: IndexPathConvertible) -> IndexPath {
+      return startIndexPath.appending(index.asIndexPath())
     }
     
-    func makeIndexPaths(_ indexes: IndexSetConvertible) -> [IndexPath] {
-      return indexes.toIndexSet().map { makeIndexPath($0) }
+    func toIndexPathArray(_ indexes: IndexPathSetConvertible) -> [IndexPath] {
+      return indexes.asIndexPathSet().map({ startIndexPath.appending($0) })
     }
     
     switch change {
     case .update(let indexes):
-      reloadRows(at: makeIndexPaths(indexes), with: animation)
+      
+      reloadRows(at: toIndexPathArray(indexes), with: animation)
     case .insertion(let indexes):
-      insertRows(at: makeIndexPaths(indexes), with: animation)
+      insertRows(at: toIndexPathArray(indexes), with: animation)
     case .deletion(let indexes):
-      deleteRows(at: makeIndexPaths(indexes), with: animation)
+      deleteRows(at: toIndexPathArray(indexes), with: animation)
     case .move(let from, let to):
-      moveRow(at: makeIndexPath(from), to: makeIndexPath(to))
+      moveRow(at: toIndexPath(from), to: toIndexPath(to))
     case .reload:
       reloadData()
     }

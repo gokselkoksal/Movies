@@ -8,6 +8,7 @@
 
 import Foundation
 import MoviesCore
+import Lightning
 
 // MARK: State
 
@@ -18,22 +19,21 @@ struct MoviesState {
     case movies(CollectionChange)
   }
   
-  private(set) var loadingState = ActivityTracker()
+  private(set) var loadingState = ActivityState()
   private(set) var movies: [Movie] = []
   
   mutating func addActivity() -> Change {
-    loadingState.addActivity()
+    loadingState.add()
     return .loadingState
   }
   
-  mutating func removeActivity() -> Change {
-    loadingState.removeActivity()
-    return .loadingState
-  }
-  
-  mutating func mutateLoadingState(block: (inout ActivityTracker) -> Void) -> Change {
-    block(&loadingState)
-    return .loadingState
+  mutating func removeActivity() -> Change? {
+    do {
+      try loadingState.remove()
+      return .loadingState
+    } catch {
+      return nil
+    }
   }
   
   mutating func reloadMovies(_ movies: [Movie]) -> Change {

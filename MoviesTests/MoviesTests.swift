@@ -7,8 +7,9 @@
 //
 
 import XCTest
-@testable import Movies
 import MoviesCore
+import Lightning
+@testable import Movies
 
 class MoviesTests: XCTestCase {
   
@@ -30,11 +31,11 @@ class MoviesTests: XCTestCase {
     r.model.fetchMovies()
     XCTAssert(r.changes.count == 3)
     XCTAssert(r.changes[0].change == .loadingState)
-    XCTAssert(r.changes[0].snapshot.loadingState.activityCount == 1)
+    XCTAssert(r.changes[0].snapshot.loadingState.count == 1)
     XCTAssert(r.changes[1].change == .movies(.reload))
     XCTAssert(r.changes[1].snapshot.movies == r.service.movies)
     XCTAssert(r.changes[2].change == .loadingState)
-    XCTAssert(r.changes[2].snapshot.loadingState.activityCount == 0)
+    XCTAssert(r.changes[2].snapshot.loadingState.count == 0)
   }
   
   func testAddMovie() {

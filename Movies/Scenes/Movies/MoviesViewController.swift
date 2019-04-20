@@ -66,10 +66,10 @@ class MoviesViewController: UITableViewController {
     switch change {
     case .movies(let collectionChange):
       presentation.update(withState: viewModel.state)
-      tableView.applyCollectionChange(collectionChange, toSection: 0, withAnimation: .automatic)
+      tableView.applyCollectionChange(collectionChange, section: 0, animation: .automatic)
     case .loadingState:
       let loadingState = viewModel.state.loadingState
-      if loadingState.needsUpdate {
+      if loadingState.isToggled {
         UIApplication.shared.isNetworkActivityIndicatorVisible = loadingState.isActive
       }
     }
