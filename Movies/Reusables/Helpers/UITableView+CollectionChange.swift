@@ -13,7 +13,7 @@ extension UITableView {
     func applyCollectionChange(
         _ change: CollectionChange,
         toSection section: Int,
-                  withAnimation animation: UITableViewRowAnimation)
+                  withAnimation animation: UITableView.RowAnimation)
     {
         func makeIndexPath(_ index: Int) -> IndexPath {
             return IndexPath(row: index, section: section)

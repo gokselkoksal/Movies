@@ -27,7 +27,7 @@ class DummyViewController: UIViewController {
         navigationItem.rightBarButtonItem = nextBarButton
     }
     
-    func nextButtonTapped() {
+    @objc func nextButtonTapped() {
         router.perform(.next, from: self)
     }
 }
