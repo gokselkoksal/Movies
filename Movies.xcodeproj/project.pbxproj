@@ -32,6 +32,10 @@
 		62D9EC9E1DBD12B30070EEF1 /* Launcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9EC9D1DBD12B30070EEF1 /* Launcher.swift */; };
 		62D9ECA51DBD14FC0070EEF1 /* UITableView+CollectionChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9ECA21DBD14FC0070EEF1 /* UITableView+CollectionChange.swift */; };
 		62D9ECA71DBD1AD30070EEF1 /* MovieListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D9ECA61DBD1AD30070EEF1 /* MovieListViewModel.swift */; };
+		62FF3AB4226BAF3700AB335C /* Rasat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FF3AB3226BAF3700AB335C /* Rasat.framework */; };
+		62FF3AB5226BAF3700AB335C /* Rasat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FF3AB3226BAF3700AB335C /* Rasat.framework */; };
+		62FF3AB6226BAF3700AB335C /* Rasat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FF3AB3226BAF3700AB335C /* Rasat.framework */; };
+		62FF3AB7226BAF3700AB335C /* Rasat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FF3AB3226BAF3700AB335C /* Rasat.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,9 +102,10 @@
 		624BB0D0226B94210008111C /* MockMoviesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockMoviesService.swift; sourceTree = "<group>"; };
 		624BB0D1226B94210008111C /* MoviesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesService.swift; sourceTree = "<group>"; };
 		624BB0D4226B94210008111C /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
-		62A5CF92226BA50900B32585 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
+		62A5CF92226BA50900B32585 /* Cartfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = Cartfile; sourceTree = "<group>"; };
 		62A5CF94226BA55A00B32585 /* Lightning.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lightning.framework; path = Carthage/Build/iOS/Lightning.framework; sourceTree = "<group>"; };
-		62A5CF97226BA57300B32585 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
+		62A5CF97226BA57300B32585 /* Cartfile.resolved */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = Cartfile.resolved; sourceTree = "<group>"; };
+		62A5CF9C226BAE3F00B32585 /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		62D9EC8C1DBD01A10070EEF1 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		62D9EC8F1DBD02F10070EEF1 /* MovieListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListViewController.swift; sourceTree = "<group>"; };
 		62D9EC971DBD03830070EEF1 /* DummyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +114,7 @@
 		62D9EC9D1DBD12B30070EEF1 /* Launcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Launcher.swift; sourceTree = "<group>"; };
 		62D9ECA21DBD14FC0070EEF1 /* UITableView+CollectionChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+CollectionChange.swift"; sourceTree = "<group>"; };
 		62D9ECA61DBD1AD30070EEF1 /* MovieListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListViewModel.swift; sourceTree = "<group>"; };
+		62FF3AB3226BAF3700AB335C /* Rasat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rasat.framework; path = Carthage/Build/iOS/Rasat.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +124,7 @@
 			files = (
 				624BB0C4226B93600008111C /* MoviesCore.framework in Frameworks */,
 				62A5CF95226BA55B00B32585 /* Lightning.framework in Frameworks */,
+				62FF3AB4226BAF3700AB335C /* Rasat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62FF3AB5226BAF3700AB335C /* Rasat.framework in Frameworks */,
 				62A5CF9A226BA7B900B32585 /* Lightning.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -133,6 +141,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62FF3AB6226BAF3700AB335C /* Rasat.framework in Frameworks */,
 				62A5CF96226BA56400B32585 /* Lightning.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,6 +152,7 @@
 			files = (
 				624BB0B8226B93600008111C /* MoviesCore.framework in Frameworks */,
 				62A5CF9B226BA7BA00B32585 /* Lightning.framework in Frameworks */,
+				62FF3AB7226BAF3700AB335C /* Rasat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +265,7 @@
 		62A5CF91226BA4F600B32585 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				62A5CF9C226BAE3F00B32585 /* Makefile */,
 				62A5CF92226BA50900B32585 /* Cartfile */,
 				62A5CF97226BA57300B32585 /* Cartfile.resolved */,
 			);
@@ -264,6 +275,7 @@
 		62A5CF93226BA54200B32585 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				62FF3AB3226BAF3700AB335C /* Rasat.framework */,
 				62A5CF94226BA55A00B32585 /* Lightning.framework */,
 			);
 			name = Frameworks;
@@ -475,12 +487,14 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Lightning.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Rasat.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Lightning.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Rasat.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -495,12 +509,14 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Lightning.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Rasat.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Lightning.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Rasat.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
