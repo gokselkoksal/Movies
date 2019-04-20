@@ -9,25 +9,25 @@
 import UIKit
 
 enum DummySegue {
-    case next
+  case next
 }
 
 protocol DummyRouter {
-    func perform(_ segue: DummySegue, from source: DummyViewController)
+  func perform(_ segue: DummySegue, from source: DummyViewController)
 }
 
 class DummyViewController: UIViewController {
-    
-    var router: DummyRouter!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = UIColor.white
-        let nextBarButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextButtonTapped))
-        navigationItem.rightBarButtonItem = nextBarButton
-    }
-    
-    @objc func nextButtonTapped() {
-        router.perform(.next, from: self)
-    }
+  
+  var router: DummyRouter!
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    view.backgroundColor = UIColor.white
+    let nextBarButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextButtonTapped))
+    navigationItem.rightBarButtonItem = nextBarButton
+  }
+  
+  @objc func nextButtonTapped() {
+    router.perform(.next, from: self)
+  }
 }

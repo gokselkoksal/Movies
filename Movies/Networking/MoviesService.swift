@@ -9,5 +9,5 @@
 import Foundation
 
 protocol MoviesService {
-    func fetchMovies(_ completion: @escaping (([Movie]) -> Void))
+  func fetchMovies(_ completion: @escaping (([Movie]) -> Void))
 }
