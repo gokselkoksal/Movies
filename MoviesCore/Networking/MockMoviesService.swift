@@ -1,6 +1,6 @@
 //
 //  MockMoviesService.swift
-//  Movies
+//  MoviesCore
 //
 //  Created by Göksel Köksal on 21/01/2017.
 //  Copyright © 2017 GK. All rights reserved.
@@ -8,18 +8,18 @@
 
 import Foundation
 
-class MockMoviesService: MoviesService {
+public final class MockMoviesService: MoviesService {
   
-  let delay: TimeInterval?
-  let movies: [Movie]
+  public let delay: TimeInterval?
+  public let movies: [Movie]
   
-  init(movies: [Movie] = MockMoviesService.makeMockMovies(),
+  public init(movies: [Movie] = MockMoviesService.makeMockMovies(),
        delay: TimeInterval? = nil) {
     self.delay = delay
     self.movies = movies
   }
   
-  func fetchMovies(_ completion: @escaping (([Movie]) -> Void)) {
+  public func fetchMovies(_ completion: @escaping (([Movie]) -> Void)) {
     if let delay = delay {
       let deadline = DispatchTime.now() + delay
       DispatchQueue.main.asyncAfter(deadline: deadline) { [weak self] in
@@ -31,7 +31,7 @@ class MockMoviesService: MoviesService {
     }
   }
   
-  static func makeMockMovies() -> [Movie] {
+  public static func makeMockMovies() -> [Movie] {
     return [
       Movie(name: "Inception", year: 2010, rating: 4.5),
       Movie(name: "Shutter Island", year: 2008, rating: 4.2),

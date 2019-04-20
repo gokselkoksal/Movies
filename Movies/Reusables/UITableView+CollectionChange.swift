@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MoviesCore
 
 extension UITableView {
   

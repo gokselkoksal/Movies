@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import Movies
+import MoviesCore
 
 class MoviesTests: XCTestCase {
   
