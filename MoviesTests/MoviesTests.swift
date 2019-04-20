@@ -14,11 +14,11 @@ import Lightning
 class MoviesTests: XCTestCase {
   
   class Recorder {
-    let model: MoviesViewModel
-    var changes: [(change: MoviesState.Change, snapshot: MoviesState)] = []
+    let model: MovieListViewModel
+    var changes: [(change: MovieListState.Change, snapshot: MovieListState)] = []
     var service = MockMoviesService()
     init() {
-      model = MoviesViewModel()
+      model = MovieListViewModel()
       model.service = service
       model.stateChangeHandler = { [unowned model] id in
         self.changes.append((id, model.state))

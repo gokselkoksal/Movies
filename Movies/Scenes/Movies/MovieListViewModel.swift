@@ -1,5 +1,5 @@
 //
-//  MoviesViewModel.swift
+//  MovieListViewModel.swift
 //  Movies
 //
 //  Created by Göksel Köksal on 23/10/2016.
@@ -12,7 +12,7 @@ import Lightning
 
 // MARK: State
 
-struct MoviesState {
+struct MovieListState {
   
   enum Change: Equatable {
     case loadingState
@@ -55,12 +55,12 @@ struct MoviesState {
 
 // MARK: Store
 
-class MoviesViewModel {
+class MovieListViewModel {
   
   var service: MoviesService = MockMoviesService(delay: 1.5)
   
-  private(set) var state = MoviesState()
-  var stateChangeHandler: ((MoviesState.Change) -> Void)?
+  private(set) var state = MovieListState()
+  var stateChangeHandler: ((MovieListState.Change) -> Void)?
   
   // MARK: Actions
   
@@ -82,7 +82,7 @@ class MoviesViewModel {
     mutateState { $0.removeMovie(at: index) }
   }
   
-  private func mutateState(block: (inout MoviesState) -> MoviesState.Change?) {
+  private func mutateState(block: (inout MovieListState) -> MovieListState.Change?) {
     if let change = block(&state) {
       stateChangeHandler?(change)
     }

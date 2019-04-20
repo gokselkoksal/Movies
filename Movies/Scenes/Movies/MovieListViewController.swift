@@ -1,5 +1,5 @@
 //
-//  MoviesViewController.swift
+//  MovieListViewController.swift
 //  Movies
 //
 //  Created by Göksel Köksal on 23/10/2016.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct MoviesPresentation {
+struct MovieListPresentation {
   
   struct MoviePresentation {
     let title, subtitle: String
@@ -16,7 +16,7 @@ struct MoviesPresentation {
   
   var movies: [MoviePresentation] = []
   
-  mutating func update(withState state: MoviesState) {
+  mutating func update(withState state: MovieListState) {
     movies = state.movies.map { (movie) -> MoviePresentation in
       let title = movie.name
       let subtitle = "Year: \(movie.year) | Rating: \(movie.rating)"
@@ -25,18 +25,18 @@ struct MoviesPresentation {
   }
 }
 
-class MoviesViewController: UITableViewController {
+class MovieListViewController: UITableViewController {
   
   private struct Const {
     static let cellReuseID = "Cell"
   }
   
-  var viewModel: MoviesViewModel!
-  private var presentation = MoviesPresentation()
+  var viewModel: MovieListViewModel!
+  private var presentation = MovieListPresentation()
   
-  static func instantiate() -> MoviesViewController {
+  static func instantiate() -> MovieListViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard.instantiateViewController(withIdentifier: String(describing: self)) as! MoviesViewController
+    let vc = storyboard.instantiateViewController(withIdentifier: String(describing: self)) as! MovieListViewController
     return vc
   }
   
@@ -57,12 +57,12 @@ class MoviesViewController: UITableViewController {
   
   // MARK: Binding
   
-  func applyState(_ state: MoviesState) {
+  func applyState(_ state: MovieListState) {
     presentation.update(withState: state)
     self.tableView.reloadData()
   }
   
-  func applyStateChange(_ change: MoviesState.Change) {
+  func applyStateChange(_ change: MovieListState.Change) {
     switch change {
     case .movies(let collectionChange):
       presentation.update(withState: viewModel.state)
