@@ -21,10 +21,10 @@ final class ChangePasswordSceneBuilder {
   }
 }
 
-private final class ChangePasswordSceneRouter: BaseRouter<DummySegue>, DummyRouterProtocol {
+private final class ChangePasswordSceneRouter: BaseRouter<DummyDestination>, DummyRouterProtocol {
   
-  override func perform(_ segue: DummySegue) {
-    switch segue {
+  override func route(to destination: DummyDestination) {
+    switch destination {
     case .next:
       let vc = MovieListSceneBuilder.build()
       context.present(vc.embedInNavigationController(), animated: true) { [weak context] in

@@ -27,7 +27,7 @@
 		62A46217226E099A00C47760 /* MovieListSceneBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A46216226E099A00C47760 /* MovieListSceneBuilder.swift */; };
 		62A46219226E0ED800C47760 /* ChangePasswordSceneBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A46218226E0ED800C47760 /* ChangePasswordSceneBuilder.swift */; };
 		62A4621B226E106B00C47760 /* SignUpSceneBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A4621A226E106B00C47760 /* SignUpSceneBuilder.swift */; };
-		62A4621D226E130600C47760 /* ReusableRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A4621C226E130600C47760 /* ReusableRouter.swift */; };
+		62A4621D226E130600C47760 /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A4621C226E130600C47760 /* BaseRouter.swift */; };
 		62A4621F226E295D00C47760 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A4621E226E295D00C47760 /* LoginPresenter.swift */; };
 		62A46221226E299400C47760 /* BasePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A46220226E299400C47760 /* BasePresenter.swift */; };
 		62A46225226E2C1F00C47760 /* LoginSceneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A46224226E2C1F00C47760 /* LoginSceneTests.swift */; };
@@ -122,7 +122,7 @@
 		62A46216226E099A00C47760 /* MovieListSceneBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListSceneBuilder.swift; sourceTree = "<group>"; };
 		62A46218226E0ED800C47760 /* ChangePasswordSceneBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordSceneBuilder.swift; sourceTree = "<group>"; };
 		62A4621A226E106B00C47760 /* SignUpSceneBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSceneBuilder.swift; sourceTree = "<group>"; };
-		62A4621C226E130600C47760 /* ReusableRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableRouter.swift; sourceTree = "<group>"; };
+		62A4621C226E130600C47760 /* BaseRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRouter.swift; sourceTree = "<group>"; };
 		62A4621E226E295D00C47760 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		62A46220226E299400C47760 /* BasePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePresenter.swift; sourceTree = "<group>"; };
 		62A46224226E2C1F00C47760 /* LoginSceneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSceneTests.swift; sourceTree = "<group>"; };
@@ -199,6 +199,33 @@
 				62074380226E3D1D0090BA93 /* ObservableRecorder.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		62074382226E42560090BA93 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				62A4621C226E130600C47760 /* BaseRouter.swift */,
+				62A46220226E299400C47760 /* BasePresenter.swift */,
+				62A46226226E303800C47760 /* BaseDataController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		62074383226E42610090BA93 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				62D9ECA21DBD14FC0070EEF1 /* UITableView+CollectionChange.swift */,
+				62A46211226E06C100C47760 /* UIViewController+Helpers.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		62074384226E426A0090BA93 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				62D9EC971DBD03830070EEF1 /* DummyViewController.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		6236BFFD1DBD008E002A61D6 = {
@@ -284,13 +311,10 @@
 		624BB0CE226B93E40008111C /* Reusables */ = {
 			isa = PBXGroup;
 			children = (
+				62074384226E426A0090BA93 /* Views */,
+				62074383226E42610090BA93 /* Extensions */,
+				62074382226E42560090BA93 /* Base */,
 				6207437C226E39ED0090BA93 /* Presentations */,
-				62D9EC971DBD03830070EEF1 /* DummyViewController.swift */,
-				62D9ECA21DBD14FC0070EEF1 /* UITableView+CollectionChange.swift */,
-				62A46211226E06C100C47760 /* UIViewController+Helpers.swift */,
-				62A4621C226E130600C47760 /* ReusableRouter.swift */,
-				62A46220226E299400C47760 /* BasePresenter.swift */,
-				62A46226226E303800C47760 /* BaseDataController.swift */,
 			);
 			path = Reusables;
 			sourceTree = "<group>";
@@ -610,7 +634,7 @@
 				62A46212226E06C100C47760 /* UIViewController+Helpers.swift in Sources */,
 				62A46221226E299400C47760 /* BasePresenter.swift in Sources */,
 				62D9EC901DBD02F10070EEF1 /* MovieListViewController.swift in Sources */,
-				62A4621D226E130600C47760 /* ReusableRouter.swift in Sources */,
+				62A4621D226E130600C47760 /* BaseRouter.swift in Sources */,
 				62A46217226E099A00C47760 /* MovieListSceneBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

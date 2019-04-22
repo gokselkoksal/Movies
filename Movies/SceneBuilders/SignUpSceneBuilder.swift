@@ -21,10 +21,10 @@ final class SignUpSceneBuilder {
   }
 }
 
-private final class SignUpSceneRouter: BaseRouter<DummySegue>, DummyRouterProtocol {
+private final class SignUpSceneRouter: BaseRouter<DummyDestination>, DummyRouterProtocol {
   
-  override func perform(_ segue: DummySegue) {
-    switch segue {
+  override func route(to destination: DummyDestination) {
+    switch destination {
     case .next:
       let vc = MovieListSceneBuilder.build()
       context.present(vc.embedInNavigationController(), animated: true) { [weak context] in

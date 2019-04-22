@@ -1,5 +1,5 @@
 //
-//  ReusableRouter.swift
+//  BaseRouter.swift
 //  Movies
 //
 //  Created by Göksel Köksal on 22.04.2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseRouter<Segue> {
+class BaseRouter<Destination> {
   
   unowned let context: UIViewController
   
@@ -16,7 +16,7 @@ class BaseRouter<Segue> {
     self.context = context
   }
   
-  func perform(_ segue: Segue) {
+  func route(to destination: Destination) {
     // Should be implemented by subclasses.
   }
 }

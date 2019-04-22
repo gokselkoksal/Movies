@@ -8,12 +8,12 @@
 
 import UIKit
 
-enum DummySegue {
+enum DummyDestination {
   case next
 }
 
 protocol DummyRouterProtocol {
-  func perform(_ segue: DummySegue)
+  func route(to destination: DummyDestination)
 }
 
 final class DummyViewController: UIViewController {
@@ -28,6 +28,6 @@ final class DummyViewController: UIViewController {
   }
   
   @objc func nextButtonTapped() {
-    router.perform(.next)
+    router.route(to: .next)
   }
 }
