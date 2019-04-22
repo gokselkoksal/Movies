@@ -29,7 +29,7 @@ final class MovieListTests: XCTestCase {
   func testStart() {
     // given:
     let expectedMovies = service.movies.map(MoviePresentation.init)
-    let expectedCommands: [MovieListViewCommand] = [
+    let expectedActions: [MovieListViewAction] = [
       .setTitle("Movies"),
       .setLoading(true),
       .updateMovies(expectedMovies, change: .reload),
@@ -38,42 +38,42 @@ final class MovieListTests: XCTestCase {
     // when:
     presenter.start()
     // then:
-    XCTAssertEqual(view.commands, expectedCommands)
+    XCTAssertEqual(view.actions, expectedActions)
   }
   
   func testAddMovie() {
     // given:
     let movie = Movie(name: "Test", year: 2000, rating: 4.5)
-    let expectedCommands: [MovieListViewCommand] = [
+    let expectedActions: [MovieListViewAction] = [
       .updateMovies([MoviePresentation(movie: movie)], change: .insertion(0))
     ]
     // when:
     presenter.addMovie(name: movie.name, year: "\(movie.year)", rating: "\(movie.rating)")
     // then:
-    XCTAssertEqual(view.commands, expectedCommands)
+    XCTAssertEqual(view.actions, expectedActions)
   }
   
   func testRemoveMovie() {
     // given:
     presenter.start()
-    view.resetCommands()
+    view.reset()
     let expectedMovies = service.movies.dropFirst().map(MoviePresentation.init)
     // when:
     presenter.removeMovie(at: 0)
     // then:
-    XCTAssertEqual(view.commands, [.updateMovies(expectedMovies, change: .deletion(0))])
+    XCTAssertEqual(view.actions, [.updateMovies(expectedMovies, change: .deletion(0))])
   }
 }
 
 private final class MockMovieListView: MovieListViewProtocol {
   
-  private(set) var commands: [MovieListViewCommand] = []
+  private(set) var actions: [MovieListViewAction] = []
   
-  func render(_ command: MovieListViewCommand) {
-    self.commands.append(command)
+  func handle(_ action: MovieListViewAction) {
+    self.actions.append(action)
   }
   
-  func resetCommands() {
-    self.commands.removeAll()
+  func reset() {
+    self.actions.removeAll()
   }
 }

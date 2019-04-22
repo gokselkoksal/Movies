@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol LoginPresenterProtocol {
+protocol LoginPresenterProtocol: class {
   func login(username: String?, password: String?)
   func signUp()
   func forgotPassword()

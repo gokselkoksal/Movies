@@ -12,10 +12,14 @@ import Rasat
 class BasePresenter<DataController, DataControllerState, DataControllerOutput> {
   
   let dataController: DataController
-  let stateSelector: () -> DataControllerState
   let disposeBag = DisposeBag()
   
-  init(dataController: DataController, stateSelector: @autoclosure @escaping () -> DataControllerState, observable: Observable<DataControllerOutput>) {
+  private let stateSelector: () -> DataControllerState
+  
+  init(dataController: DataController,
+       stateSelector: @autoclosure @escaping () -> DataControllerState,
+       observable: Observable<DataControllerOutput>)
+  {
     self.dataController = dataController
     self.stateSelector = stateSelector
     disposeBag += observable.subscribe { [weak self] (output) in

@@ -10,7 +10,7 @@ import Foundation
 import Rasat
 
 struct LoginState {
-  var shouldChangePassword = false
+  var shouldChangePassword: Bool
 }
 
 enum LoginOutput: Equatable {
@@ -36,7 +36,7 @@ protocol LoginDataControllerProtocol {
 
 // MARK: - Implementation
 
-final class LoginDataController: LoginDataControllerProtocol {
+final class LoginDataController: BaseDataController<LoginState, LoginOutput>, LoginDataControllerProtocol {
   
   private enum Credentials {
     static let username = "gokselkk"
@@ -44,25 +44,24 @@ final class LoginDataController: LoginDataControllerProtocol {
     static let expiredPassword = "qwe"
   }
   
-  var observable: Observable<LoginOutput> { return channel.observable }
-  
-  private(set) var state: LoginState = LoginState()
-  private let channel = Channel<LoginOutput>()
+  init() {
+    super.init(state: LoginState(shouldChangePassword: false))
+  }
   
   func login(username: String?, password: String?) {
     guard let username = username, username == Credentials.username, let password = password else {
-      channel.broadcast(.error(.wrongCredentials))
+      broadcast(.error(.wrongCredentials))
       return
     }
     switch password {
     case Credentials.password:
       state.shouldChangePassword = false
-      channel.broadcast(.change(.loggedIn))
+      broadcast(.change(.loggedIn))
     case Credentials.expiredPassword:
       state.shouldChangePassword = true
-      channel.broadcast(.change(.loggedIn))
+      broadcast(.change(.loggedIn))
     default:
-      channel.broadcast(.error(.wrongCredentials))
+      broadcast(.error(.wrongCredentials))
     }
   }
 }

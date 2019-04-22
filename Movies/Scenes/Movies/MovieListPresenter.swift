@@ -10,7 +10,7 @@ import Foundation
 import MoviesCore
 import Lightning
 
-protocol MovieListPresenterProtocol {
+protocol MovieListPresenterProtocol: class {
   func start()
   func addMovie(name: String, year: String, rating: String)
   func removeMovie(at index: Int)
@@ -24,15 +24,11 @@ final class MovieListPresenter: BasePresenter<MovieListDataControllerProtocol, M
   
   init(view: MovieListViewProtocol, dataController: MovieListDataControllerProtocol) {
     self.view = view
-    super.init(
-      dataController: dataController,
-      stateSelector: dataController.state,
-      observable: dataController.observable
-    )
+    super.init(dataController: dataController, stateSelector: dataController.state, observable: dataController.observable)
   }
   
   func start() {
-    view.render(.setTitle("Movies"))
+    view.handle(.setTitle("Movies"))
     dataController.fetchMovies()
   }
   
@@ -50,11 +46,11 @@ final class MovieListPresenter: BasePresenter<MovieListDataControllerProtocol, M
     switch output {
     case .didChangeLoadingState:
       if state.loadingState.isToggled {
-        view.render(.setLoading(state.loadingState.isActive))
+        view.handle(.setLoading(state.loadingState.isActive))
       }
     case .didUpdateMovies(let change):
       let presentations = state.movies.map(MoviePresentation.init)
-      view.render(.updateMovies(presentations, change: change))
+      view.handle(.updateMovies(presentations, change: change))
     }
   }
 }

@@ -9,14 +9,14 @@
 import UIKit
 import Lightning
 
-enum MovieListViewCommand: Equatable {
+enum MovieListViewAction: Equatable {
   case setTitle(String)
   case setLoading(Bool)
   case updateMovies([MoviePresentation], change: CollectionChange)
 }
 
 protocol MovieListViewProtocol: class {
-  func render(_ command: MovieListViewCommand)
+  func handle(_ action: MovieListViewAction)
 }
 
 // MARK: - Implementation
@@ -119,8 +119,8 @@ final class MovieListViewController: UITableViewController, StoryboardInstantiat
 
 extension MovieListViewController: MovieListViewProtocol {
   
-  func render(_ change: MovieListViewCommand) {
-    switch change {
+  func handle(_ action: MovieListViewAction) {
+    switch action {
     case .setTitle(let title):
       self.title = title
     case .setLoading(let isActive):
