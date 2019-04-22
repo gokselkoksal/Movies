@@ -16,15 +16,13 @@ protocol LoginPresenterProtocol {
 
 // MARK: - Implementation
 
-final class LoginPresenter: BasePresenter<LoginOutput>, LoginPresenterProtocol {
+final class LoginPresenter: BasePresenter<LoginDataControllerProtocol, LoginState, LoginOutput>, LoginPresenterProtocol {
   
-  private let dataController: LoginDataControllerProtocol
   private let router: LoginRouterProtocol!
   
   init(dataController: LoginDataControllerProtocol, router: LoginRouterProtocol) {
-    self.dataController = dataController
     self.router = router
-    super.init(observable: dataController.observable)
+    super.init(dataController: dataController, stateSelector: dataController.state, observable: dataController.observable)
   }
   
   func login(username: String?, password: String?) {
@@ -39,12 +37,12 @@ final class LoginPresenter: BasePresenter<LoginOutput>, LoginPresenterProtocol {
     router.route(to: .changePassword)
   }
   
-  override func handleOutput(_ output: LoginOutput) {
+  override func handleOutput(_ output: LoginOutput, state: LoginState) {
     switch output {
     case .change(let change):
       switch change {
       case .loggedIn:
-        if dataController.state.shouldChangePassword {
+        if state.shouldChangePassword {
           router.route(to: .changePassword)
         } else {
           router.route(to: .movieList)

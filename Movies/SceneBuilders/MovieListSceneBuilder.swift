@@ -13,7 +13,9 @@ final class MovieListSceneBuilder {
   
   static func build() -> MovieListViewController {
     let vc = MovieListViewController.instantiate()
-    vc.useCase = MovieListUseCase(service: MockMoviesService(delay: 1.5))
+    let dataController = MovieListDataController(service: MockMoviesService(delay: 1))
+    let presenter = MovieListPresenter(view: vc, dataController: dataController)
+    vc.presenter = presenter
     return vc
   }
 }

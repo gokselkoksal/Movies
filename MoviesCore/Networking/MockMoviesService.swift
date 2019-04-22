@@ -13,8 +13,7 @@ public final class MockMoviesService: MoviesService {
   public let delay: TimeInterval?
   public let movies: [Movie]
   
-  public init(movies: [Movie] = MockMoviesService.makeMockMovies(),
-       delay: TimeInterval? = nil) {
+  public init(movies: [Movie] = MockMoviesService.makeMockMovies(), delay: TimeInterval? = nil) {
     self.delay = delay
     self.movies = movies
   }

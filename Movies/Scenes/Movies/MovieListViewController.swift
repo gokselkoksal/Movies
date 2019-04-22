@@ -7,73 +7,43 @@
 //
 
 import UIKit
-import Rasat
-import MoviesCore
+import Lightning
 
-struct MovieListPresentation {
-  
-  struct MoviePresentation {
-    let title, subtitle: String
-  }
-  
-  var movies: [MoviePresentation] = []
-  
-  mutating func update(with movies: [Movie]) {
-    self.movies = movies.map { (movie) -> MoviePresentation in
-      let title = movie.name
-      let subtitle = "Year: \(movie.year) | Rating: \(movie.rating)"
-      return MoviePresentation(title: title, subtitle: subtitle)
-    }
-  }
+enum MovieListViewCommand: Equatable {
+  case setTitle(String)
+  case setLoading(Bool)
+  case updateMovies([MoviePresentation], change: CollectionChange)
 }
 
-class MovieListViewController: UITableViewController {
+protocol MovieListViewProtocol: class {
+  func render(_ command: MovieListViewCommand)
+}
+
+// MARK: - Implementation
+
+final class MovieListViewController: UITableViewController, StoryboardInstantiatable {
   
-  private struct Const {
+  private enum Const {
     static let cellReuseID = "Cell"
   }
   
-  var useCase: MovieListUseCase!
-  private var presentation = MovieListPresentation()
-  private let disposeBag = DisposeBag()
-  
-  static func instantiate() -> MovieListViewController {
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard.instantiateViewController(withIdentifier: String(describing: self)) as! MovieListViewController
-    return vc
+  static var defaultStoryboardName: String {
+    return "Main"
   }
+  
+  var presenter: MovieListPresenterProtocol!
+  private var movies: [MoviePresentation] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "Movies"
-    disposeBag += useCase.outputObservable.subscribe(on: .main) { [weak self] (output) in
-      self?.handleOutput(output)
-    }
-    useCase.fetchMovies()
+    presenter.start()
   }
+  
+  // MARK: Actions
   
   @IBAction func logoutButtonTapped(_ sender: UIBarButtonItem) {
     dismiss(animated: true, completion: nil)
   }
-  
-  // MARK: Binding
-  
-  private func handleOutput(_ output: MovieListUseCaseOutput) {
-    switch output {
-    case .didLoadMovies(let movies):
-      presentation.update(with: movies)
-      tableView.reloadData()
-    case .didChangeLoadingState(let loadingState):
-      if loadingState.isToggled {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = loadingState.isActive
-      }
-    case .didChangeMovies(let movies, change: let change):
-      presentation.update(with: movies)
-      tableView.applyCollectionChange(change, section: 0, animation: .automatic)
-    }
-  }
-  
-  // MARK: Actions
   
   @IBAction func addMovieButtonTapped(_ sender: UIBarButtonItem) {
     let alert = UIAlertController(
@@ -97,15 +67,13 @@ class MovieListViewController: UITableViewController {
     }
     
     let addAction = UIAlertAction(title: "Add", style: .default) { [weak self] (action) in
-      guard let strongSelf = self,
+      guard let self = self,
         let fields = alert.textFields,
         let name = fields[0].text,
-        let yearString = fields[1].text,
-        let ratingString = fields[2].text,
-        let year = UInt(yearString),
-        let rating = Float(ratingString)
-        else { return }
-      strongSelf.useCase.addMovie(withName: name, year: year, rating: rating)
+        let year = fields[1].text,
+        let rating = fields[2].text
+      else { return }
+      self.presenter.addMovie(name: name, year: year, rating: rating)
     }
     
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -117,7 +85,7 @@ class MovieListViewController: UITableViewController {
   // MARK: UITableViewDataSource
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return presentation.movies.count
+    return movies.count
   }
   
   override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -125,7 +93,7 @@ class MovieListViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-    useCase.removeMovie(at: indexPath.row)
+    presenter.removeMovie(at: indexPath.row)
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -136,7 +104,7 @@ class MovieListViewController: UITableViewController {
     guard let cell = templateCell else {
       fatalError()
     }
-    let moviePresentation = presentation.movies[(indexPath as NSIndexPath).row]
+    let moviePresentation = movies[indexPath.row]
     cell.textLabel?.text = moviePresentation.title
     cell.detailTextLabel?.text = moviePresentation.subtitle
     return cell
@@ -146,5 +114,20 @@ class MovieListViewController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: false)
+  }
+}
+
+extension MovieListViewController: MovieListViewProtocol {
+  
+  func render(_ change: MovieListViewCommand) {
+    switch change {
+    case .setTitle(let title):
+      self.title = title
+    case .setLoading(let isActive):
+      UIApplication.shared.isNetworkActivityIndicatorVisible = isActive
+    case .updateMovies(let presentations, change: let change):
+      movies = presentations
+      tableView.applyCollectionChange(change, section: 0, animation: .automatic)
+    }
   }
 }

@@ -21,7 +21,7 @@ protocol LoginRouterProtocol: class {
 
 // MARK: - Implementation
 
-class LoginRouter: LoginRouterProtocol {
+final class LoginRouter: LoginRouterProtocol {
   
   private unowned let context: UIViewController
   

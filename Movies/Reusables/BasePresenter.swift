@@ -9,13 +9,18 @@
 import Foundation
 import Rasat
 
-class BasePresenter<DataControllerOutput> {
+class BasePresenter<DataController, DataControllerState, DataControllerOutput> {
   
+  let dataController: DataController
+  let stateSelector: () -> DataControllerState
   let disposeBag = DisposeBag()
   
-  init(observable: Observable<DataControllerOutput>) {
+  init(dataController: DataController, stateSelector: @autoclosure @escaping () -> DataControllerState, observable: Observable<DataControllerOutput>) {
+    self.dataController = dataController
+    self.stateSelector = stateSelector
     disposeBag += observable.subscribe { [weak self] (output) in
-      self?.handleOutput(output)
+      guard let self = self else { return }
+      self.handleOutput(output, state: self.stateSelector())
     }
   }
   
@@ -23,7 +28,7 @@ class BasePresenter<DataControllerOutput> {
     disposeBag.dispose()
   }
   
-  func handleOutput(_ output: DataControllerOutput) {
+  func handleOutput(_ output: DataControllerOutput, state: DataControllerState) {
     // Should be implemented by subclasses.
   }
 }
