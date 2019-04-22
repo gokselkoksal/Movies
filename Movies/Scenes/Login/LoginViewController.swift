@@ -8,7 +8,9 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController, StoryboardInstantiatable {
+  
+  static var defaultStoryboardName: String = "Main"
   
   enum Route: String {
     case login
