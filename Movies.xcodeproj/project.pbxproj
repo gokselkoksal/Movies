@@ -23,6 +23,9 @@
 		62A46212226E06C100C47760 /* UIViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A46211226E06C100C47760 /* UIViewController+Helpers.swift */; };
 		62A46215226E093A00C47760 /* LoginSceneBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A46214226E093A00C47760 /* LoginSceneBuilder.swift */; };
 		62A46217226E099A00C47760 /* MovieListSceneBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A46216226E099A00C47760 /* MovieListSceneBuilder.swift */; };
+		62A46219226E0ED800C47760 /* ChangePasswordSceneBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A46218226E0ED800C47760 /* ChangePasswordSceneBuilder.swift */; };
+		62A4621B226E106B00C47760 /* SignUpSceneBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A4621A226E106B00C47760 /* SignUpSceneBuilder.swift */; };
+		62A4621D226E130600C47760 /* ReusableRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A4621C226E130600C47760 /* ReusableRouter.swift */; };
 		62A5CF95226BA55B00B32585 /* Lightning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A5CF94226BA55A00B32585 /* Lightning.framework */; };
 		62A5CF96226BA56400B32585 /* Lightning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A5CF94226BA55A00B32585 /* Lightning.framework */; };
 		62A5CF9A226BA7B900B32585 /* Lightning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A5CF94226BA55A00B32585 /* Lightning.framework */; };
@@ -108,6 +111,9 @@
 		62A46211226E06C100C47760 /* UIViewController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Helpers.swift"; sourceTree = "<group>"; };
 		62A46214226E093A00C47760 /* LoginSceneBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSceneBuilder.swift; sourceTree = "<group>"; };
 		62A46216226E099A00C47760 /* MovieListSceneBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListSceneBuilder.swift; sourceTree = "<group>"; };
+		62A46218226E0ED800C47760 /* ChangePasswordSceneBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordSceneBuilder.swift; sourceTree = "<group>"; };
+		62A4621A226E106B00C47760 /* SignUpSceneBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSceneBuilder.swift; sourceTree = "<group>"; };
+		62A4621C226E130600C47760 /* ReusableRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableRouter.swift; sourceTree = "<group>"; };
 		62A5CF92226BA50900B32585 /* Cartfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = Cartfile; sourceTree = "<group>"; };
 		62A5CF94226BA55A00B32585 /* Lightning.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lightning.framework; path = Carthage/Build/iOS/Lightning.framework; sourceTree = "<group>"; };
 		62A5CF97226BA57300B32585 /* Cartfile.resolved */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = Cartfile.resolved; sourceTree = "<group>"; };
@@ -249,6 +255,7 @@
 				62D9EC971DBD03830070EEF1 /* DummyViewController.swift */,
 				62D9ECA21DBD14FC0070EEF1 /* UITableView+CollectionChange.swift */,
 				62A46211226E06C100C47760 /* UIViewController+Helpers.swift */,
+				62A4621C226E130600C47760 /* ReusableRouter.swift */,
 			);
 			path = Reusables;
 			sourceTree = "<group>";
@@ -275,6 +282,8 @@
 			children = (
 				62A46214226E093A00C47760 /* LoginSceneBuilder.swift */,
 				62A46216226E099A00C47760 /* MovieListSceneBuilder.swift */,
+				62A46218226E0ED800C47760 /* ChangePasswordSceneBuilder.swift */,
+				62A4621A226E106B00C47760 /* SignUpSceneBuilder.swift */,
 			);
 			path = SceneBuilders;
 			sourceTree = "<group>";
@@ -548,6 +557,8 @@
 			files = (
 				62A46215226E093A00C47760 /* LoginSceneBuilder.swift in Sources */,
 				62D9EC981DBD03830070EEF1 /* DummyViewController.swift in Sources */,
+				62A4621B226E106B00C47760 /* SignUpSceneBuilder.swift in Sources */,
+				62A46219226E0ED800C47760 /* ChangePasswordSceneBuilder.swift in Sources */,
 				62D9EC9E1DBD12B30070EEF1 /* AppRouter.swift in Sources */,
 				62D9EC8D1DBD01A10070EEF1 /* LoginViewController.swift in Sources */,
 				6236C00A1DBD008F002A61D6 /* AppDelegate.swift in Sources */,
@@ -557,6 +568,7 @@
 				62D9EC9A1DBD05000070EEF1 /* LoginRouter.swift in Sources */,
 				62A46212226E06C100C47760 /* UIViewController+Helpers.swift in Sources */,
 				62D9EC901DBD02F10070EEF1 /* MovieListViewController.swift in Sources */,
+				62A4621D226E130600C47760 /* ReusableRouter.swift in Sources */,
 				62A46217226E099A00C47760 /* MovieListSceneBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

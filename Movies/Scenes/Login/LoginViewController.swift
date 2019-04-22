@@ -18,7 +18,7 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
     case signUp
   }
   
-  var router: LoginRouter!
+  var router: LoginRouterProtocol!
   var viewModel: LoginViewModel!
   
   @IBOutlet weak var usernameField: UITextField!
@@ -38,11 +38,11 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
   }
   
   @IBAction func forgotPasswordButtonTapped(_ sender: UIButton) {
-    router.perform(.forgotPassword, from: self)
+    router.perform(.forgotPassword)
   }
   
   @IBAction func signUpTapped(_ sender: AnyObject) {
-    router.perform(.signUp, from: self)
+    router.perform(.signUp)
   }
 }
 
@@ -53,7 +53,7 @@ private extension LoginViewController {
       guard let strongSelf = self else { return }
       switch action {
       case .loggedIn:
-        strongSelf.router.perform(.login, from: strongSelf)
+        strongSelf.router.perform(.login)
       }
     }
     viewModel.errorHandler = { error in

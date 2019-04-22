@@ -11,7 +11,7 @@ import MoviesCore
 
 final class MovieListSceneBuilder {
   
-  func build() -> MovieListViewController {
+  static func build() -> MovieListViewController {
     let vc = MovieListViewController.instantiate()
     vc.useCase = MovieListUseCase(service: MockMoviesService(delay: 1.5))
     return vc

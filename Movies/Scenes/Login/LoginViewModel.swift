@@ -49,3 +49,9 @@ class LoginViewModel {
     }
   }
 }
+
+extension LoginViewModel: LoginRouterDataSource {
+  func loginRouterShouldChangePassword() -> Bool {
+    return state.shouldChangePassword
+  }
+}

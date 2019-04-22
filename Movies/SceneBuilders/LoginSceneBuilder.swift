@@ -12,8 +12,9 @@ class LoginSceneBuilder {
   
   static func build() -> LoginViewController {
     let vc = LoginViewController.instantiate()
-    vc.viewModel = LoginViewModel()
-    vc.router = DefaultLoginRouter()
+    let vm = LoginViewModel()
+    vc.viewModel = vm
+    vc.router = LoginRouter(context: vc, dataSource: vm)
     return vc
   }
 }

@@ -15,64 +15,43 @@ enum LoginSegue {
   case signUp
 }
 
-protocol LoginRouter {
-  func perform(_ segue: LoginSegue, from source: LoginViewController)
+protocol LoginRouterProtocol: class {
+  var dataSource: LoginRouterDataSource? { get set }
+  func perform(_ segue: LoginSegue)
 }
 
-class DefaultLoginRouter: LoginRouter {
+protocol LoginRouterDataSource: class {
+  func loginRouterShouldChangePassword() -> Bool
+}
+
+// MARK: - Implementation
+
+class LoginRouter: LoginRouterProtocol {
   
-  func perform(_ segue: LoginSegue, from source: LoginViewController) {
+  weak var dataSource: LoginRouterDataSource?
+  private unowned let context: UIViewController
+  
+  init(context: UIViewController, dataSource: LoginRouterDataSource?) {
+    self.context = context
+    self.dataSource = dataSource
+  }
+  
+  func perform(_ segue: LoginSegue) {
     switch segue {
     case .login:
-      if source.viewModel.state.shouldChangePassword {
-        let vc = DefaultLoginRouter.makeDummyViewController(withTitle: "Change Password")
-        source.navigationController?.pushViewController(vc, animated: true)
+      if let dataSource = dataSource, dataSource.loginRouterShouldChangePassword() {
+        let vc = ChangePasswordSceneBuilder.build()
+        context.navigationController?.pushViewController(vc, animated: true)
       } else {
-        let nc = DefaultLoginRouter.makeMoviesViewController()
-        weak var weakSource = source
-        source.present(nc, animated: true) {
-          _ = weakSource?.navigationController?.popToRootViewController(animated: false)
-        }
+        let vc = MovieListSceneBuilder.build()
+        context.present(vc.embedInNavigationController(), animated: true, completion: nil)
       }
-      
     case .forgotPassword:
-      let vc = DefaultLoginRouter.makeDummyViewController(withTitle: "Forgot Password")
-      source.navigationController?.pushViewController(vc, animated: true)
+      let vc = ChangePasswordSceneBuilder.build()
+      context.navigationController?.pushViewController(vc, animated: true)
     case .signUp:
-      let vc = DefaultLoginRouter.makeDummyViewController(withTitle: "Sign Up")
-      source.navigationController?.pushViewController(vc, animated: true)
+      let vc = SignUpSceneBuilder.build()
+      context.navigationController?.pushViewController(vc, animated: true)
     }
-  }
-}
-
-// MARK: Helpers
-
-private extension DefaultLoginRouter {
-  
-  class DestinationMoviesRouter: DummyRouter {
-    func perform(_ segue: DummySegue, from source: DummyViewController) {
-      switch segue {
-      case .next:
-        let nc = DefaultLoginRouter.makeMoviesViewController()
-        weak var weakSource = source
-        source.present(nc, animated: true) {
-          _ = weakSource?.navigationController?.popToRootViewController(animated: false)
-        }
-      }
-    }
-  }
-  
-  static func makeMoviesViewController() -> UINavigationController {
-    let vc = MovieListViewController.instantiate()
-    vc.useCase = MovieListUseCase(service: MockMoviesService(delay: 1.5))
-    let nc = UINavigationController(rootViewController: vc)
-    return nc
-  }
-  
-  static func makeDummyViewController(withTitle title: String) -> DummyViewController {
-    let vc = DummyViewController()
-    vc.title = title
-    vc.router = DestinationMoviesRouter()
-    return vc
   }
 }

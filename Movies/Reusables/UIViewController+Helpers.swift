@@ -34,3 +34,9 @@ extension StoryboardInstantiatable where Self: UIViewController {
     return viewController
   }
 }
+
+extension UIViewController {
+  func embedInNavigationController() -> UINavigationController {
+    return UINavigationController(rootViewController: self)
+  }
+}
