@@ -9,44 +9,32 @@
 import UIKit
 import MoviesCore
 
-enum LoginSegue {
-  case login
-  case forgotPassword
+enum LoginDestination {
+  case movieList
+  case changePassword
   case signUp
 }
 
 protocol LoginRouterProtocol: class {
-  var dataSource: LoginRouterDataSource? { get set }
-  func perform(_ segue: LoginSegue)
-}
-
-protocol LoginRouterDataSource: class {
-  func loginRouterShouldChangePassword() -> Bool
+  func route(to destination: LoginDestination)
 }
 
 // MARK: - Implementation
 
 class LoginRouter: LoginRouterProtocol {
   
-  weak var dataSource: LoginRouterDataSource?
   private unowned let context: UIViewController
   
-  init(context: UIViewController, dataSource: LoginRouterDataSource?) {
+  init(context: UIViewController) {
     self.context = context
-    self.dataSource = dataSource
   }
   
-  func perform(_ segue: LoginSegue) {
-    switch segue {
-    case .login:
-      if let dataSource = dataSource, dataSource.loginRouterShouldChangePassword() {
-        let vc = ChangePasswordSceneBuilder.build()
-        context.navigationController?.pushViewController(vc, animated: true)
-      } else {
-        let vc = MovieListSceneBuilder.build()
-        context.present(vc.embedInNavigationController(), animated: true, completion: nil)
-      }
-    case .forgotPassword:
+  func route(to destination: LoginDestination) {
+    switch destination {
+    case .movieList:
+      let vc = MovieListSceneBuilder.build()
+      context.present(vc.embedInNavigationController(), animated: true, completion: nil)
+    case .changePassword:
       let vc = ChangePasswordSceneBuilder.build()
       context.navigationController?.pushViewController(vc, animated: true)
     case .signUp:
