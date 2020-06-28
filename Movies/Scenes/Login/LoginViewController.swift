@@ -17,10 +17,22 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
   
   @IBOutlet weak var usernameField: UITextField!
   @IBOutlet weak var passwordField: UITextField!
+  @IBOutlet weak var loginButton: UIButton!
+  @IBOutlet weak var forgotPasswordButton: UIButton!
+  @IBOutlet weak var signUpButton: UIButton!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     title = "Login"
+    configureAccessibilityIdentifiers()
+  }
+  
+  private func configureAccessibilityIdentifiers() {
+    usernameField.accessibilityIdentifier = "login.textField.username"
+    passwordField.accessibilityIdentifier = "login.textField.password"
+    loginButton.accessibilityIdentifier = "login.button.login"
+    forgotPasswordButton.accessibilityIdentifier = "login.button.forgotPassword"
+    signUpButton.accessibilityIdentifier = "login.button.signUp"
   }
   
   @IBAction func loginButtonTapped(_ sender: UIButton) {

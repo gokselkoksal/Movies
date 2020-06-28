@@ -14,6 +14,7 @@ protocol MovieListPresenterProtocol: class {
   func start()
   func addMovie(name: String, year: String, rating: String)
   func removeMovie(at index: Int)
+  func logout()
 }
 
 // MARK: - Implementation
@@ -22,8 +23,11 @@ final class MovieListPresenter: BasePresenter<MovieListDataControllerProtocol, M
   
   private unowned let view: MovieListViewProtocol
   
-  init(view: MovieListViewProtocol, dataController: MovieListDataControllerProtocol) {
+  private let router: MovieListRouterProtocol
+  
+  init(view: MovieListViewProtocol, dataController: MovieListDataControllerProtocol, router: MovieListRouterProtocol) {
     self.view = view
+    self.router = router
     super.init(dataController: dataController, stateSelector: dataController.state, observable: dataController.observable)
   }
   
@@ -40,6 +44,10 @@ final class MovieListPresenter: BasePresenter<MovieListDataControllerProtocol, M
   
   func removeMovie(at index: Int) {
     dataController.removeMovie(at: index)
+  }
+  
+  func logout() {
+    router.route(to: .login)
   }
   
   override func handleOutput(_ output: MovieListOutput, state: MovieListState) {

@@ -18,12 +18,14 @@ final class MovieListTests: XCTestCase {
   private var presenter: MovieListPresenter!
   private var view: MockMovieListView!
   private var service: MockMoviesService!
+  private var router: MovieListRouter!
   
   override func setUp() {
     service = MockMoviesService(delay: nil)
     view = MockMovieListView()
     dataController = MovieListDataController(service: service)
-    presenter = MovieListPresenter(view: view, dataController: dataController)
+    router = MovieListRouter(context: nil)
+    presenter = MovieListPresenter(view: view, dataController: dataController, router: router)
   }
   
   func testStart() {

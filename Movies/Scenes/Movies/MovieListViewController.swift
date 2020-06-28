@@ -21,7 +21,9 @@ protocol MovieListViewProtocol: class {
 
 // MARK: - Implementation
 
-final class MovieListViewController: UITableViewController, StoryboardInstantiatable {
+final class MovieListViewController: UIViewController, StoryboardInstantiatable, HasSpinner {
+  
+  var spinnerView: SpinnerView = SpinnerView()
   
   private enum Const {
     static let cellReuseID = "Cell"
@@ -34,15 +36,32 @@ final class MovieListViewController: UITableViewController, StoryboardInstantiat
   var presenter: MovieListPresenterProtocol!
   private var movies: [MoviePresentation] = []
   
+  @IBOutlet weak var tableView: UITableView! {
+    didSet {
+      tableView.delegate = self
+      tableView.dataSource = self
+    }
+  }
+  
+  @IBOutlet weak var logoutBarButton: UIBarButtonItem!
+  @IBOutlet weak var addBarButton: UIBarButtonItem!
+  
   override func viewDidLoad() {
-    super.viewDidLoad()
+    super.viewDidLoad()  
     presenter.start()
+    configureAccessibilityIdentifiers()
+  }
+  
+  private func configureAccessibilityIdentifiers() {
+    tableView.accessibilityIdentifier = "movieList.tableView.movies"
+    logoutBarButton.accessibilityIdentifier = "movieList.button.logout"
+    addBarButton.accessibilityIdentifier = "movieList.button.add"
   }
   
   // MARK: Actions
   
   @IBAction func logoutButtonTapped(_ sender: UIBarButtonItem) {
-    dismiss(animated: true, completion: nil)
+    presenter.logout()
   }
   
   @IBAction func addMovieButtonTapped(_ sender: UIBarButtonItem) {
@@ -81,25 +100,31 @@ final class MovieListViewController: UITableViewController, StoryboardInstantiat
     alert.addAction(cancelAction)
     present(alert, animated: true, completion: nil)
   }
+}
+
+// MARK: UITableViewDataSource
+
+extension MovieListViewController: UITableViewDataSource {
   
-  // MARK: UITableViewDataSource
-  
-  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return movies.count
   }
   
-  override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+  func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
     return .delete
   }
   
-  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     presenter.removeMovie(at: indexPath.row)
   }
   
-  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     var templateCell = tableView.dequeueReusableCell(withIdentifier: Const.cellReuseID)
     if templateCell == nil {
       templateCell = UITableViewCell(style: .subtitle, reuseIdentifier: Const.cellReuseID)
+      templateCell?.accessibilityIdentifier = "movieList.tableCell.movie"
+      templateCell?.textLabel?.accessibilityIdentifier = "movieListTableCell.label.title"
+      templateCell?.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
     }
     guard let cell = templateCell else {
       fatalError()
@@ -110,9 +135,13 @@ final class MovieListViewController: UITableViewController, StoryboardInstantiat
     return cell
   }
   
-  // MARK: UITableViewDelegate
+}
+
+// MARK: UITableViewDelegate
+
+extension MovieListViewController: UITableViewDelegate {
   
-  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: false)
   }
 }
@@ -124,7 +153,7 @@ extension MovieListViewController: MovieListViewProtocol {
     case .setTitle(let title):
       self.title = title
     case .setLoading(let isActive):
-      UIApplication.shared.isNetworkActivityIndicatorVisible = isActive
+      setSpinnerVisible(isActive)
     case .updateMovies(let presentations, change: let change):
       movies = presentations
       tableView.applyCollectionChange(change, section: 0, animation: .automatic)

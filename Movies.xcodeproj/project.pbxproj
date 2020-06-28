@@ -14,6 +14,8 @@
 		6236C0111DBD008F002A61D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6236C0101DBD008F002A61D6 /* Assets.xcassets */; };
 		6236C0141DBD008F002A61D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6236C0121DBD008F002A61D6 /* LaunchScreen.storyboard */; };
 		6236C01F1DBD008F002A61D6 /* MovieListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6236C01E1DBD008F002A61D6 /* MovieListTests.swift */; };
+		624B9B0824A8DCE5009DBECE /* MovieListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624B9B0724A8DCE5009DBECE /* MovieListRouter.swift */; };
+		624B9B1524A8EE83009DBECE /* UIViewController+Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624B9B1424A8EE83009DBECE /* UIViewController+Spinner.swift */; };
 		624BB0B8226B93600008111C /* MoviesCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 624BB0AF226B935F0008111C /* MoviesCore.framework */; };
 		624BB0BF226B93600008111C /* MoviesCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624BB0BE226B93600008111C /* MoviesCoreTests.swift */; };
 		624BB0C1226B93600008111C /* MoviesCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 624BB0B1226B935F0008111C /* MoviesCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -108,6 +110,8 @@
 		6236C01A1DBD008F002A61D6 /* MoviesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6236C01E1DBD008F002A61D6 /* MovieListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListTests.swift; sourceTree = "<group>"; };
 		6236C0201DBD008F002A61D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		624B9B0724A8DCE5009DBECE /* MovieListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListRouter.swift; sourceTree = "<group>"; };
+		624B9B1424A8EE83009DBECE /* UIViewController+Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Spinner.swift"; sourceTree = "<group>"; };
 		624BB0AF226B935F0008111C /* MoviesCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoviesCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		624BB0B1226B935F0008111C /* MoviesCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoviesCore.h; sourceTree = "<group>"; };
 		624BB0B2226B935F0008111C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -216,6 +220,7 @@
 			children = (
 				62D9ECA21DBD14FC0070EEF1 /* UITableView+CollectionChange.swift */,
 				62A46211226E06C100C47760 /* UIViewController+Helpers.swift */,
+				624B9B1424A8EE83009DBECE /* UIViewController+Spinner.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -383,6 +388,7 @@
 				62D9EC8F1DBD02F10070EEF1 /* MovieListViewController.swift */,
 				62A46228226E32CE00C47760 /* MovieListPresenter.swift */,
 				62D9ECA61DBD1AD30070EEF1 /* MovieListDataController.swift */,
+				624B9B0724A8DCE5009DBECE /* MovieListRouter.swift */,
 			);
 			path = Movies;
 			sourceTree = "<group>";
@@ -621,6 +627,8 @@
 				62A4621F226E295D00C47760 /* LoginPresenter.swift in Sources */,
 				62A46215226E093A00C47760 /* LoginSceneBuilder.swift in Sources */,
 				62A46227226E303800C47760 /* BaseDataController.swift in Sources */,
+				624B9B1524A8EE83009DBECE /* UIViewController+Spinner.swift in Sources */,
+				624B9B0824A8DCE5009DBECE /* MovieListRouter.swift in Sources */,
 				62D9EC981DBD03830070EEF1 /* DummyViewController.swift in Sources */,
 				62A4621B226E106B00C47760 /* SignUpSceneBuilder.swift in Sources */,
 				62A46219226E0ED800C47760 /* ChangePasswordSceneBuilder.swift in Sources */,

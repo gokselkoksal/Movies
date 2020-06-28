@@ -25,6 +25,7 @@ final class DummyViewController: UIViewController {
     view.backgroundColor = UIColor.white
     let nextBarButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextButtonTapped))
     navigationItem.rightBarButtonItem = nextBarButton
+    navigationItem.rightBarButtonItem?.accessibilityIdentifier = "dummy.button.next"
   }
   
   @objc func nextButtonTapped() {

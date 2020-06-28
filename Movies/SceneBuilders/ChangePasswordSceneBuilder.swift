@@ -27,9 +27,7 @@ private final class ChangePasswordSceneRouter: BaseRouter<DummyDestination>, Dum
     switch destination {
     case .next:
       let vc = MovieListSceneBuilder.build()
-      context.present(vc.embedInNavigationController(), animated: true) { [weak context] in
-        context?.navigationController?.popToRootViewController(animated: false)
-      }
+      context.navigationController?.setViewControllers([vc], animated: true)
     }
   }
 }

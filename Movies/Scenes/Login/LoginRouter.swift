@@ -33,7 +33,7 @@ final class LoginRouter: LoginRouterProtocol {
     switch destination {
     case .movieList:
       let vc = MovieListSceneBuilder.build()
-      context.present(vc.embedInNavigationController(), animated: true, completion: nil)
+      context.navigationController?.setViewControllers([vc], animated: true)
     case .changePassword:
       let vc = ChangePasswordSceneBuilder.build()
       context.navigationController?.pushViewController(vc, animated: true)
